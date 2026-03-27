@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRON LIZZIE & SARAH — RUNNING FROM DEADLINES</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0a0a;
+  --paper: #f5f0e1;
+  --yellow: #FFE338;
+  --red: #E8142A;
+  --blue: #1A47B8;
+  --cyan: #00CFFF;
+  --green: #00D166;
+  --purple: #8B5CF6;
+  --orange: #FF6B2B;
+  --panel-bg: #fff;
+  --outline: 3px solid var(--ink);
+  --outline-thick: 4px solid var(--ink);
+  --gutter: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  font-family: 'Comic Neue', cursive;
+  min-height: 100vh;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(139,109,71,0.12) 0%, transparent 3%, transparent 97%, rgba(139,109,71,0.12) 100%),
+    linear-gradient(180deg, rgba(139,109,71,0.08) 0%, transparent 2%, transparent 98%, rgba(139,109,71,0.08) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SPLASH SCREEN */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.6s, transform 0.6s;
+}
+.splash-screen.dismissed {
+  opacity: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+.splash-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, var(--red) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 70%, var(--blue) 0%, transparent 50%),
+    var(--ink);
+  opacity: 0.4;
+}
+.splash-rays {
+  position: absolute;
+  inset: -50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 8deg,
+    rgba(255,227,56,0.06) 8deg,
+    rgba(255,227,56,0.06) 16deg
+  );
+  animation: splashSpin 30s linear infinite;
+}
+@keyframes splashSpin { to { transform: rotate(360deg); } }
+
+.splash-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: splashPulse 2s ease-in-out infinite;
+}
+@keyframes splashPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.splash-issue {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 12px;
+}
+.splash-title {
+  font-family: 'Bangers', cursive;
+  font-size: 52px;
+  line-height: 0.85;
+  letter-spacing: 5px;
+  color: white;
+  text-shadow:
+    4px 4px 0 var(--red),
+    8px 8px 0 rgba(0,0,0,0.5);
+  margin-bottom: 8px;
+}
+.splash-sub {
+  font-family: 'Bangers', cursive;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--ink);
+  margin-bottom: 6px;
+}
+.splash-tagline {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  margin-bottom: 24px;
+}
+.splash-hero-silhouette {
+  font-size: 80px;
+  filter: drop-shadow(0 0 20px var(--yellow)) drop-shadow(0 0 40px var(--red));
+  margin-bottom: 16px;
+  animation: heroFloat 3s ease-in-out infinite;
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.splash-cta {
+  font-family: 'Bangers', cursive;
+  font-size: 18px;
+  letter-spacing: 3px;
+  color: white;
+  animation: ctaBlink 1.5s ease-in-out infinite;
+}
+@keyframes ctaBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.splash-corner {
+  position: absolute;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+}
+.splash-corner.tl { top: 16px; left: 16px; }
+.splash-corner.tr { top: 16px; right: 16px; }
+.splash-corner.bl { bottom: 16px; left: 16px; }
+.splash-corner.br { bottom: 16px; right: 16px; }
+
+/* MAIN WRAPPER */
+.comic-page {
+  padding: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-border {
+  border: 3px solid var(--ink);
+  background: white;
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.03),
+    8px 8px 0 rgba(0,0,0,0.15);
+  padding: var(--gutter);
+  position: relative;
+}
+
+.ink-splatter {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: var(--ink);
+  border-radius: 50% 40% 60% 30%;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+.ink-splatter:nth-child(1) { top: -5px; left: 20%; transform: scale(0.8) rotate(45deg); }
+.ink-splatter:nth-child(2) { top: 30%; right: -4px; transform: scale(0.5) rotate(120deg); }
+.ink-splatter:nth-child(3) { bottom: 10%; left: -3px; transform: scale(0.6) rotate(200deg); }
+
+/* MASTHEAD */
+.masthead {
+  background: var(--yellow);
+  border: var(--outline-thick);
+  border-bottom: 6px solid var(--ink);
+  padding: 14px 16px 12px;
+  margin-bottom: var(--gutter);
+  position: relative;
+  box-shadow: 4px 4px 0 var(--ink);
+  animation: panelSlam 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    -60deg,
+    transparent,
+    transparent 4px,
+    rgba(0,0,0,0.03) 4px,
+    rgba(0,0,0,0.03) 5px
+  );
+  pointer-events: none;
+}
+.masthead-vol {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+.masthead h1 {
+  font-family: 'Bangers', cursive;
+  font-size: 42px;
+  letter-spacing: 4px;
+  line-height: 0.88;
+  color: var(--ink);
+  text-shadow: 3px 3px 0 var(--red), 6px 6px 0 rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
+}
+.masthead-sub {
+  font-family: 'Bangers', cursive;
+  font-size: 16px;
+  letter-spacing: 4px;
+  color: var(--red);
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+}
+.masthead-badge {
+  position: absolute;
+  top: -2px;
+  right: 10px;
+  background: var(--red);
+  color: white;
+  font-family: 'Bangers', cursive;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 6px 10px 4px;
+  border: 2px solid var(--ink);
+  transform: rotate(3deg);
+  box-shadow: 2px 2px 0 var(--ink);
+  z-index: 2;
+}
+
+/* HERO STRIP */
+.hero-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  margin-bottom: var(--gutter);
+  animation: panelSlam 0.5s 0.05s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+.xp-panel {
+  background: var(--blue);
+  border: var(--outline-thick);
+  border-bottom: 5px solid var(--ink);
+  padding: 10px 12px;
+  box-shadow: 3px 3px 0 var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.xp-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+.xp-label {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--yellow);
+  position: relative;
+  z-index: 1;
+}
+.xp-value {
+  font-family: 'Bangers', cursive;
+  font-size: 32px;
+  color: white;
+  text-shadow: 2px 2px 0 var(--ink);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.xp-rank {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--cyan);
+  position: relative;
+  z-index: 1;
+  margin-top: 2px;
+}
+
+.villain-panel {
+  background: var(--ink);
+  border: 3px solid var(--red);
+  border-bottom: 5px solid var(--red);
+  padding: 10px 12px;
+  box-shadow: 3px 3px 0 var(--red);
+  position: relative;
+  overflow: hidden;
+}
+.villain-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(232,20,42,0.1) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+.villain-label {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--red);
+  position: relative;
+  z-index: 1;
+}
+.villain-value {
+  font-family: 'Bangers', cursive;
+  font-size: 32px;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--red);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.villain-name {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--red);
+  position: relative;
+  z-index: 1;
+  margin-top: 2px;
+}
+
+/* POWER METER */
+.power-panel {
+  background: linear-gradient(135deg, var(--purple) 0%, var(--blue) 100%);
+  border: var(--outline-thick);
+  border-bottom: 5px solid var(--ink);
+  padding: 10px 14px;
+  margin-bottom: var(--gutter);
+  box-shadow: 4px 4px 0 var(--ink);
+  animation: panelSlam 0.5s 0.08s cubic-bezier(0.34,1.56,0.64,1) both;
+  position: relative;
+  overflow: hidden;
+}
+.power-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+.power-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+.power-label span {
+  font-family: 'Bangers', cursive;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--yellow);
+}
+.power-label .pct {
+  font-family: 'Bangers', cursive;
+  font-size: 28px;
+  color: white;
+  text-shadow: 2px 2px 0 var(--ink);
+}
+.power-track {
+  height: 20px;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+.power-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--yellow) 0px,
+    var(--yellow) 16px,
+    var(--red) 16px,
+    var(--red) 18px
+  );
+  transition: width 1.2s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+}
+.power-fill::after {
+  content: '\25B6\25B6\25B6';
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8px;
+  color: var(--ink);
+  letter-spacing: -2px;
+}
+.power-markers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  position: relative;
+  z-index: 1;
+}
+.power-markers span {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 8px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+}
+
+/* SECTION LABELS */
+.section-label {
+  font-family: 'Bangers', cursive;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: white;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 3px 10px 2px;
+  display: inline-block;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 1;
+}
+.section-label.red { background: var(--red); }
+.section-label.blue { background: var(--blue); }
+
+/* WEEK GRID */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  margin-bottom: var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+.week-cell {
+  aspect-ratio: 1;
+  background: white;
+  border: 2px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 2px 2px 0 var(--ink);
+  gap: 1px;
+  position: relative;
+  overflow: hidden;
+}
+.week-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+.week-cell:active { transform: scale(0.92) translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+.week-cell .cell-emoji { font-size: 18px; position: relative; z-index: 1; }
+.week-cell .cell-day { font-size: 7px; font-weight: 700; letter-spacing: 0.5px; color: var(--ink); position: relative; z-index: 1; text-transform: uppercase; }
+.week-cell.cell-done { background: var(--green); }
+.week-cell.cell-done .cell-emoji { animation: doneBounce 0.5s ease; }
+.week-cell.cell-today { background: var(--yellow); border-width: 3px; animation: cellPulse 2s infinite; }
+.week-cell.cell-active { outline: 3px solid var(--red); outline-offset: 1px; }
+.week-cell.cell-rest { background: #e8e2d6; }
+
+@keyframes cellPulse {
+  0%,100% { box-shadow: 2px 2px 0 var(--ink); }
+  50% { box-shadow: 2px 2px 0 var(--red), 4px 4px 0 var(--ink); }
+}
+@keyframes doneBounce {
+  0%,100% { transform: scale(1); }
+  40% { transform: scale(1.3); }
+  70% { transform: scale(0.9); }
+}
+
+/* SPEECH BUBBLE */
+.speech-bubble {
+  background: white;
+  border: var(--outline-thick);
+  border-radius: 18px 18px 18px 4px;
+  padding: 12px 14px;
+  margin-bottom: var(--gutter);
+  position: relative;
+  box-shadow: 4px 4px 0 var(--ink);
+  animation: panelSlam 0.4s 0.12s cubic-bezier(0.34,1.56,0.64,1) both;
+  z-index: 1;
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 22px;
+  border: 8px solid transparent;
+  border-top: 10px solid var(--ink);
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  left: 24px;
+  border: 6px solid transparent;
+  border-top: 7px solid white;
+}
+.bubble-who {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--red);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+.bubble-text {
+  font-family: 'Comic Neue', cursive;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+/* FLOATING SFX */
+.floating-sfx {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9000;
+  inset: 0;
+}
+.sfx-word {
+  position: absolute;
+  font-family: 'Bangers', cursive;
+  animation: sfxFloat 4s ease-out forwards;
+  opacity: 0;
+}
+@keyframes sfxFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0.5) rotate(-10deg); }
+  15% { opacity: 0.12; transform: translateY(-20px) scale(1) rotate(-5deg); }
+  70% { opacity: 0.06; }
+  100% { opacity: 0; transform: translateY(-120px) scale(1.2) rotate(5deg); }
+}
+
+/* DAY TABS */
+.day-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: var(--gutter);
+  scrollbar-width: none;
+  position: relative;
+  z-index: 1;
+}
+.day-tabs::-webkit-scrollbar { display: none; }
+.day-tab {
+  flex-shrink: 0;
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  padding: 5px 10px;
+  border: 2px solid var(--ink);
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.15s;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+.day-tab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+.day-tab:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+.day-tab.active { background: var(--yellow); border-width: 3px; transform: scale(1.05); }
+.day-tab.done-tab { background: var(--green); color: white; }
+
+/* WORKOUT PANEL */
+.workout-panel {
+  border: var(--outline-thick);
+  border-bottom: 6px solid var(--ink);
+  background: white;
+  box-shadow: 5px 5px 0 var(--ink);
+  margin-bottom: var(--gutter);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  animation: panelSlam 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+.panel-header {
+  padding: 14px 14px 12px;
+  border-bottom: 3px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.panel-header::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 6px,
+    rgba(0,0,0,0.05) 6px,
+    rgba(0,0,0,0.05) 7px
+  );
+  pointer-events: none;
+}
+.panel-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
+}
+.panel-header.run-header { background: var(--red); }
+.panel-header.strength-header { background: var(--blue); }
+.panel-header.longrun-header { background: var(--yellow); }
+.panel-header.rest-header { background: #bbb; }
+
+.header-top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+.panel-icon {
+  font-size: 44px;
+  line-height: 1;
+  filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.4));
+}
+.panel-titles { flex: 1; }
+.panel-title {
+  font-family: 'Bangers', cursive;
+  font-size: 38px;
+  letter-spacing: 3px;
+  line-height: 0.92;
+  color: white;
+  text-shadow: 3px 3px 0 var(--ink);
+}
+.panel-header.longrun-header .panel-title,
+.panel-header.rest-header .panel-title { color: var(--ink); text-shadow: 2px 2px 0 rgba(0,0,0,0.15); }
+.panel-subtitle {
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.85);
+  margin-top: 2px;
+}
+.panel-header.longrun-header .panel-subtitle,
+.panel-header.rest-header .panel-subtitle { color: rgba(0,0,0,0.5); }
+
+.pow-badge {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-family: 'Bangers', cursive;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding: 14px 16px 12px;
+  border: 3px solid var(--ink);
+  transform: rotate(8deg);
+  box-shadow: 2px 2px 0 var(--ink);
+  z-index: 2;
+  line-height: 1;
+  background: var(--yellow);
+  color: var(--ink);
+  clip-path: polygon(50% 0%, 63% 10%, 80% 2%, 75% 20%, 98% 25%, 82% 38%, 100% 50%, 82% 62%, 98% 75%, 75% 80%, 80% 98%, 63% 90%, 50% 100%, 37% 90%, 20% 98%, 25% 80%, 2% 75%, 18% 62%, 0% 50%, 18% 38%, 2% 25%, 25% 20%, 20% 2%, 37% 10%);
+}
+.panel-header.longrun-header .pow-badge { background: var(--red); color: white; }
+.panel-header.strength-header .pow-badge { background: var(--cyan); }
+
+/* INTERVAL VISUAL */
+.interval-visual {
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--ink);
+  background: #f9f5ed;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+.interval-label {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.interval-blocks {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.iblock {
+  height: 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  transition: transform 0.3s;
+}
+.iblock:hover { transform: scaleY(1.3); }
+.iblock.run { background: var(--red); width: 28px; }
+.iblock.walk { background: var(--blue); width: 14px; opacity: 0.7; }
+.iblock.steady { background: var(--green); width: 100%; height: 18px; }
+.interval-legend {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.ileg-dot { width: 10px; height: 10px; border: 1.5px solid var(--ink); border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+/* STEPS */
+.steps-section { padding: 12px 14px; }
+.steps-title {
+  font-family: 'Bangers', cursive;
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: var(--red);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.steps-title::after { content: ''; flex: 1; height: 2px; background: var(--ink); }
+
+.step {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  margin-bottom: 6px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 2px 2px 0 var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.step::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+.step:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+.step.checked { background: var(--green); border-color: var(--ink); }
+.step.checked::before { display: none; }
+.step.checked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(255,255,255,0.15) 8px,
+    rgba(255,255,255,0.15) 9px
+  );
+  pointer-events: none;
+}
+
+.step-num {
+  width: 24px;
+  height: 24px;
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 2px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.15s;
+}
+.step.checked .step-num { background: white; color: var(--green); font-size: 16px; }
+.step.checked .step-num::after { content: '\2713'; font-weight: 900; }
+
+.step-body { flex: 1; position: relative; z-index: 1; }
+.step-text { font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+.step.checked .step-text { text-decoration: line-through; color: rgba(0,0,0,0.35); }
+.step-time {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--red);
+  margin-top: 1px;
+}
+.step.checked .step-time { color: rgba(0,0,0,0.25); }
+
+/* BODYWEIGHT ALT */
+.bw-alt {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--purple);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* COMPLETE BUTTON */
+.complete-wrap { padding: 0 14px 14px; }
+.complete-btn {
+  width: 100%;
+  font-family: 'Bangers', cursive;
+  font-size: 24px;
+  letter-spacing: 4px;
+  border: var(--outline-thick);
+  border-bottom: 6px solid var(--ink);
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.12s;
+  box-shadow: 4px 4px 0 var(--ink);
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+.complete-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+.complete-btn:active { transform: translate(4px,5px); box-shadow: 0 0 0 var(--ink); border-bottom: var(--outline-thick); }
+.run-btn { background: var(--red); color: white; }
+.strength-btn { background: var(--blue); color: white; }
+.long-btn { background: var(--yellow); color: var(--ink); }
+.done-btn { background: var(--green) !important; color: white !important; }
+
+/* SKIP BUTTON */
+.skip-wrap {
+  padding: 0 14px 14px;
+  text-align: center;
+}
+.skip-btn {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(0,0,0,0.35);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+.skip-btn:hover { color: var(--orange); }
+.skipped-btn {
+  background: var(--orange) !important;
+  color: white !important;
+}
+.skip-badge {
+  display: inline-block;
+  font-family: 'Bangers', cursive;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 2px 8px 1px;
+  background: var(--orange);
+  color: white;
+  border: 1.5px solid var(--ink);
+  margin-bottom: 4px;
+}
+.week-cell.cell-skipped {
+  background: var(--orange);
+  opacity: 0.7;
+}
+.week-cell.cell-skipped .cell-emoji {
+  filter: grayscale(0.3);
+}
+
+/* CAPTION BOX */
+.caption-box {
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  padding: 4px 10px 3px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  display: inline-block;
+  margin-bottom: 5px;
+  box-shadow: 2px 2px 0 var(--ink);
+  position: relative;
+  z-index: 1;
+}
+
+/* STORY RECAP */
+.story-recap {
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  padding: 12px 14px;
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+}
+.story-recap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+.recap-title {
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--yellow);
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+.recap-text {
+  font-family: 'Comic Neue', cursive;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+.recap-text em {
+  color: var(--yellow);
+  font-style: normal;
+}
+.recap-next {
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--red);
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* PAGE NUMBER */
+.page-number {
+  text-align: center;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.3);
+  margin-top: 8px;
+  padding-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ACHIEVEMENT TOAST */
+.achievement-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--ink);
+  border: 3px solid var(--yellow);
+  padding: 12px 20px;
+  font-family: 'Bangers', cursive;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--yellow);
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap;
+  text-align: center;
+}
+.achievement-toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* CONFETTI */
+.confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+
+/* ACTION WORDS */
+.action-word {
+  position: fixed;
+  font-family: 'Bangers', cursive;
+  font-size: 80px;
+  letter-spacing: 5px;
+  pointer-events: none;
+  z-index: 9998;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) rotate(-8deg);
+  white-space: nowrap;
+  animation: actionPop 1s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  -webkit-text-stroke: 3px var(--ink);
+  color: var(--yellow);
+  text-shadow:
+    4px 4px 0 var(--red),
+    -2px -2px 0 var(--ink),
+    2px -2px 0 var(--ink),
+    -2px 2px 0 var(--ink);
+}
+@keyframes actionPop {
+  0% { opacity:0; transform: translate(-50%,-50%) scale(0.1) rotate(-15deg); }
+  30% { opacity:1; transform: translate(-50%,-50%) scale(1.2) rotate(-8deg); }
+  50% { transform: translate(-50%,-50%) scale(0.95) rotate(-5deg); }
+  65% { transform: translate(-50%,-50%) scale(1.05) rotate(-8deg); }
+  80% { opacity:1; }
+  100% { opacity:0; transform: translate(-50%,-50%) scale(1.3) rotate(-8deg); }
+}
+
+.action-burst {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9997;
+  animation: burstPop 1s ease-out forwards;
+}
+@keyframes burstPop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  20% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+@keyframes screenShake {
+  0%,100% { transform: translate(0,0); }
+  10% { transform: translate(-4px, 2px); }
+  20% { transform: translate(4px, -2px); }
+  30% { transform: translate(-2px, 4px); }
+  40% { transform: translate(2px, -4px); }
+  50% { transform: translate(-4px, 0); }
+  60% { transform: translate(4px, 2px); }
+  70% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 4px); }
+  90% { transform: translate(-4px, -4px); }
+}
+.shake { animation: screenShake 0.4s ease-out; }
+
+@keyframes panelSlam {
+  0% { opacity:0; transform: scale(0.8) rotate(-2deg); }
+  60% { transform: scale(1.02) rotate(0.5deg); }
+  100% { opacity:1; transform: scale(1) rotate(0deg); }
+}
+
+/* STREAK FLAMES */
+.streak-display {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 3px;
+}
+.streak-flame {
+  font-size: 10px;
+  animation: flameFlicker 0.6s ease-in-out infinite alternate;
+}
+.streak-flame:nth-child(2) { animation-delay: 0.1s; }
+.streak-flame:nth-child(3) { animation-delay: 0.2s; }
+.streak-flame:nth-child(4) { animation-delay: 0.15s; }
+.streak-flame:nth-child(5) { animation-delay: 0.25s; }
+@keyframes flameFlicker {
+  from { transform: scaleY(1) translateY(0); }
+  to { transform: scaleY(1.2) translateY(-1px); }
+}
+
+/* MODE TOGGLE */
+.mode-toggle-wrap {
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--ink);
+  background: #f9f5ed;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+.mode-toggle-label {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mode-toggle-label::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--ink);
+}
+.mode-toggle-btns {
+  display: flex;
+  gap: 0;
+  border: 3px solid var(--ink);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.mode-btn {
+  flex: 1;
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  padding: 10px 8px 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  line-height: 1.3;
+  position: relative;
+  background: white;
+  color: var(--ink);
+}
+.mode-btn:first-child {
+  border-right: 2px solid var(--ink);
+}
+.mode-btn .mode-emoji {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+.mode-btn .mode-text {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.mode-btn .mode-sub {
+  display: block;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: rgba(0,0,0,0.4);
+  margin-top: 1px;
+}
+.mode-btn.mode-active {
+  color: white;
+}
+.mode-btn.mode-active .mode-sub {
+  color: rgba(255,255,255,0.7);
+}
+.mode-btn.galloway-active {
+  background: var(--red);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
+}
+.mode-btn.steady-active {
+  background: var(--green);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
+}
+.mode-btn:not(.mode-active):hover {
+  background: #f0ece0;
+}
+.mode-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.mode-btn.mode-active::before {
+  opacity: 1;
+}
+
+/* SWAP DAY FEATURE */
+.swap-wrap {
+  padding: 6px 14px 8px;
+  border-bottom: 2px solid var(--ink);
+  background: #faf7ef;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 4px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.swap-btn {
+  font-family: 'Bangers', cursive;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 5px 12px 4px;
+  border: 2px solid var(--ink);
+  background: var(--orange);
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.swap-btn:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+.swap-btn:hover { background: #ff8548; }
+.swap-btn .swap-icon { font-size: 14px; }
+
+.swap-label {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+
+/* SWAP MODAL OVERLAY */
+.swap-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.7);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: swapFadeIn 0.2s ease-out;
+}
+@keyframes swapFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.swap-modal {
+  background: white;
+  border: 4px solid var(--ink);
+  border-bottom: 6px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  max-width: 340px;
+  width: 90%;
+  padding: 0;
+  overflow: hidden;
+  animation: panelSlam 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.swap-modal-header {
+  background: var(--orange);
+  border-bottom: 3px solid var(--ink);
+  padding: 12px 14px 10px;
+  position: relative;
+}
+.swap-modal-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(0,0,0,0.05) 6px, rgba(0,0,0,0.05) 7px);
+  pointer-events: none;
+}
+.swap-modal-title {
+  font-family: 'Bangers', cursive;
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: white;
+  text-shadow: 2px 2px 0 var(--ink);
+  position: relative;
+  z-index: 1;
+}
+.swap-modal-sub {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 11px;
+  color: rgba(255,255,255,0.8);
+  position: relative;
+  z-index: 1;
+}
+.swap-modal-body { padding: 12px 14px; }
+.swap-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  margin-bottom: 6px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.15s;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+.swap-option::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+.swap-option:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+.swap-option:hover { background: var(--yellow); }
+.swap-option-emoji { font-size: 22px; position: relative; z-index: 1; }
+.swap-option-info { flex: 1; position: relative; z-index: 1; }
+.swap-option-day {
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--ink);
+}
+.swap-option-type {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 11px;
+  color: rgba(0,0,0,0.5);
+}
+.swap-option-arrow {
+  font-family: 'Bangers', cursive;
+  font-size: 16px;
+  color: var(--orange);
+  position: relative;
+  z-index: 1;
+}
+.swap-cancel {
+  width: 100%;
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 8px;
+  border: 2px solid var(--ink);
+  background: #eee;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  margin-top: 4px;
+}
+.swap-cancel:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+.swap-cancel:hover { background: #ddd; }
+
+/* SWAP ACTIVE INDICATOR */
+.swap-indicator {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--orange);
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 3px 0 0;
+}
+.swap-undo {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 3px 8px 2px;
+  border: 1.5px solid var(--ink);
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 1px 1px 0 var(--ink);
+  margin-left: 6px;
+  transition: all 0.15s;
+}
+.swap-undo:active { transform: translate(1px,1px); box-shadow: 0 0 0; }
+.swap-undo:hover { background: var(--yellow); }
+
+@media (max-width: 380px) {
+  .masthead h1 { font-size: 34px; }
+  .splash-title { font-size: 40px; }
+  .panel-title { font-size: 30px; }
+  .xp-value, .villain-value { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div class="splash-screen" id="splashScreen" onclick="dismissSplash()">
+  <div class="splash-bg"></div>
+  <div class="splash-rays"></div>
+  <div class="splash-corner tl">MARVEL AT THE POWER OF</div>
+  <div class="splash-corner tr">EST. MARCH 2026</div>
+  <div class="splash-corner bl">ISSUE #1 OF INFINITY</div>
+  <div class="splash-corner br">APPROVED BY THE COMICS CODE</div>
+  <div class="splash-content">
+    <div class="splash-issue">PRESENTING THE INCREDIBLE</div>
+    <div class="splash-hero-silhouette">&#x1F9B8;&#x200D;&#x2640;&#xFE0F;&#x1F9B8;&#x200D;&#x2640;&#xFE0F;</div>
+    <div class="splash-title">IRON LIZZIE<br>&amp; SARAH</div>
+    <div class="splash-sub">RUNNING FROM DEADLINES</div>
+    <div class="splash-tagline">"They don't run FROM danger -- they run THROUGH it. Together."</div>
+    <div class="splash-cta">-- TAP TO BEGIN YOUR ORIGIN STORY --</div>
+  </div>
+</div>
+
+<!-- MAIN COMIC PAGE -->
+<div class="confetti-container" id="confetti"></div>
+<div class="floating-sfx" id="floatingSfx"></div>
+<div class="achievement-toast" id="achievementToast"></div>
+
+<div class="comic-page">
+  <div class="page-border">
+    <div class="ink-splatter"></div>
+    <div class="ink-splatter"></div>
+    <div class="ink-splatter"></div>
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="masthead-badge">&#x1F3C1; JUN 13 &middot; VIRTUAL 10K</div>
+      <div class="masthead-vol">
+        <span>VOL. 1 &middot; ISSUE #<span id="issueNum">1</span></span>
+        <span id="dateDisplay">MARCH 2026</span>
+      </div>
+      <h1>IRON LIZZIE<br>&amp; SARAH</h1>
+      <div class="masthead-sub">&#x26A1; RUNNING FROM DEADLINES &#x26A1;</div>
+    </div>
+
+    <!-- HERO STRIP -->
+    <div class="hero-strip">
+      <div class="xp-panel">
+        <div class="xp-label">&#x26A1; HERO XP</div>
+        <div class="xp-value" id="xpValue">0</div>
+        <div class="xp-rank" id="xpRank">RANK: SIDEKICK</div>
+        <div class="streak-display" id="streakDisplay"></div>
+      </div>
+      <div class="villain-panel">
+        <div class="villain-label">&#x1F480; RACE DAY IN</div>
+        <div class="villain-value" id="villainCountdown">78</div>
+        <div class="villain-name" id="villainName">THE DEADLINE APPROACHES</div>
+      </div>
+    </div>
+
+    <!-- POWER METER -->
+    <div class="power-panel">
+      <div class="power-label">
+        <span>&#x26A1; POWER LEVEL</span>
+        <span class="pct" id="progressPct">0%</span>
+      </div>
+      <div class="power-track">
+        <div class="power-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="power-markers">
+        <span>ORIGIN</span>
+        <span>TRAINING</span>
+        <span>HERO</span>
+        <span>LEGEND</span>
+      </div>
+    </div>
+
+    <!-- WEEK GRID -->
+    <div class="section-label">&#x1F4C5; THIS WEEK'S MISSIONS</div>
+    <div class="week-grid" id="weekGrid"></div>
+
+    <!-- SPEECH BUBBLE -->
+    <div class="speech-bubble">
+      <div class="bubble-who">&#x1F9B8;&#x200D;&#x2640;&#xFE0F; IRON LIZZIE & SARAH SAY:</div>
+      <div class="bubble-text" id="motoText">Loading mission briefing...</div>
+    </div>
+
+    <!-- DAY TABS -->
+    <div class="section-label red">&#x26A1; SELECT YOUR MISSION</div>
+    <div class="day-tabs" id="dayTabs"></div>
+
+    <!-- WORKOUT CONTENT -->
+    <div id="workoutContent"></div>
+
+    <!-- STORY RECAP -->
+    <div class="story-recap">
+      <div class="recap-title">&#x1F4D6; THE STORY SO FAR...</div>
+      <div class="recap-text" id="recapText">
+        Our heroes <em>Iron Lizzie &amp; Sarah</em> have begun their quest. The virtual 10K looms on the horizon like a supervillain's fortress. But together, nothing can stop them...
+      </div>
+      <div class="recap-next" id="recapNext">NEXT ISSUE: THE TRAINING BEGINS! &rarr;</div>
+    </div>
+  </div>
+
+  <div class="page-number">-- PAGE 1 OF THE IRON LIZZIE &amp; SARAH SAGA --</div>
+</div>
+
+<script>
+var STORAGE_KEY = 'ironlizzie_sarah_v1';
+var WEEK_DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+var MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+var RACE_DATE = new Date('2026-06-13T00:00:00');
+
+var ACTION_WORDS = ['POW!','ZAP!','BAM!','KA-POW!','WHAM!','SMASH!','BOOM!','KAPOW!','THWACK!','CRUNCH!','YES!!','HEROIC!'];
+var SFX_WORDS = ['*WHOOSH*','*THUD*','*CRACK*','*SWOOSH*','*ZING*','*KAPOW*','*WHAM*','*THWIP*'];
+
+var RANKS = [
+  { min: 0,    name: 'SIDEKICK',       emoji: '\uD83E\uDDB8' },
+  { min: 100,  name: 'ROOKIE HERO',    emoji: '\u26A1' },
+  { min: 300,  name: 'STREET GUARDIAN', emoji: '\uD83D\uDEE1' },
+  { min: 600,  name: 'CITY DEFENDER',   emoji: '\uD83C\uDFD9' },
+  { min: 1000, name: 'SUPER HERO',     emoji: '\uD83D\uDCA5' },
+  { min: 1500, name: 'ULTRA LEGEND',   emoji: '\uD83C\uDF1F' },
+  { min: 2000, name: 'IRON LIZZIE & SARAH', emoji: '\uD83E\uDDB8\u200D\u2640\uFE0F' },
+];
+
+var ACHIEVEMENTS = [
+  { id: 'first_mission', check: function(s){ return s.completedCount >= 1; }, text: '\uD83C\uDFC5 FIRST MISSION COMPLETE!' },
+  { id: 'three_streak',  check: function(s){ return s.streak >= 3; }, text: '\uD83D\uDD25 3-DAY STREAK! ON FIRE!' },
+  { id: 'five_streak',   check: function(s){ return s.streak >= 5; }, text: '\uD83D\uDD25\uD83D\uDD25 5-DAY STREAK! UNSTOPPABLE!' },
+  { id: 'half_way',      check: function(s){ return s.completedCount >= Math.floor(s.totalDays / 2); }, text: '\u2B50 HALFWAY HERO! 50% DONE!' },
+  { id: 'ten_done',      check: function(s){ return s.completedCount >= 10; }, text: '\uD83D\uDCAA 10 MISSIONS CRUSHED!' },
+  { id: 'twenty_done',   check: function(s){ return s.completedCount >= 20; }, text: '\uD83D\uDE80 20 MISSIONS! UNSTOPPABLE DUO!' },
+  { id: 'long_run',      check: function(s){ return s.longRunsDone >= 1; }, text: '\uD83C\uDF05 FIRST LONG RUN CONQUERED!' },
+  { id: 'race_dist',     check: function(s){ return s.longRunsDone >= 3; }, text: '\uD83C\uDFC6 RACE DISTANCE UNLOCKED!' },
+];
+
+var STORY_BEATS = [
+  { min: 0,  text: 'Our heroes <em>Iron Lizzie &amp; Sarah</em> have begun their quest. The virtual 10K looms on the horizon like a supervillain\'s fortress. Together they\'ll conquer it \u2014 one run at a time...', next: 'NEXT ISSUE: THE TRAINING BEGINS! \u2192' },
+  { min: 5,  text: '<em>Iron Lizzie &amp; Sarah</em> have found their rhythm! The dynamic duo is building a base. Walk breaks are their SECRET WEAPON. The citizens are watching...', next: 'NEXT ISSUE: THE STRENGTH ARC! \u2192' },
+  { min: 12, text: 'Weeks of training conquered! The duo\'s power level is rising. Each mile is a chapter in their origin story. The Dementors of self-doubt scatter before them...', next: 'NEXT ISSUE: THE LONG RUN CHALLENGE! \u2192' },
+  { min: 20, text: 'The halfway point! <em>Lizzie &amp; Sarah</em> stand atop the training montage of their lives. They\'ve run farther than they ever imagined. The 10K villain is starting to look... beatable.', next: 'NEXT ISSUE: THE FINAL TRAINING ARC! \u2192' },
+  { min: 35, text: '<em>Iron Lizzie &amp; Sarah</em> have become UNSTOPPABLE. Race distance conquered in training. The 10K is no longer a villain \u2014 it\'s a victory lap waiting to happen. June 13 belongs to THEM.', next: 'THE FINALE: VIRTUAL RACE DAY \u2192 JUNE 13! \uD83C\uDFC6' },
+];
+
+// ===== 11-WEEK TRAINING PLAN: Mar 27 - Jun 13, 2026 =====
+// Pattern per week: Mon=Run, Tue=Strength A, Wed=Run, Thu=Strength B, Fri=Rest, Sat=Long Run, Sun=Rest
+// Starting today (Fri Mar 27) with a partial first week
+var planDays = [
+  // === WEEK 1 (Partial — Fri Mar 27 - Sun Mar 29) ===
+  { date: '2026-03-27', type: 'run',
+    title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'GO!', moto: 'First run! Keep it easy and conversational. You\'re building the foundation of something epic. \uD83D\uDE80',
+    steadyMoto: 'Steady state — one comfortable pace the whole way. No intervals, just flow. \uD83C\uDF3F',
+    distance: '1.5 miles', duration: '20\u201325 min', intervals: '60s RUN / 30s WALK', xp: 25,
+    steps: [
+      { text: 'Put on your favorite podcast or playlist \uD83C\uDFA7', time: '2 min' },
+      { text: '5 min easy warmup walk', time: '5 min' },
+      { text: 'Galloway: 60s run / 30s walk \u2014 repeat for 1.5 mi', time: '15\u201318 min' },
+      { text: '3 min cooldown walk', time: '3 min' },
+      { text: 'Stretch: calves + hip flexors', time: '3 min' },
+    ],
+    steadySteps: [
+      { text: 'Put on your favorite podcast or playlist \uD83C\uDFA7', time: '2 min' },
+      { text: '5 min easy warmup walk', time: '5 min' },
+      { text: 'Run 1.5 miles at easy, conversational pace', time: '15\u201320 min' },
+      { text: '3 min cooldown walk', time: '3 min' },
+      { text: 'Stretch: calves + hip flexors', time: '3 min' },
+    ]
+  },
+  { date: '2026-03-28', type: 'longrun',
+    title: 'LONG RUN \u00B7 2 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'EPIC!', moto: 'First long run! 2 miles. Walk breaks are your superpower. You ARE doing this. \uD83C\uDF05',
+    steadyMoto: 'Steady state long run \u2014 2 miles at one comfortable pace. Enjoy the journey! \uD83C\uDF05',
+    distance: '2 miles', duration: '~30 min', intervals: '60s RUN / 30s WALK', xp: 40,
+    steps: [
+      { text: 'Hydrate before you head out \uD83D\uDCA7', time: '5 min' },
+      { text: '5 min easy warmup walk', time: '5 min' },
+      { text: 'Galloway: 60s run / 30s walk for 2 miles', time: '20\u201325 min' },
+      { text: '5 min cooldown walk', time: '5 min' },
+      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
+    ],
+    steadySteps: [
+      { text: 'Hydrate before you head out \uD83D\uDCA7', time: '5 min' },
+      { text: '5 min easy warmup walk', time: '5 min' },
+      { text: 'Run 2 miles at easy, steady pace', time: '22\u201328 min' },
+      { text: '5 min cooldown walk', time: '5 min' },
+      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
+    ]
+  },
+  { date: '2026-03-29', type: 'rest',
+    title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '',
+    pow: 'ZZZ', moto: 'Rest IS training. Muscles grow on days like today. Hydrate and recharge! \uD83D\uDCA7',
+    distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
+    steps: [
+      { text: 'Hydrate well today \uD83D\uDCA7', time: 'all day' },
+      { text: 'Light walk if you want \uD83D\uDC3E', time: 'optional' },
+      { text: 'Foam roll or gentle stretching', time: '10 min' },
+      { text: 'Rest up \u2014 you earned it', time: 'evening' },
+    ]
+  },
+
+  // === WEEK 2 (Mar 30 - Apr 5) ===
+  { date: '2026-03-30', type: 'run',
+    title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'GO!', moto: 'Week 2! Keep it easy. Harry Potter on. Let Hogwarts carry you. \uD83E\uDDD9\u200D\u2640\uFE0F',
+    steadyMoto: 'Steady state \u2014 2 miles, one easy pace. Find your groove. \uD83E\uDDD9\u200D\u2640\uFE0F',
+    distance: '2 miles', duration: '25\u201330 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [
+      { text: 'Podcast/music on \uD83C\uDFA7', time: '1 min' },
+      { text: '5 min warmup walk', time: '5 min' },
+      { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20\u201325 min' },
+      { text: '3 min cooldown walk', time: '3 min' },
+      { text: 'Stretch it out', time: '3 min' },
+    ],
+    steadySteps: [
+      { text: 'Podcast/music on \uD83C\uDFA7', time: '1 min' },
+      { text: '5 min warmup walk', time: '5 min' },
+      { text: 'Run 2 miles at easy, steady pace', time: '22\u201328 min' },
+      { text: '3 min cooldown walk', time: '3 min' },
+      { text: 'Stretch it out', time: '3 min' },
+    ]
+  },
+  { date: '2026-03-31', type: 'strength',
+    title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'LIFT!', moto: 'Lower body power. Movie on before you start \u2014 NON-NEGOTIABLE. \uD83C\uDFAC',
+    distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
+    steps: [
+      { text: 'Movie/show on \uD83C\uDFAC', time: '1 min' },
+      { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710, cat-cow \u00D75', time: '3 min' },
+      { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' },
+      { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' },
+      { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' },
+      { text: 'Lateral Band Walk \u2014 2\u00D715 each', time: '4 min', bw: '\uD83C\uDFE0 BW: Lateral Lunges 2\u00D712 each' },
+      { text: 'Step-Up \u2014 2\u00D710 each leg', time: '4 min', bw: '\uD83C\uDFE0 BW: Reverse Lunge 2\u00D712 each' },
+      { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' },
+      { text: 'Stretch: figure-4, hip flexor', time: '3 min' },
+    ]
+  },
+  { date: '2026-04-01', type: 'run',
+    title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'RUN!', moto: 'Mid-week run. Stay easy. Don\'t chase speed \u2014 chase consistency. \uD83D\uDCD6',
+    steadyMoto: 'Steady state \u2014 2 miles, relaxed pace. Just keep moving forward. \uD83D\uDCD6',
+    distance: '2 miles', duration: '25\u201330 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [
+      { text: 'Audio entertainment on \uD83C\uDFA7', time: '1 min' },
+      { text: '5 min warmup walk', time: '5 min' },
+      { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20\u201325 min' },
+      { text: '3 min cooldown walk', time: '3 min' },
+      { text: 'Stretch: calves + quads', time: '3 min' },
+    ],
+    steadySteps: [
+      { text: 'Audio entertainment on \uD83C\uDFA7', time: '1 min' },
+      { text: '5 min warmup walk', time: '5 min' },
+      { text: 'Run 2 miles at easy pace', time: '22\u201328 min' },
+      { text: '3 min cooldown walk', time: '3 min' },
+      { text: 'Stretch: calves + quads', time: '3 min' },
+    ]
+  },
+  { date: '2026-04-02', type: 'strength',
+    title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'PUSH!', moto: 'Upper body day. Movie on. You always feel better after. \uD83C\uDFAC\uD83D\uDCAA',
+    distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
+    steps: [
+      { text: 'Movie/show on \uD83C\uDFAC', time: '1 min' },
+      { text: 'Warm-up: Band pull-apart \u00D715, arm circles', time: '3 min' },
+      { text: 'DB Row \u2014 3\u00D712 each arm', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' },
+      { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D710\u201315' },
+      { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D78\u201310' },
+      { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D78 each' },
+      { text: 'Suitcase Carry \u2014 2\u00D730s each', time: '3 min', bw: '\uD83C\uDFE0 BW: Side Plank 2\u00D730s each' },
+      { text: 'Plank \u2014 2\u00D745s', time: '3 min' },
+      { text: 'Stretch: doorway chest, thoracic rotation', time: '3 min' },
+    ]
+  },
+  { date: '2026-04-03', type: 'rest',
+    title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '',
+    pow: 'ZZZ', moto: 'Heroes rest before long run day. Hydrate. Foam roll. Recharge. \uD83D\uDD0B',
+    distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
+    steps: [
+      { text: 'Hydrate well \uD83D\uDCA7', time: 'all day' },
+      { text: 'Foam roll legs if available', time: '10 min' },
+      { text: 'Gentle stretching', time: '5 min' },
+      { text: 'Early night \u2014 big run tomorrow!', time: 'evening' },
+    ]
+  },
+  { date: '2026-04-04', type: 'longrun',
+    title: 'LONG RUN \u00B7 2.5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'EPIC!', moto: '2.5 miles! Walk breaks are your superpower. Enjoy the adventure. \uD83C\uDF05',
+    steadyMoto: 'Steady state long run \u2014 2.5 miles, one easy pace the whole way. \uD83C\uDF05',
+    distance: '2.5 miles', duration: '~35 min', intervals: '60s RUN / 30s WALK', xp: 45,
+    steps: [
+      { text: 'Hydrate 16oz water before you start \uD83D\uDCA7', time: '5 min' },
+      { text: '5 min easy warmup walk', time: '5 min' },
+      { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25\u201330 min' },
+      { text: '5 min cooldown walk', time: '5 min' },
+      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
+    ],
+    steadySteps: [
+      { text: 'Hydrate 16oz water before you start \uD83D\uDCA7', time: '5 min' },
+      { text: '5 min easy warmup walk', time: '5 min' },
+      { text: 'Run 2.5 miles at easy, steady pace', time: '27\u201335 min' },
+      { text: '5 min cooldown walk', time: '5 min' },
+      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
+    ]
+  },
+  { date: '2026-04-05', type: 'rest',
+    title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '',
+    pow: 'ZZZ', moto: 'Recovery Sunday. Celebrate your long run! \uD83E\uDD73',
+    distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
+    steps: [
+      { text: 'Hydrate \uD83D\uDCA7', time: 'all day' },
+      { text: 'Light walk if you feel like it', time: 'optional' },
+      { text: 'Rest those legs!', time: 'all day' },
+    ]
+  },
+
+  // === WEEK 3 (Apr 6 - Apr 12) ===
+  { date: '2026-04-06', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 3! Base building. You\'re getting stronger each run. \uD83D\uDCAA', steadyMoto: 'Steady state \u2014 2.5 miles, easy pace. Feel the progress! \uD83D\uDCAA', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles at easy pace', time: '27\u201333 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-07', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body power. Movie on. Get after it. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' }, { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' }, { text: 'Lateral Band Walk \u2014 2\u00D715 each', time: '4 min', bw: '\uD83C\uDFE0 BW: Lateral Lunges 2\u00D712 each' }, { text: 'Step-Up \u2014 2\u00D710 each leg', time: '4 min', bw: '\uD83C\uDFE0 BW: Reverse Lunge 2\u00D712 each' }, { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-08', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'RUN!', moto: 'Mid-week miles. Stay in the story. Walk breaks = power ups. \uD83C\uDFAE', steadyMoto: 'Steady 2.5 miles. Smooth and easy. \uD83C\uDFAE', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles at easy pace', time: '27\u201333 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-09', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'PUSH!', moto: 'Upper body. Show up strong. Movie on. \uD83C\uDFAC\uD83D\uDCAA', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Band pull-apart \u00D715', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D712' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D78 each' }, { text: 'Plank \u2014 2\u00D745s', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-10', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest before long run. Hydrate! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
+    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
+  { date: '2026-04-11', type: 'longrun', title: 'LONG RUN \u00B7 3 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!', moto: '3 miles! New distance unlocked. You\'re building something incredible. \uD83D\uDD13', steadyMoto: 'Steady state 3 miles \u2014 one easy pace. New distance! \uD83D\uDD13', distance: '3 miles', duration: '~40 min', intervals: '60s RUN / 30s WALK', xp: 50,
+    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30\u201335 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles at steady pace', time: '33\u201340 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
+  { date: '2026-04-12', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recharge Sunday! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' }, { text: 'Light walk optional', time: 'optional' } ] },
+
+  // === WEEK 4 (Apr 13 - Apr 19) ===
+  { date: '2026-04-13', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 4! 2.5 easy miles. You know the drill. \uD83D\uDD25', steadyMoto: 'Steady 2.5 mi. Smooth operator mode. \uD83D\uDD25', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles steady', time: '27\u201333 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-14', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body. Movie on. Crush it. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' }, { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' }, { text: 'Walking Lunges \u2014 2\u00D712 each', time: '4 min' }, { text: 'Step-Up \u2014 2\u00D710 each', time: '4 min', bw: '\uD83C\uDFE0 BW: Bulgarian Split Squat 2\u00D78 each' }, { text: 'Dead Bug \u2014 3\u00D710', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-15', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'FASTER!', moto: 'Push the pace slightly. Still conversational, just more INTENTION. \uD83D\uDD25', steadyMoto: 'Steady 3 miles at a slightly brisker pace. Push with purpose! \uD83D\uDD25', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (slightly faster) / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles at moderate pace', time: '30\u201336 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-16', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. Last lift before long run. Feel good going in. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Band pull-apart \u00D715', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D712\u201315' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D78 each' }, { text: 'Farmer\'s Carry \u2014 2\u00D730s', time: '3 min', bw: '\uD83C\uDFE0 BW: Side Plank 2\u00D730s each' }, { text: 'Plank \u2014 2\u00D71 min', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-17', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest before the big one! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll + gentle stretch', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
+  { date: '2026-04-18', type: 'longrun', title: 'LONG RUN \u00B7 3.5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!', moto: '3.5 miles! More than halfway to 10K distance. You\'re building a legend. \uD83D\uDCAB', steadyMoto: 'Steady 3.5 miles. More than halfway to race distance! \uD83D\uDCAB', distance: '3.5 miles', duration: '~50 min', intervals: '60s RUN / 30s WALK', xp: 55,
+    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5\u20138 min warmup walk', time: '7 min' }, { text: 'Galloway: 60s run / 30s walk for 3.5 mi', time: '35\u201340 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5\u20138 min warmup walk', time: '7 min' }, { text: 'Run 3.5 miles at steady pace', time: '38\u201348 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
+  { date: '2026-04-19', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest & celebrate \u2014 new distance PR! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' }, { text: 'Light walk optional', time: 'optional' } ] },
+
+  // === WEEK 5 (Apr 20 - Apr 26) ===
+  { date: '2026-04-20', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 5! Recovery run. Keep it chill. \uD83C\uDF3F', steadyMoto: 'Easy steady 2.5 mi. Active recovery. \uD83C\uDF3F', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles easy', time: '27\u201333 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-21', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body. Stronger legs = faster miles. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Jump Squat 3\u00D710' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D710 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D720' }, { text: 'Walking Lunges \u2014 3\u00D712 each', time: '5 min' }, { text: 'Calf Raises \u2014 3\u00D720', time: '3 min' }, { text: 'Dead Bug \u2014 3\u00D712', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-22', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '3 miles with intention. Run with PURPOSE. \uD83D\uDD25', steadyMoto: 'Steady 3 miles at moderate effort. Feel the power! \uD83D\uDD25', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles at moderate pace', time: '30\u201336 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-23', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. Strong arms carry you to the finish line. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Arm circles + band pull-apart', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D715' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-24', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest up for 4-miler! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
+  { date: '2026-04-25', type: 'longrun', title: 'LONG RUN \u00B7 4 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!!', moto: '4 MILES! You\'re past the halfway mark to 10K. The duo is becoming unstoppable! \uD83D\uDE80', steadyMoto: 'Steady 4 miles! Past halfway to race distance. Legends in the making! \uD83D\uDE80', distance: '4 miles', duration: '~55 min', intervals: '60s RUN / 30s WALK', xp: 60,
+    steps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 4 mi', time: '40\u201345 min' }, { text: 'Water at mile 2', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 4 miles at steady pace', time: '44\u201355 min' }, { text: 'Water at mile 2', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
+  { date: '2026-04-26', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '4 miles done! Heroes rest. \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
+
+  // === WEEK 6 (Apr 27 - May 3) ===
+  { date: '2026-04-27', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 6! Easy 3 mi. Enjoy the rhythm. \uD83C\uDFB6', steadyMoto: 'Steady 3 miles. You\'re a runner now. Own it. \uD83C\uDFB6', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-28', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body power up! \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Jump Squat 3\u00D712' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D720' }, { text: 'Bulgarian Split Squat \u2014 2\u00D710 each', time: '5 min' }, { text: 'Calf Raises \u2014 3\u00D720', time: '3 min' }, { text: 'Plank \u2014 2\u00D71 min', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-29', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'FASTER!', moto: '3.5 mi with some push. You\'re getting FAST. \uD83D\uDCA8', steadyMoto: 'Steady 3.5 miles at tempo effort. Dementors can\'t catch you! \uD83D\uDCA8', distance: '3.5 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 40,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3.5 mi', time: '35 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3.5 miles at moderate pace', time: '35\u201342 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-04-30', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'PUSH!', moto: 'Upper body. Stay consistent. \uD83C\uDFAC\uD83D\uDCAA', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Band pull-apart \u00D715', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Inverted Row (table) 3\u00D710' }, { text: 'Bench Press \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Diamond Push-Up 3\u00D710' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D712' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-01', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest day! Big long run tomorrow. \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
+  { date: '2026-05-02', type: 'longrun', title: 'LONG RUN \u00B7 4.5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!!', moto: '4.5 miles! You can almost taste race distance. The fortress is crumbling. \uD83C\uDFF0\uD83D\uDCA5', steadyMoto: 'Steady 4.5 miles. The fortress is crumbling! \uD83C\uDFF0\uD83D\uDCA5', distance: '4.5 miles', duration: '~60 min', intervals: '60s RUN / 30s WALK', xp: 65,
+    steps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 4.5 mi', time: '45\u201350 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 4.5 miles at steady pace', time: '50\u201360 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
+  { date: '2026-05-03', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recharge! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
+
+  // === WEEK 7 (May 4 - May 10) ===
+  { date: '2026-05-04', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 7! Easy 3 mi. May the 4th be with you. \u2B50', steadyMoto: 'Steady 3 mi. May the 4th be with you! \u2B50', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-05', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body power! \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Squat Pulse 3\u00D720' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D720', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D725' }, { text: 'Bulgarian Split Squat \u2014 3\u00D710 each', time: '6 min' }, { text: 'Calf Raises \u2014 3\u00D725', time: '3 min' }, { text: 'Dead Bug \u2014 3\u00D712', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-06', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '3.5 mi with effort. You are getting STRONG. \uD83D\uDD25', steadyMoto: 'Steady 3.5 mi at moderate effort. Feel it! \uD83D\uDD25', distance: '3.5 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 40,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3.5 mi', time: '35 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3.5 miles at moderate pace', time: '35\u201342 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-07', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. Keep building. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Inverted Row 3\u00D710' }, { text: 'Push-Up \u2014 3\u00D715', time: '5 min' }, { text: 'Overhead Press \u2014 3\u00D712', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D712' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-08', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest up! 5-miler tomorrow! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
+  { date: '2026-05-09', type: 'longrun', title: 'LONG RUN \u00B7 5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!!', moto: '5 MILES! Almost race distance! The 10K is shaking in its boots. \uD83D\uDCA5', steadyMoto: 'Steady 5 miles! Almost race distance. The villain trembles! \uD83D\uDCA5', distance: '5 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 70,
+    steps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 5 mi', time: '50\u201355 min' }, { text: 'Fuel/water at mile 2.5', time: 'mid-run' }, { text: '8 min cooldown', time: '8 min' }, { text: 'Full stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 5 miles at steady pace', time: '55\u201365 min' }, { text: 'Fuel/water at mile 2.5', time: 'mid-run' }, { text: '8 min cooldown', time: '8 min' }, { text: 'Full stretch', time: '5 min' } ] },
+  { date: '2026-05-10', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '5 miles DONE! Legendary rest. \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
+
+  // === WEEK 8 (May 11 - May 17) ===
+  { date: '2026-05-11', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 8! Recovery easy 3 mi. \uD83C\uDF3F', steadyMoto: 'Steady easy 3 miles. Keep it chill. \uD83C\uDF3F', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-12', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body. Keep building race-ready legs. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Squat Jump 3\u00D712' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D720', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D725' }, { text: 'Bulgarian Split Squat \u2014 3\u00D710 each', time: '6 min' }, { text: 'Dead Bug \u2014 3\u00D712', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-13', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '4 mi with intention. The Deadline fears you now. \uD83D\uDD25', steadyMoto: 'Steady 4 miles at moderate effort. Deadline fears you! \uD83D\uDD25', distance: '4 miles', duration: '45 min', intervals: '60s RUN / 30s WALK', xp: 45,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 4 mi', time: '40 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 4 miles at moderate pace', time: '40\u201348 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-14', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. One more before the big one! \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Inverted Row 3\u00D712' }, { text: 'Push-Up \u2014 3\u00D715', time: '5 min' }, { text: 'Overhead Press \u2014 3\u00D712', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D712' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-15', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest up! RACE DISTANCE tomorrow! \uD83D\uDD0B\uD83C\uDFC6', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate extra \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll + stretch', time: '15 min' }, { text: 'Lay out your gear', time: 'evening' } ] },
+  { date: '2026-05-16', type: 'longrun', title: 'LONG RUN \u00B7 6.2 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: '10K!!', moto: '6.2 MILES = 10K! You just ran race distance in training! Whatever happens June 13, YOU ALREADY DID IT. \uD83C\uDFC6\uD83C\uDFC6', steadyMoto: 'RACE DISTANCE! 6.2 miles steady state. You just proved you can do this! \uD83C\uDFC6\uD83C\uDFC6', distance: '6.2 miles (10K)', duration: '~85 min', intervals: '60s RUN / 30s WALK', xp: 100,
+    steps: [ { text: 'Hydrate 16oz + light snack \uD83D\uDCA7', time: '10 min' }, { text: '10 min warmup walk', time: '10 min' }, { text: 'Galloway: 60s run / 30s walk \u2014 all the way', time: '60\u201370 min' }, { text: 'Fuel at mile 3 \u2014 non-negotiable', time: 'mid-run' }, { text: '10 min cooldown walk', time: '10 min' }, { text: 'Full stretch: quads, calves, IT band, hip flexors', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate 16oz + light snack \uD83D\uDCA7', time: '10 min' }, { text: '10 min warmup walk', time: '10 min' }, { text: 'Run 6.2 miles at steady, easy pace', time: '68\u201380 min' }, { text: 'Fuel at mile 3 \u2014 non-negotiable', time: 'mid-run' }, { text: '10 min cooldown walk', time: '10 min' }, { text: 'Full stretch: quads, calves, IT band, hip flexors', time: '5 min' } ] },
+  { date: '2026-05-17', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'RACE DISTANCE DONE! You are LEGENDS. Rest like heroes. \uD83E\uDD73\uD83C\uDFC6', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Celebrate! You ran a 10K! \uD83E\uDD73', time: 'all day' }, { text: 'Hydrate & rest', time: 'all day' } ] },
+
+  // === WEEK 9 (May 18 - May 24) — Maintenance ===
+  { date: '2026-05-18', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Maintenance phase! Keep the engine warm. Easy 3 mi. \uD83D\uDE80', steadyMoto: 'Steady 3 miles. Stay sharp. \uD83D\uDE80', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-19', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body maintenance! \uD83C\uDFAC', distance: '', duration: '35\u201345 min', intervals: 'LOWER FOCUS', xp: 30,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' }, { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' }, { text: 'Walking Lunges \u2014 2\u00D712 each', time: '4 min' }, { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-20', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '3.5 mi moderate. Stay sharp! \uD83D\uDD25', steadyMoto: 'Steady 3.5 mi. Race-ready pace! \uD83D\uDD25', distance: '3.5 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3.5 mi', time: '35 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3.5 miles at moderate pace', time: '35\u201342 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-21', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'PUSH!', moto: 'Upper body maintenance! \uD83C\uDFAC', distance: '', duration: '35\u201345 min', intervals: 'UPPER FOCUS', xp: 30,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '2 min' }, { text: 'DB Row \u2014 3\u00D710 each', time: '5 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Push-Up \u2014 3\u00D712', time: '4 min' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Plank \u2014 2\u00D71 min', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-22', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest before 5-miler! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' } ] },
+  { date: '2026-05-23', type: 'longrun', title: 'LONG RUN \u00B7 5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!', moto: '5 miles! Maintaining fitness. You\'ve got this locked in. \uD83D\uDD12', steadyMoto: 'Steady 5 miles. Race-ready fitness! \uD83D\uDD12', distance: '5 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 60,
+    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 5 mi', time: '50\u201355 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 5 miles steady', time: '55\u201365 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ] },
+  { date: '2026-05-24', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
+
+  // === WEEK 10 (May 25 - May 31) — Taper Start ===
+  { date: '2026-05-25', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Taper begins! Easy 2.5 mi. Let the body recover while staying sharp. \uD83C\uDF3F', steadyMoto: 'Steady 2.5 mi. Taper mode \u2014 rest is the secret weapon. \uD83C\uDF3F', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 25,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles easy', time: '27\u201333 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-26', type: 'strength', title: 'STRENGTH \u00B7 LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE!', moto: 'Light strength \u2014 keep moving, reduce volume. \uD83C\uDFAC', distance: '', duration: '30\u201340 min', intervals: 'FULL BODY LIGHT', xp: 25,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'BW Squat \u2014 2\u00D712', time: '3 min' }, { text: 'Glute Bridge \u2014 2\u00D715', time: '3 min' }, { text: 'Push-Up \u2014 2\u00D710', time: '3 min' }, { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' }, { text: 'Plank \u2014 2\u00D745s', time: '3 min' }, { text: 'Stretch', time: '5 min' } ] },
+  { date: '2026-05-27', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'RUN!', moto: 'Easy 2 mi. Short and sweet. \uD83D\uDC9A', steadyMoto: 'Steady 2 mi. Keep the legs turning over. \uD83D\uDC9A', distance: '2 miles', duration: '25 min', intervals: '60s RUN / 30s WALK', xp: 25,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2 miles easy', time: '22\u201328 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-05-28', type: 'strength', title: 'STRENGTH \u00B7 LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE!', moto: 'Light strength. Keep it moving! \uD83C\uDFAC', distance: '', duration: '30 min', intervals: 'FULL BODY LIGHT', xp: 25,
+    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Reverse Lunge \u2014 2\u00D710 each', time: '3 min' }, { text: 'Glute Bridge \u2014 2\u00D715', time: '3 min' }, { text: 'Push-Up \u2014 2\u00D710', time: '3 min' }, { text: 'Superman \u2014 2\u00D710', time: '3 min' }, { text: 'Plank \u2014 2\u00D745s', time: '3 min' }, { text: 'Stretch', time: '5 min' } ] },
+  { date: '2026-05-29', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! Short long run tomorrow. \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' } ] },
+  { date: '2026-05-30', type: 'longrun', title: 'LONG RUN \u00B7 4 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'SHARP!', moto: '4 miles \u2014 taper long run. Stay sharp, don\'t push. Save the fire for race day! \uD83D\uDD25', steadyMoto: 'Steady 4 miles. Save the best for race day! \uD83D\uDD25', distance: '4 miles', duration: '~55 min', intervals: '60s RUN / 30s WALK', xp: 50,
+    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 4 mi', time: '40\u201345 min' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 4 miles steady', time: '44\u201355 min' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ] },
+  { date: '2026-05-31', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
+
+  // === WEEK 11 (Jun 1 - Jun 7) — Race Week Taper ===
+  { date: '2026-06-01', type: 'run', title: 'SHAKEOUT RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY!', moto: 'Race week! Super easy 2 mi shakeout. Keep loose. \uD83C\uDF3F', steadyMoto: 'Steady 2 mi shakeout. Feel good, stay loose! \uD83C\uDF3F', distance: '2 miles', duration: '25 min', intervals: '60s RUN / 30s WALK', xp: 25,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2 miles easy', time: '22\u201328 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-06-02', type: 'strength', title: 'STRENGTH \u00B7 LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIGHT!', moto: 'Very light strength. Activation only! \uD83C\uDFAC', distance: '', duration: '20\u201330 min', intervals: 'ACTIVATION', xp: 20,
+    steps: [ { text: 'Warm-up: light stretching', time: '3 min' }, { text: 'Glute bridge \u2014 2\u00D712', time: '3 min' }, { text: 'BW Squat \u2014 2\u00D710', time: '3 min' }, { text: 'Push-Up \u2014 2\u00D78', time: '2 min' }, { text: 'Plank \u2014 2\u00D730s', time: '2 min' }, { text: 'Stretch', time: '5 min' } ] },
+  { date: '2026-06-03', type: 'run', title: 'SHAKEOUT RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY!', moto: 'Last mid-week run before the big one! 1.5 mi easy. \uD83C\uDF3F', steadyMoto: 'Steady 1.5 mi. Just loosening up! \uD83C\uDF3F', distance: '1.5 miles', duration: '20 min', intervals: '60s RUN / 30s WALK', xp: 20,
+    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 1.5 mi', time: '15 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 1.5 miles easy', time: '15\u201320 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-06-04', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Full rest. Save your energy. \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Light walk optional', time: 'optional' } ] },
+  { date: '2026-06-05', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! Your body is storing power for race day. \u26A1', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate extra \uD83D\uDCA7', time: 'all day' }, { text: 'Lay out race day gear', time: 'evening' } ] },
+  { date: '2026-06-06', type: 'run', title: 'SHAKEOUT \u00B7 1 MI', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'READY!', moto: '1 mile super easy shakeout. Just enough to stay loose. RACE WEEK! \uD83C\uDFC1', steadyMoto: 'Steady 1 mile. Final shakeout before glory! \uD83C\uDFC1', distance: '1 mile', duration: '15 min', intervals: '60s RUN / 30s WALK', xp: 15,
+    steps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Easy 1 mile', time: '10\u201312 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
+    steadySteps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 1 mile easy', time: '10\u201312 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
+  { date: '2026-06-07', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Final rest before race week! Sleep well. \uD83D\uDE34', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Rest & hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Visualize your race \uD83E\uDDD8', time: 'evening' } ] },
+
+  // === RACE WEEK FINAL (Jun 8 - Jun 13) ===
+  { date: '2026-06-08', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest. 5 days to race day! \u26A1', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Light walk + hydrate \uD83D\uDCA7', time: 'all day' } ] },
+  { date: '2026-06-09', type: 'run', title: 'SHAKEOUT \u00B7 1 MI', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY!', moto: 'Final shakeout! 1 mile easy. You are READY. \uD83C\uDFC1', steadyMoto: 'Steady 1 mi. The final tune-up! \uD83C\uDFC1', distance: '1 mile', duration: '15 min', intervals: '60s RUN / 30s WALK', xp: 15,
+    steps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Easy 1 mile', time: '10\u201312 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch well', time: '5 min' } ],
+    steadySteps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 1 mile easy', time: '10\u201312 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch well', time: '5 min' } ] },
+  { date: '2026-06-10', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '3 days! Rest and visualize. \u26A1', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & eat well \uD83D\uDCA7', time: 'all day' }, { text: 'Prep race day nutrition', time: 'evening' } ] },
+  { date: '2026-06-11', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '2 days! The calm before the storm. \u26A1\uD83C\uDF29\uFE0F', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Lay out everything for race day', time: 'evening' }, { text: 'Early night!', time: '9 PM' } ] },
+  { date: '2026-06-12', type: 'rest', title: 'PRE-RACE REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: '\u26A1', moto: 'TOMORROW IS RACE DAY! Light walk only. Eat well. Sleep well. You are READY. \uD83C\uDFC6', distance: '', duration: 'LIGHT WALK ONLY', intervals: 'PRE-RACE', xp: 10, steps: [ { text: 'Light 10 min walk', time: '10 min' }, { text: 'Carb-load dinner \uD83C\uDF5D', time: 'dinner' }, { text: 'Lay out race outfit & gear', time: 'evening' }, { text: 'Bed early \u2014 you\'re ready!', time: '9 PM' } ] },
+  { date: '2026-06-13', type: 'longrun', title: 'VIRTUAL 10K RACE!', icon: '\uD83C\uDFC6', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'RACE!!', moto: 'THIS IS IT! 6.2 miles. Lizzie & Sarah vs The Deadline. You trained for this. You are READY. LET\'S GO!! \uD83C\uDFC6\uD83D\uDD25\u26A1', steadyMoto: 'RACE DAY! 6.2 miles steady state. Everything you\'ve trained for comes down to NOW. \uD83C\uDFC6\uD83D\uDD25', distance: '6.2 miles (10K)', duration: 'RACE DAY!', intervals: '60s RUN / 30s WALK', xp: 150,
+    steps: [
+      { text: 'Wake up, hydrate 16oz, light breakfast \uD83D\uDCA7', time: '60 min before' },
+      { text: 'Gear up \u2014 race day outfit ON', time: '30 min before' },
+      { text: '10 min easy warmup walk', time: '10 min' },
+      { text: 'START THE RACE! Galloway: 60s run / 30s walk', time: 'LET\'S GO!' },
+      { text: 'Fuel/water at mile 3', time: 'mid-race' },
+      { text: 'Push through miles 5\u20136 \u2014 this is YOUR moment!', time: 'almost there!' },
+      { text: 'CROSS THE FINISH LINE! \uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6', time: 'VICTORY!' },
+      { text: 'Cooldown walk + celebrate!', time: '10 min' },
+      { text: 'Full stretch \u2014 you did it!', time: '10 min' },
+    ],
+    steadySteps: [
+      { text: 'Wake up, hydrate 16oz, light breakfast \uD83D\uDCA7', time: '60 min before' },
+      { text: 'Gear up \u2014 race day outfit ON', time: '30 min before' },
+      { text: '10 min easy warmup walk', time: '10 min' },
+      { text: 'START THE RACE! Steady pace \u2014 comfortable & controlled', time: 'LET\'S GO!' },
+      { text: 'Fuel/water at mile 3', time: 'mid-race' },
+      { text: 'Push through miles 5\u20136 \u2014 this is YOUR moment!', time: 'almost there!' },
+      { text: 'CROSS THE FINISH LINE! \uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6', time: 'VICTORY!' },
+      { text: 'Cooldown walk + celebrate!', time: '10 min' },
+      { text: 'Full stretch \u2014 you did it!', time: '10 min' },
+    ]
+  },
+];
+
+// STATE
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e) {}
+}
+
+var state = loadState();
+var activeDate = planDays[0].date;
+
+var today = new Date().toISOString().split('T')[0];
+var todayPlan = planDays.find(function(d){ return d.date === today; });
+if (todayPlan) activeDate = today;
+else {
+  var upcoming = planDays.find(function(d){ return d.date >= today; });
+  if (upcoming) activeDate = upcoming.date;
+}
+
+// SPLASH
+function dismissSplash() {
+  var splash = document.getElementById('splashScreen');
+  splash.classList.add('dismissed');
+  setTimeout(function(){ splash.style.display = 'none'; }, 700);
+  setTimeout(spawnAmbientSfx, 1000);
+}
+if (state._splashSeen) {
+  document.getElementById('splashScreen').style.display = 'none';
+} else {
+  state._splashSeen = true;
+  saveState(state);
+}
+
+// DAY SWAP SYSTEM
+function getSwaps() { return (state._swaps) || {}; }
+
+function getDayForDate(dateStr) {
+  var swaps = getSwaps();
+  var originalDate = swaps[dateStr] || dateStr;
+  return planDays.find(function(d){ return d.date === originalDate; });
+}
+
+function getOriginalDayForDate(dateStr) {
+  return planDays.find(function(d){ return d.date === dateStr; });
+}
+
+function isDateSwapped(dateStr) {
+  var swaps = getSwaps();
+  return swaps[dateStr] && swaps[dateStr] !== dateStr;
+}
+
+function swapDays(dateA, dateB) {
+  if (!state._swaps) state._swaps = {};
+  var swaps = state._swaps;
+  var realA = swaps[dateA] || dateA;
+  var realB = swaps[dateB] || dateB;
+  swaps[dateA] = realB;
+  swaps[dateB] = realA;
+  var stateA = state[dateA] || {};
+  var stateB = state[dateB] || {};
+  var tempDone = stateA.done; var tempSteps = stateA.steps; var tempMode = stateA.mode; var tempSkipped = stateA.skipped;
+  stateA.done = stateB.done; stateA.steps = stateB.steps; stateA.mode = stateB.mode; stateA.skipped = stateB.skipped;
+  stateB.done = tempDone; stateB.steps = tempSteps; stateB.mode = tempMode; stateB.skipped = tempSkipped;
+  state[dateA] = stateA; state[dateB] = stateB;
+  saveState(state);
+}
+
+function undoSwap(dateStr) {
+  if (!state._swaps) return;
+  var swaps = state._swaps;
+  var partnerDate = swaps[dateStr];
+  if (!partnerDate) return;
+  swapDays(dateStr, partnerDate);
+  delete state._swaps[dateStr];
+  delete state._swaps[partnerDate];
+  saveState(state);
+}
+
+function getWeekDatesForDate(dateStr) {
+  var d = new Date(dateStr + 'T12:00:00');
+  var dayOfWeek = d.getDay();
+  var weekStart = new Date(d);
+  weekStart.setDate(d.getDate() - dayOfWeek);
+  var dates = [];
+  for (var i = 0; i < 7; i++) {
+    var wd = new Date(weekStart);
+    wd.setDate(weekStart.getDate() + i);
+    dates.push(wd.toISOString().split('T')[0]);
+  }
+  return dates;
+}
+
+function showSwapModal(fromDate) {
+  var existing = document.querySelector('.swap-overlay');
+  if (existing) existing.remove();
+  var weekDates = getWeekDatesForDate(fromDate);
+  var fromDateObj = new Date(fromDate + 'T12:00:00');
+  var optionsHTML = '';
+  weekDates.forEach(function(ds) {
+    if (ds === fromDate) return;
+    var day = getDayForDate(ds);
+    if (!day) return;
+    var dObj = new Date(ds + 'T12:00:00');
+    var dayName = WEEK_DAYS[dObj.getDay()];
+    var emoji = '\u2014';
+    if (day.type === 'run') emoji = '\uD83C\uDFC3\u200D\u2640\uFE0F';
+    else if (day.type === 'longrun') emoji = '\u2B50';
+    else if (day.type === 'strength') emoji = '\uD83D\uDCAA';
+    else if (day.type === 'rest') emoji = '\uD83D\uDE34';
+    optionsHTML += '<div class="swap-option" data-swap-date="' + ds + '"><div class="swap-option-emoji">' + emoji + '</div><div class="swap-option-info"><div class="swap-option-day">' + dayName + ' ' + dObj.getDate() + '</div><div class="swap-option-type">' + day.title + '</div></div><div class="swap-option-arrow">\u21C4</div></div>';
+  });
+  var overlay = document.createElement('div');
+  overlay.className = 'swap-overlay';
+  overlay.innerHTML = '<div class="swap-modal"><div class="swap-modal-header"><div class="swap-modal-title">\uD83D\uDD00 SWAP DAY</div><div class="swap-modal-sub">Move ' + WEEK_DAYS[fromDateObj.getDay()] + '\'s workout to another day</div></div><div class="swap-modal-body">' + optionsHTML + '<button class="swap-cancel">\u2716 CANCEL</button></div></div>';
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
+  overlay.querySelector('.swap-cancel').addEventListener('click', function() { overlay.remove(); });
+  overlay.querySelectorAll('.swap-option').forEach(function(opt) {
+    opt.addEventListener('click', function() { swapDays(fromDate, opt.dataset.swapDate); overlay.remove(); renderAll(); });
+  });
+}
+
+// CALCULATIONS
+function getCompletedCount() {
+  return planDays.filter(function(d){ return state[d.date] && state[d.date].done; }).length;
+}
+
+function getTotalXP() {
+  var xp = 0;
+  planDays.forEach(function(d) {
+    if (state[d.date] && state[d.date].done) {
+      var swappedDay = getDayForDate(d.date);
+      xp += (swappedDay ? swappedDay.xp : d.xp) || 30;
+    }
+  });
+  return xp;
+}
+
+function getRank(xp) {
+  var rank = RANKS[0];
+  for (var i = 0; i < RANKS.length; i++) {
+    if (xp >= RANKS[i].min) rank = RANKS[i];
+  }
+  return rank;
+}
+
+function getStreak() {
+  var streak = 0;
+  var sorted = planDays.slice().sort(function(a,b){ return b.date.localeCompare(a.date); });
+  for (var i = 0; i < sorted.length; i++) {
+    if (sorted[i].date > today) continue;
+    if (state[sorted[i].date] && (state[sorted[i].date].done || state[sorted[i].date].skipped)) streak++;
+    else break;
+  }
+  return streak;
+}
+
+function getDaysUntilRace() {
+  var now = new Date();
+  var diff = RACE_DATE - now;
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+function getWeekNumber() {
+  var start = new Date(planDays[0].date);
+  var current = new Date(activeDate);
+  return Math.floor((current - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
+}
+
+// RENDER PROGRESS
+function renderProgress() {
+  var completed = getCompletedCount();
+  var total = planDays.length;
+  var pct = Math.round((completed / total) * 100);
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// RENDER HERO STRIP
+function renderHeroStrip() {
+  var xp = getTotalXP();
+  var rank = getRank(xp);
+  var streak = getStreak();
+  var daysLeft = getDaysUntilRace();
+
+  document.getElementById('xpValue').textContent = xp + ' XP';
+  document.getElementById('xpRank').textContent = 'RANK: ' + rank.emoji + ' ' + rank.name;
+
+  var streakEl = document.getElementById('streakDisplay');
+  if (streak > 0) {
+    var flames = '';
+    var flameCount = Math.min(streak, 7);
+    for (var i = 0; i < flameCount; i++) flames += '<span class="streak-flame">\uD83D\uDD25</span>';
+    streakEl.innerHTML = '<span style="font-family:Comic Neue;font-weight:700;font-size:9px;color:var(--yellow);letter-spacing:1px;">' + streak + ' DAY STREAK</span> ' + flames;
+  } else {
+    streakEl.innerHTML = '<span style="font-family:Comic Neue;font-weight:700;font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1px;">START YOUR STREAK!</span>';
+  }
+
+  document.getElementById('villainCountdown').textContent = daysLeft + ' DAYS';
+  if (daysLeft <= 7) {
+    document.getElementById('villainName').textContent = '\u26A0\uFE0F THE FINAL BATTLE IS NEAR';
+  } else if (daysLeft <= 21) {
+    document.getElementById('villainName').textContent = '\uD83D\uDD25 THE DEADLINE CLOSES IN';
+  } else {
+    document.getElementById('villainName').textContent = '\uD83D\uDC80 THE DEADLINE APPROACHES';
+  }
+
+  document.getElementById('issueNum').textContent = getWeekNumber();
+  var d = new Date(activeDate + 'T12:00:00');
+  document.getElementById('dateDisplay').textContent = MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+// RENDER WEEK GRID
+function renderWeekGrid() {
+  var grid = document.getElementById('weekGrid');
+  grid.innerHTML = '';
+  var active = new Date(activeDate + 'T12:00:00');
+  var dayOfWeek = active.getDay();
+  var weekStart = new Date(active);
+  weekStart.setDate(active.getDate() - dayOfWeek);
+
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(weekStart);
+    d.setDate(weekStart.getDate() + i);
+    var ds = d.toISOString().split('T')[0];
+    var day = getDayForDate(ds);
+    var hasOriginalPlan = getOriginalDayForDate(ds);
+    var isDone = state[ds] && state[ds].done;
+    var isSkipped = state[ds] && state[ds].skipped;
+    var isToday = ds === today;
+    var isActive = ds === activeDate;
+    var isSwapped = isDateSwapped(ds);
+
+    var cell = document.createElement('div');
+    cell.className = 'week-cell' +
+      (isDone ? ' cell-done' : '') +
+      (isSkipped ? ' cell-skipped' : '') +
+      (isToday ? ' cell-today' : '') +
+      (isActive ? ' cell-active' : '') +
+      (!hasOriginalPlan ? ' cell-rest' : '');
+
+    var emoji = '\u2014';
+    if (day) {
+      if (isDone) emoji = '\u2705';
+      else if (isSkipped) emoji = '\u23ED\uFE0F';
+      else if (day.type === 'run') emoji = '\uD83C\uDFC3\u200D\u2640\uFE0F';
+      else if (day.type === 'longrun') emoji = '\u2B50';
+      else if (day.type === 'strength') emoji = '\uD83D\uDCAA';
+      else if (day.type === 'rest') emoji = '\uD83D\uDE34';
+    }
+
+    var swapMarker = isSwapped ? '<span style="position:absolute;top:1px;right:2px;font-size:8px;">\uD83D\uDD00</span>' : '';
+    cell.innerHTML = swapMarker + '<span class="cell-emoji">' + emoji + '</span><span class="cell-day">' + WEEK_DAYS[d.getDay()] + '</span>';
+    if (hasOriginalPlan) {
+      (function(dateStr){ cell.addEventListener('click', function(){ activeDate = dateStr; renderAll(); }); })(ds);
+    }
+    grid.appendChild(cell);
+  }
+}
+
+// RENDER MOTO
+function renderMoto() {
+  var day = getDayForDate(activeDate);
+  if (!day) return;
+  var mode = (state[activeDate] && state[activeDate].mode) || 'galloway';
+  var motoText = (mode === 'steady' && day.steadyMoto) ? day.steadyMoto : day.moto;
+  document.getElementById('motoText').textContent = motoText;
+}
+
+// RENDER TABS
+function renderTabs() {
+  var tabs = document.getElementById('dayTabs');
+  tabs.innerHTML = '';
+  planDays.forEach(function(day) {
+    var isDone = state[day.date] && state[day.date].done;
+    var isSkipped = state[day.date] && state[day.date].skipped;
+    var isActive = day.date === activeDate;
+    var swapped = isDateSwapped(day.date);
+    var tab = document.createElement('button');
+    tab.className = 'day-tab' + (isActive ? ' active' : '') + (isDone && !isActive ? ' done-tab' : '') + (isSkipped && !isActive ? ' done-tab' : '');
+    if (isSkipped && !isActive) tab.style.background = 'var(--orange)';
+    var d = new Date(day.date + 'T12:00:00');
+    var label = WEEK_DAYS[d.getDay()].slice(0,3) + ' ' + d.getDate();
+    tab.textContent = (isDone ? '\u2713 ' : '') + (isSkipped ? '\u23ED ' : '') + (swapped ? '\uD83D\uDD00 ' : '') + label;
+    tab.addEventListener('click', function() {
+      activeDate = day.date;
+      renderAll();
+      setTimeout(function(){ tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 50);
+    });
+    tabs.appendChild(tab);
+  });
+  setTimeout(function() {
+    var activeTab = tabs.querySelector('.active');
+    if (activeTab) activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, 100);
+}
+
+// RENDER WORKOUT
+function renderWorkout() {
+  var day = getDayForDate(activeDate);
+  var content = document.getElementById('workoutContent');
+  content.innerHTML = '';
+  if (!day) return;
+
+  var isDone = state[activeDate] && state[activeDate].done;
+  var isSkipped = state[activeDate] && state[activeDate].skipped;
+  var checkedSteps = (state[activeDate] && state[activeDate].steps) || {};
+  var hasRunMode = day.steadySteps && day.steadySteps.length > 0;
+  var currentMode = (state[activeDate] && state[activeDate].mode) || 'galloway';
+
+  // MODE TOGGLE (for run/longrun days with both modes)
+  var toggleHTML = '';
+  if (hasRunMode) {
+    toggleHTML = '<div class="mode-toggle-wrap">' +
+      '<div class="mode-toggle-label">\uD83C\uDFC3 CHOOSE YOUR STYLE</div>' +
+      '<div class="mode-toggle-btns">' +
+        '<button class="mode-btn ' + (currentMode === 'galloway' ? 'mode-active galloway-active' : '') + '" data-mode="galloway">' +
+          '<span class="mode-emoji">\u23F1\uFE0F</span>' +
+          '<span class="mode-text">GALLOWAY</span>' +
+          '<span class="mode-sub">60s Run / 30s Walk</span>' +
+        '</button>' +
+        '<button class="mode-btn ' + (currentMode === 'steady' ? 'mode-active steady-active' : '') + '" data-mode="steady">' +
+          '<span class="mode-emoji">\uD83C\uDFC3\u200D\u2640\uFE0F</span>' +
+          '<span class="mode-text">STEADY STATE</span>' +
+          '<span class="mode-sub">One Comfortable Pace</span>' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  // INTERVAL VISUAL
+  var intervalHTML = '';
+  if ((day.type === 'run' || day.type === 'longrun') && currentMode === 'galloway') {
+    var reps = day.type === 'longrun' ? 8 : 5;
+    var blocks = '';
+    for (var r = 0; r < reps; r++) { blocks += '<div class="iblock run"></div><div class="iblock walk"></div>'; }
+    blocks += '<span style="font-family:Bangers,cursive;font-size:18px;color:var(--ink);align-self:center;margin-left:4px">\u00B7\u00B7\u00B7</span>';
+    intervalHTML = '<div class="interval-visual"><div class="interval-label">\u26A1 INTERVAL PATTERN:</div><div class="interval-blocks">' + blocks + '</div><div class="interval-legend"><span><span class="ileg-dot" style="background:var(--red)"></span>60s RUN</span><span><span class="ileg-dot" style="background:var(--blue);opacity:0.7"></span>30s WALK</span></div></div>';
+  } else if ((day.type === 'run' || day.type === 'longrun') && currentMode === 'steady') {
+    intervalHTML = '<div class="interval-visual"><div class="interval-label">\uD83C\uDFC3\u200D\u2640\uFE0F STEADY STATE:</div><div class="interval-blocks"><div class="iblock steady"></div></div><div class="interval-legend"><span><span class="ileg-dot" style="background:var(--green)"></span>ONE COMFORTABLE PACE</span></div></div>';
+  }
+
+  // DISTANCE BADGE
+  var distBadgeHTML = '';
+  if (day.distance) {
+    distBadgeHTML = '<div style="text-align:center;padding:6px 14px 2px;"><span style="display:inline-block;background:var(--ink);color:var(--yellow);font-family:Bangers,cursive;font-size:14px;letter-spacing:2px;padding:4px 14px 3px;border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);">\uD83D\uDCCF ' + day.distance.toUpperCase() + '</span></div>';
+  }
+
+  // SELECT STEPS based on mode
+  var activeSteps = (currentMode === 'steady' && day.steadySteps) ? day.steadySteps : day.steps;
+  var subtitleText = day.duration + (day.distance ? ' \u00B7 ' + day.distance : '') + (hasRunMode ? ' \u00B7 ' + (currentMode === 'steady' ? 'STEADY STATE' : 'GALLOWAY') : '');
+
+  var stepsHTML = activeSteps.map(function(step, i) {
+    var isChecked = checkedSteps[i];
+    var bwHTML = step.bw ? '<div class="bw-alt">' + step.bw + '</div>' : '';
+    return '<div class="step ' + (isChecked ? 'checked' : '') + '" data-step="' + i + '"><div class="step-num">' + (isChecked ? '' : (i+1)) + '</div><div class="step-body"><div class="step-text">' + step.text + '</div>' + bwHTML + '<div class="step-time">' + step.time + '</div></div></div>';
+  }).join('');
+
+  var xpBadge = '<div style="text-align:center;padding:8px 14px 4px;font-family:Bangers,cursive;font-size:12px;letter-spacing:2px;color:' + (isDone ? 'var(--green)' : isSkipped ? 'var(--orange)' : 'rgba(0,0,0,0.3)') + ';">' +
+    (isDone ? '\u2705 +' + (day.xp || 30) + ' XP EARNED!' : isSkipped ? '\u23ED SKIPPED \u2014 0 XP' : '\u26A1 COMPLETE FOR +' + (day.xp || 30) + ' XP') + '</div>';
+
+  var btnHTML = '';
+  if (isSkipped) {
+    btnHTML = '<div class="complete-wrap"><button class="complete-btn skipped-btn" id="completeBtn">\u23ED\uFE0F MISSION SKIPPED</button></div><div class="skip-wrap"><button class="skip-btn" id="unskipBtn">\u21A9 UNDO SKIP \u2014 I changed my mind!</button></div>';
+  } else if (day.type !== 'rest') {
+    btnHTML = '<div class="complete-wrap"><button class="complete-btn ' + (isDone ? 'done-btn' : day.btnClass) + '" id="completeBtn">' + (isDone ? '\u2705 MISSION COMPLETE!' : '\u26A1 MISSION ACCOMPLISHED!') + '</button></div>' + (isDone ? '' : '<div class="skip-wrap"><button class="skip-btn" id="skipBtn">\u23ED Skip this mission \u2014 life happens!</button></div>');
+  } else {
+    btnHTML = '<div class="complete-wrap"><button class="complete-btn ' + (isDone ? 'done-btn' : '') + '" id="completeBtn" style="' + (isDone ? '' : 'background:#bbb;color:var(--ink);') + '">' + (isDone ? '\u2705 REST LOGGED!' : '\uD83D\uDE34 LOG REST DAY') + '</button></div>';
+  }
+
+  // SWAP DAY BUTTON
+  var swapHTML = '';
+  var swapped = isDateSwapped(activeDate);
+  if (swapped) {
+    var swaps = getSwaps();
+    var partnerDate = swaps[activeDate];
+    var partnerDateObj = new Date(partnerDate + 'T12:00:00');
+    var originalDay = getOriginalDayForDate(activeDate);
+    swapHTML = '<div class="swap-wrap"><div class="swap-indicator">\uD83D\uDD00 SWAPPED FROM ' + WEEK_DAYS[partnerDateObj.getDay()] + ' ' + partnerDateObj.getDate() + ' <span style="color:rgba(0,0,0,0.35);">(was ' + (originalDay ? originalDay.title : '\u2014') + ')</span></div><button class="swap-undo" id="swapUndoBtn">\u21A9 UNDO</button></div>';
+  } else {
+    swapHTML = '<div class="swap-wrap"><div class="swap-label">\uD83D\uDCC5 BUSY DAY?</div><button class="swap-btn" id="swapDayBtn"><span class="swap-icon">\uD83D\uDD00</span> SWAP DAY</button></div>';
+  }
+
+  content.innerHTML = '<div class="workout-panel"><div class="panel-header ' + day.headerClass + '"><div class="pow-badge">' + day.pow + '</div><div class="header-top-row"><div class="panel-icon">' + day.icon + '</div><div class="panel-titles"><div class="panel-title">' + day.title + '</div><div class="panel-subtitle">' + subtitleText + '</div></div></div></div>' + swapHTML + toggleHTML + intervalHTML + distBadgeHTML + '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MISSION BRIEFING</div>' + stepsHTML + '</div>' + xpBadge + btnHTML + '</div>';
+
+  // MODE TOGGLE LISTENERS
+  content.querySelectorAll('.mode-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var newMode = btn.dataset.mode;
+      if (!state[activeDate]) state[activeDate] = {};
+      if (state[activeDate].mode !== newMode) { state[activeDate].steps = {}; }
+      state[activeDate].mode = newMode;
+      saveState(state);
+      renderMoto();
+      renderWorkout();
+    });
+  });
+
+  // SWAP DAY LISTENERS
+  var swapBtn = document.getElementById('swapDayBtn');
+  if (swapBtn) { swapBtn.addEventListener('click', function() { showSwapModal(activeDate); }); }
+  var undoBtn = document.getElementById('swapUndoBtn');
+  if (undoBtn) { undoBtn.addEventListener('click', function() { undoSwap(activeDate); renderAll(); }); }
+
+  content.querySelectorAll('.step').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var i = parseInt(el.dataset.step);
+      if (!state[activeDate]) state[activeDate] = {};
+      if (!state[activeDate].steps) state[activeDate].steps = {};
+      state[activeDate].steps[i] = !state[activeDate].steps[i];
+      saveState(state);
+      if (state[activeDate].steps[i]) spawnMiniSfx(el);
+      renderWorkout();
+    });
+  });
+
+  var btn = document.getElementById('completeBtn');
+  if (btn && !isSkipped) {
+    btn.addEventListener('click', function() {
+      if (!state[activeDate]) state[activeDate] = {};
+      var wasNotDone = !state[activeDate].done;
+      state[activeDate].done = !state[activeDate].done;
+      saveState(state);
+      if (state[activeDate].done && wasNotDone) { fireActionWord(); fireConfetti(); shakeScreen(); checkAchievements(); }
+      renderAll();
+    });
+  }
+
+  // SKIP / UNSKIP LISTENERS
+  var skipBtn = document.getElementById('skipBtn');
+  if (skipBtn) {
+    skipBtn.addEventListener('click', function() {
+      if (!state[activeDate]) state[activeDate] = {};
+      state[activeDate].skipped = true; state[activeDate].done = false; state[activeDate].steps = {};
+      saveState(state); renderAll();
+    });
+  }
+  var unskipBtn = document.getElementById('unskipBtn');
+  if (unskipBtn) {
+    unskipBtn.addEventListener('click', function() {
+      if (!state[activeDate]) state[activeDate] = {};
+      state[activeDate].skipped = false;
+      saveState(state); renderAll();
+    });
+  }
+}
+
+// RENDER STORY RECAP
+function renderStoryRecap() {
+  var completed = getCompletedCount();
+  var beat = STORY_BEATS[0];
+  for (var i = 0; i < STORY_BEATS.length; i++) {
+    if (completed >= STORY_BEATS[i].min) beat = STORY_BEATS[i];
+  }
+  document.getElementById('recapText').innerHTML = beat.text;
+  document.getElementById('recapNext').textContent = beat.next;
+}
+
+// RENDER ALL
+function renderAll() {
+  renderProgress();
+  renderHeroStrip();
+  renderWeekGrid();
+  renderMoto();
+  renderTabs();
+  renderWorkout();
+  renderStoryRecap();
+}
+
+// EFFECTS
+function fireActionWord() {
+  var word = ACTION_WORDS[Math.floor(Math.random() * ACTION_WORDS.length)];
+  var colors = ['var(--yellow)','var(--red)','var(--cyan)'];
+  var burst = document.createElement('div');
+  burst.className = 'action-burst';
+  burst.innerHTML = '<svg viewBox="0 0 200 200"><polygon points="100,10 120,75 190,75 130,115 150,180 100,140 50,180 70,115 10,75 80,75" fill="' + colors[Math.floor(Math.random()*colors.length)] + '" stroke="var(--ink)" stroke-width="3"/></svg>';
+  document.body.appendChild(burst);
+  setTimeout(function(){ burst.remove(); }, 1100);
+  var el = document.createElement('div');
+  el.className = 'action-word';
+  el.textContent = word;
+  document.body.appendChild(el);
+  setTimeout(function(){ el.remove(); }, 1100);
+}
+
+function fireConfetti() {
+  var container = document.getElementById('confetti');
+  container.innerHTML = '';
+  var colors = ['#FFE338','#E8142A','#1A47B8','#00D166','#00CFFF','#8B5CF6','#FF6B2B','#fff'];
+  var shapes = ['\u25A0','\u25CF','\u25B2','\u2605','\u25C6','\u26A1','\uD83D\uDCA5'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
+    var x = Math.random() * 100;
+    var size = 10 + Math.random() * 16;
+    var duration = 1 + Math.random() * 2;
+    var delay = Math.random() * 0.5;
+    var spin = Math.random() * 720;
+    piece.style.cssText = 'position:absolute;left:' + x + '%;top:-20px;color:' + colors[Math.floor(Math.random()*colors.length)] + ';font-size:' + size + 'px;font-family:Bangers,cursive;opacity:0;animation:confettiFall ' + duration + 's ' + delay + 's ease-in forwards;transform:rotate(' + spin + 'deg);text-shadow:1px 1px 0 rgba(0,0,0,0.3);';
+    piece.textContent = shapes[Math.floor(Math.random()*shapes.length)];
+    container.appendChild(piece);
+  }
+  setTimeout(function(){ container.innerHTML = ''; }, 4000);
+}
+
+function shakeScreen() {
+  document.body.classList.add('shake');
+  setTimeout(function(){ document.body.classList.remove('shake'); }, 400);
+}
+
+function spawnMiniSfx(el) {
+  var sfx = document.createElement('div');
+  var words = ['\u2713','\u2714','\uD83D\uDCA5','\u26A1','\u2728'];
+  sfx.style.cssText = 'position:absolute;right:-5px;top:-10px;font-size:16px;font-family:Bangers,cursive;pointer-events:none;z-index:10;animation:miniPop 0.5s ease-out forwards;';
+  sfx.textContent = words[Math.floor(Math.random()*words.length)];
+  el.style.position = 'relative';
+  el.appendChild(sfx);
+  setTimeout(function(){ sfx.remove(); }, 600);
+}
+
+function spawnAmbientSfx() {
+  var container = document.getElementById('floatingSfx');
+  setInterval(function() {
+    if (Math.random() > 0.3) return;
+    var word = SFX_WORDS[Math.floor(Math.random() * SFX_WORDS.length)];
+    var el = document.createElement('div');
+    el.className = 'sfx-word';
+    el.textContent = word;
+    var sfxColors = ['var(--red)','var(--blue)','var(--purple)','var(--ink)'];
+    el.style.cssText = 'left:' + (10 + Math.random() * 80) + '%;top:' + (20 + Math.random() * 60) + '%;font-size:' + (14 + Math.random() * 12) + 'px;color:' + sfxColors[Math.floor(Math.random()*sfxColors.length)] + ';letter-spacing:2px;';
+    container.appendChild(el);
+    setTimeout(function(){ el.remove(); }, 4500);
+  }, 5000);
+}
+
+// ACHIEVEMENTS
+function checkAchievements() {
+  var stats = {
+    completedCount: getCompletedCount(),
+    streak: getStreak(),
+    totalDays: planDays.length,
+    longRunsDone: planDays.filter(function(d){ var sd = getDayForDate(d.date); return sd && sd.type === 'longrun' && state[d.date] && state[d.date].done; }).length,
+  };
+  if (!state._achievements) state._achievements = {};
+  for (var i = 0; i < ACHIEVEMENTS.length; i++) {
+    var ach = ACHIEVEMENTS[i];
+    if (!state._achievements[ach.id] && ach.check(stats)) {
+      state._achievements[ach.id] = true;
+      saveState(state);
+      showAchievement(ach.text);
+      return;
+    }
+  }
+}
+
+function showAchievement(text) {
+  var toast = document.getElementById('achievementToast');
+  toast.textContent = text;
+  toast.classList.add('show');
+  setTimeout(function(){ toast.classList.remove('show'); }, 3500);
+}
+
+// DYNAMIC CSS
+var dynamicStyles = document.createElement('style');
+dynamicStyles.textContent = '@keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(100vh) rotate(720deg);}}@keyframes miniPop{0%{opacity:1;transform:scale(0.5) translateY(0);}100%{opacity:0;transform:scale(1.5) translateY(-20px);}}';
+document.head.appendChild(dynamicStyles);
+
+// INIT
+renderAll();
+if (state._splashSeen) { setTimeout(spawnAmbientSfx, 2000); }
+</script>
+</body>
+</html>
