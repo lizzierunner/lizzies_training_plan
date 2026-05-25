@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IRON LIZZIE & SARAH — RUNNING FROM DEADLINES</title>
+<title>IRON LIZZIE — HALF MARATHON TRAINING</title>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1463,10 +1463,10 @@ body::after {
   <div class="splash-corner br">APPROVED BY THE COMICS CODE</div>
   <div class="splash-content">
     <div class="splash-issue">PRESENTING THE INCREDIBLE</div>
-    <div class="splash-hero-silhouette">&#x1F9B8;&#x200D;&#x2640;&#xFE0F;&#x1F9B8;&#x200D;&#x2640;&#xFE0F;</div>
-    <div class="splash-title">IRON LIZZIE<br>&amp; SARAH</div>
-    <div class="splash-sub">RUNNING FROM DEADLINES</div>
-    <div class="splash-tagline">"They don't run FROM danger -- they run THROUGH it. Together."</div>
+    <div class="splash-hero-silhouette">&#x1F9B8;&#x200D;&#x2640;&#xFE0F;</div>
+    <div class="splash-title">IRON LIZZIE</div>
+    <div class="splash-sub">HALF MARATHON QUEST</div>
+    <div class="splash-tagline">"She doesn't run FROM the deadline — she runs THROUGH it."</div>
     <div class="splash-cta">-- TAP TO BEGIN YOUR ORIGIN STORY --</div>
   </div>
 </div>
@@ -1484,13 +1484,13 @@ body::after {
 
     <!-- MASTHEAD -->
     <div class="masthead">
-  <div class="masthead-badge" id="mastheadBadge">&#x1F3C1; JUN 13 &middot; VIRTUAL 10K</div>
+      <div class="masthead-badge" id="mastheadBadge">&#x1F3C1; AUG 9 &middot; VIRTUAL HALF MARATHON</div>
       <div class="masthead-vol">
         <span>VOL. 1 &middot; ISSUE #<span id="issueNum">1</span></span>
-        <span id="dateDisplay">MARCH 2026</span>
+        <span id="dateDisplay">MAY 2026</span>
       </div>
-      <h1>IRON LIZZIE<br>&amp; SARAH</h1>
-      <div class="masthead-sub">&#x26A1; RUNNING FROM DEADLINES &#x26A1;</div>
+      <h1>IRON LIZZIE</h1>
+      <div class="masthead-sub">&#x26A1; HALF MARATHON QUEST &#x26A1;</div>
     </div>
 
     <!-- HERO STRIP -->
@@ -1502,13 +1502,9 @@ body::after {
         <div class="streak-display" id="streakDisplay"></div>
       </div>
       <div class="villain-panel">
-          <div class="villain-label">&#x1F480; RACE DAY IN</div>
-          <div class="race-toggle">
-            <button id="race10kBtn" class="race-btn">10K · JUN 13</button>
-            <button id="raceHMBtn" class="race-btn">HM · AUG 9</button>
-          </div>
-          <div class="villain-value" id="villainCountdown">78</div>
-          <div class="villain-name" id="villainName">THE DEADLINE APPROACHES</div>
+          <div class="villain-label">&#x1F3C1; HALF MARATHON IN</div>
+          <div class="villain-value" id="villainCountdown">76</div>
+          <div class="villain-name" id="villainName">AUG 9 — THE DEADLINE APPROACHES</div>
       </div>
     </div>
 
@@ -1535,7 +1531,7 @@ body::after {
 
     <!-- SPEECH BUBBLE -->
     <div class="speech-bubble">
-      <div class="bubble-who">&#x1F9B8;&#x200D;&#x2640;&#xFE0F; IRON LIZZIE & SARAH SAY:</div>
+      <div class="bubble-who">&#x1F9B8;&#x200D;&#x2640;&#xFE0F; IRON LIZZIE SAYS:</div>
       <div class="bubble-text" id="motoText">Loading mission briefing...</div>
     </div>
 
@@ -1550,35 +1546,32 @@ body::after {
     <div class="story-recap">
       <div class="recap-title">&#x1F4D6; THE STORY SO FAR...</div>
       <div class="recap-text" id="recapText">
-        Our heroes <em>Iron Lizzie &amp; Sarah</em> have begun their quest. The virtual 10K looms on the horizon like a supervillain's fortress. But together, nothing can stop them...
+        <em>Iron Lizzie</em> has begun her quest. The Half Marathon on August 9th looms like a supervillain's fortress. One hero. One goal. Let's go.
       </div>
       <div class="recap-next" id="recapNext">NEXT ISSUE: THE TRAINING BEGINS! &rarr;</div>
     </div>
   </div>
 
-  <div class="page-number">-- PAGE 1 OF THE IRON LIZZIE &amp; SARAH SAGA --</div>
+  <div class="page-number">-- PAGE 1 OF THE IRON LIZZIE HALF MARATHON SAGA --</div>
 </div>
 
 <script>
-var STORAGE_KEY = 'ironlizzie_sarah_v1';
+var STORAGE_KEY = 'ironlizzie_hm_v1';
 var WEEK_DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 var MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-var RACE_DATE = new Date('2026-06-13T00:00:00');
-var HM_DATE = new Date('2026-08-09T00:00:00');
-// activeRace: '10k' or 'hm'
-var activeRace = '10k';
+var RACE_DATE = new Date('2026-08-09T00:00:00');
 
 var ACTION_WORDS = ['POW!','ZAP!','BAM!','KA-POW!','WHAM!','SMASH!','BOOM!','KAPOW!','THWACK!','CRUNCH!','YES!!','HEROIC!'];
 var SFX_WORDS = ['*WHOOSH*','*THUD*','*CRACK*','*SWOOSH*','*ZING*','*KAPOW*','*WHAM*','*THWIP*'];
 
 var RANKS = [
-  { min: 0,    name: 'SIDEKICK',       emoji: '\uD83E\uDDB8' },
-  { min: 100,  name: 'ROOKIE HERO',    emoji: '\u26A1' },
-  { min: 300,  name: 'STREET GUARDIAN', emoji: '\uD83D\uDEE1' },
-  { min: 600,  name: 'CITY DEFENDER',   emoji: '\uD83C\uDFD9' },
-  { min: 1000, name: 'SUPER HERO',     emoji: '\uD83D\uDCA5' },
-  { min: 1500, name: 'ULTRA LEGEND',   emoji: '\uD83C\uDF1F' },
-  { min: 2000, name: 'IRON LIZZIE & SARAH', emoji: '\uD83E\uDDB8\u200D\u2640\uFE0F' },
+  { min: 0,    name: 'SIDEKICK',        emoji: '\uD83E\uDDB8' },
+  { min: 100,  name: 'ROOKIE RUNNER',   emoji: '\u26A1' },
+  { min: 300,  name: 'PAVEMENT HERO',   emoji: '\uD83D\uDEE1' },
+  { min: 700,  name: 'DISTANCE WARRIOR',emoji: '\uD83C\uDFD9' },
+  { min: 1200, name: 'HALF MARATHON HUNTER', emoji: '\uD83D\uDCA5' },
+  { min: 1800, name: 'ULTRA LEGEND',    emoji: '\uD83C\uDF1F' },
+  { min: 2500, name: 'IRON LIZZIE',     emoji: '\uD83E\uDDB8\u200D\u2640\uFE0F' },
 ];
 
 var ACHIEVEMENTS = [
@@ -1587,440 +1580,547 @@ var ACHIEVEMENTS = [
   { id: 'five_streak',   check: function(s){ return s.streak >= 5; }, text: '\uD83D\uDD25\uD83D\uDD25 5-DAY STREAK! UNSTOPPABLE!' },
   { id: 'half_way',      check: function(s){ return s.completedCount >= Math.floor(s.totalDays / 2); }, text: '\u2B50 HALFWAY HERO! 50% DONE!' },
   { id: 'ten_done',      check: function(s){ return s.completedCount >= 10; }, text: '\uD83D\uDCAA 10 MISSIONS CRUSHED!' },
-  { id: 'twenty_done',   check: function(s){ return s.completedCount >= 20; }, text: '\uD83D\uDE80 20 MISSIONS! UNSTOPPABLE DUO!' },
+  { id: 'twenty_done',   check: function(s){ return s.completedCount >= 20; }, text: '\uD83D\uDE80 20 MISSIONS DOWN! UNSTOPPABLE!' },
+  { id: 'thirty_done',   check: function(s){ return s.completedCount >= 30; }, text: '\uD83D\uDD25 30 MISSIONS! YOU\'RE A MACHINE!' },
   { id: 'long_run',      check: function(s){ return s.longRunsDone >= 1; }, text: '\uD83C\uDF05 FIRST LONG RUN CONQUERED!' },
-  { id: 'race_dist',     check: function(s){ return s.longRunsDone >= 3; }, text: '\uD83C\uDFC6 RACE DISTANCE UNLOCKED!' },
-  { id: 'half_marathon', check: function(s){ return s.longRunsDone >= 6; }, text: '\uD83C\uDFC6\uD83D\uDD25 HALF MARATHON READY! 13.1 IN SIGHT!' },
+  { id: 'long_run_5',    check: function(s){ return s.longRunsDone >= 5; }, text: '\uD83C\uDFC6 5 LONG RUNS IN! HALF MARATHON READY!' },
 ];
 
 var STORY_BEATS = [
-  { min: 0,  text: 'Our heroes <em>Iron Lizzie &amp; Sarah</em> have begun their quest. The virtual 10K looms on the horizon like a supervillain\'s fortress. Together they\'ll conquer it \u2014 one run at a time...', next: 'NEXT ISSUE: THE TRAINING BEGINS! \u2192' },
-  { min: 5,  text: '<em>Iron Lizzie &amp; Sarah</em> have found their rhythm! The dynamic duo is building a base. Walk breaks are their SECRET WEAPON. The citizens are watching...', next: 'NEXT ISSUE: THE STRENGTH ARC! \u2192' },
-  { min: 12, text: 'Weeks of training conquered! The duo\'s power level is rising. Each mile is a chapter in their origin story. The Dementors of self-doubt scatter before them...', next: 'NEXT ISSUE: THE LONG RUN CHALLENGE! \u2192' },
-  { min: 20, text: 'The halfway point! <em>Lizzie &amp; Sarah</em> stand atop the training montage of their lives. They\'ve run farther than they ever imagined. The 10K villain is starting to look... beatable.', next: 'NEXT ISSUE: THE FINAL TRAINING ARC! \u2192' },
-  { min: 35, text: '<em>Iron Lizzie &amp; Sarah</em> have become UNSTOPPABLE. Race distance conquered in training. The 10K was a victory — now the half marathon looms. The duo eyes a new summit.', next: 'THE FINALE: VIRTUAL HALF MARATHON \u2192 AUG 9! \uD83C\uDFC6' },
+  { min: 0,  text: '<em>Iron Lizzie</em> has taken on the Half Marathon quest. August 9th looms like a supervillain\'s fortress. One hero. One mission. The Galloway method is her secret weapon...', next: 'NEXT ISSUE: THE TRAINING BEGINS! \u2192' },
+  { min: 5,  text: '<em>Iron Lizzie</em> has found her rhythm! Run-walk-run. The intervals are stacking up. Strength days are building race-ready legs. The citizens cheer her on...', next: 'NEXT ISSUE: THE STRENGTH ARC! \u2192' },
+  { min: 14, text: 'Weeks conquered! <em>Iron Lizzie\'s</em> power level is rising. Each Saturday long run is a new chapter. Self-doubt scatters before her. The fortress walls are crumbling...', next: 'NEXT ISSUE: THE LONG RUN CHALLENGE! \u2192' },
+  { min: 28, text: 'The halfway point! <em>Iron Lizzie</em> stands atop the training montage of her life. She\'s run farther than she ever imagined. August 9th is starting to look... BEATABLE.', next: 'NEXT ISSUE: THE FINAL BUILD! \u2192' },
+  { min: 42, text: '<em>Iron Lizzie</em> has become UNSTOPPABLE. Long runs conquered. Legs strong. Galloway locked in. August 9th belongs to HER.', next: 'THE FINALE: VIRTUAL HALF MARATHON \u2192 AUG 9! \uD83C\uDFC6' },
 ];
 
-// ===== 11-WEEK TRAINING PLAN: Mar 27 - Jun 13, 2026 =====
-// Pattern per week: Mon=Run, Tue=Strength A, Wed=Run, Thu=Strength B, Fri=Rest, Sat=Long Run, Sun=Rest
-// Starting today (Fri Mar 27) with a partial first week
+// ===== IRON LIZZIE HALF MARATHON PLAN: May 25 - Aug 9, 2026 =====
+// Mon/Wed/Fri = Galloway run | Tue/Thu = Strength A/B | Sat = Long Run | Sun = Rest
 var planDays = [
-  // === WEEK 1 (Partial — Fri Mar 27 - Sun Mar 29) ===
-  { date: '2026-03-27', type: 'run',
-    title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn',
-    pow: 'GO!', moto: 'First run! Keep it easy and conversational. You\'re building the foundation of something epic. \uD83D\uDE80',
-    steadyMoto: 'Steady state — one comfortable pace the whole way. No intervals, just flow. \uD83C\uDF3F',
-    distance: '1.5 miles', duration: '20\u201325 min', intervals: '60s RUN / 30s WALK', xp: 25,
+  // === WEEK 1 (May 25–31) ===
+  { date: '2026-05-25', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'LET'S GO!', moto: 'Week 1 — welcome to the plan! Keep it easy and conversational. 🚀',
+    steadyMoto: 'Steady easy pace the whole way. No pressure. 🌿',
+    distance: '2 miles', duration: '25–30 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s run / 30s walk for 2 mi', time: '20 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy steady run 2 mi', time: '20 min' }, { text: 'Cooldown walk', time: '5 min' } ] },
+  { date: '2026-05-26', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'POWER!', moto: 'Strength Day A — lower body + push. Build the engine! 🔥',
+    distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
     steps: [
-      { text: 'Put on your favorite podcast or playlist \uD83C\uDFA7', time: '2 min' },
-      { text: '5 min easy warmup walk', time: '5 min' },
-      { text: 'Galloway: 60s run / 30s walk \u2014 repeat for 1.5 mi', time: '15\u201318 min' },
-      { text: '3 min cooldown walk', time: '3 min' },
-      { text: 'Stretch: calves + hip flexors', time: '3 min' },
+      { text: 'Bodyweight squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×15' },
+      { text: 'Push-ups 3×10 (knees OK)', time: '5 min', bw: 'Wall push-ups 3×12' },
+      { text: 'Reverse lunges 3×10 each leg', time: '5 min', bw: 'Step-back lunges 3×10' },
+      { text: 'Glute bridges 3×15', time: '5 min', bw: 'Glute bridges 3×15' },
+      { text: 'Plank hold 3×30s', time: '3 min', bw: 'Plank on knees 3×30s' }
+    ] },
+  { date: '2026-05-27', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'KEEP MOVING!', moto: 'Midweek run — easy effort, just get the miles in.',
+    steadyMoto: 'Nice and steady. Just flow.',
+    distance: '2 miles', duration: '25–30 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s run / 30s walk for 2 mi', time: '20 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy steady run 2 mi', time: '20 min' }, { text: 'Cooldown walk', time: '5 min' } ] },
+  { date: '2026-05-28', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'GRIND!', moto: 'Strength Day B — hinge + core + upper back. Support those running muscles! 💥',
+    distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
+    steps: [
+      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×12' },
+      { text: 'Bent-over dumbbell rows 3×12', time: '5 min', bw: 'Resistance band rows 3×12' },
+      { text: 'Side lunges 3×10 each side', time: '5 min', bw: 'Side step squats 3×10' },
+      { text: 'Dead bug 3×8 each side', time: '4 min', bw: 'Dead bug 3×8 each side' },
+      { text: 'Superman hold 3×10', time: '3 min', bw: 'Superman hold 3×10' }
+    ] },
+  { date: '2026-05-29', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FRIDAY FIRE!', moto: 'End the week strong — easy 2.5 miles.',
+    steadyMoto: 'Steady and smooth. Friday energy!',
+    distance: '2.5 miles', duration: '30–35 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady run 2.5 mi', time: '25 min' }, { text: 'Cooldown walk', time: '5 min' } ] },
+  { date: '2026-05-30', type: 'longrun', title: 'LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'DISTANCE!', moto: 'First long run of the plan — 4 miles! Take it slow and enjoy the journey. 🌄',
+    steadyMoto: 'Long steady run — 4 miles, no rush.',
+    distance: '4 miles', duration: '50–60 min', intervals: '60s RUN / 30s WALK', xp: 60,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 4 miles', time: '45 min' }, { text: 'Cooldown walk + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady run 4 miles', time: '45 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-05-31', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'RECHARGE', moto: 'Total rest — you earned it. Hydrate, eat well, let those legs recover. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 2 (Jun 1–7) ===
+  { date: '2026-06-01', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'WEEK 2!', moto: 'Week 2 begins! 2.5 miles — easy and light.',
+    steadyMoto: 'Easy steady 2.5 miles.',
+    distance: '2.5 miles', duration: '30–35 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 2.5 mi', time: '25 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 2.5 mi', time: '25 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-02', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'STRONGER!', moto: 'Strength A — push those numbers up a little this week! 🔥',
+    distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
+    steps: [
+      { text: 'Goblet squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×15' },
+      { text: 'Push-ups 3×12', time: '5 min', bw: 'Incline push-ups 3×12' },
+      { text: 'Walking lunges 3×10 each', time: '5 min', bw: 'Walking lunges 3×10 each' },
+      { text: 'Glute bridges 3×15', time: '5 min', bw: 'Glute bridges 3×15' },
+      { text: 'Plank 3×35s', time: '3 min', bw: 'Plank on knees 3×35s' }
+    ] },
+  { date: '2026-06-03', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'KEEP IT UP!', moto: 'Midweek miles — 2.5 easy. Stay conversational.',
+    steadyMoto: 'Easy 2.5 miles steady.',
+    distance: '2.5 miles', duration: '30–35 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 2.5 mi', time: '25 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 2.5 mi', time: '25 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-04', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'GRIND!', moto: 'Strength B — work that posterior chain! 💥',
+    distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
+    steps: [
+      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×12' },
+      { text: 'Dumbbell rows 3×12', time: '5 min', bw: 'Resistance band rows 3×12' },
+      { text: 'Side lunges 3×10 each', time: '5 min', bw: 'Side step squats 3×10' },
+      { text: 'Dead bug 3×8 each', time: '4 min', bw: 'Dead bug 3×8 each' },
+      { text: 'Superman 3×12', time: '3 min', bw: 'Superman 3×12' }
+    ] },
+  { date: '2026-06-05', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FRIDAY!', moto: 'Friday 3 miles — you're getting stronger every week! 🔥',
+    steadyMoto: 'Steady 3 miles.',
+    distance: '3 miles', duration: '35–40 min', intervals: '60s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 3 mi', time: '30 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 3 mi', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-06', type: 'longrun', title: 'LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'GO LONG!', moto: '5 miles — a new long run record incoming! Trust the walk breaks. 🌄',
+    steadyMoto: 'Steady 5 miles. Long and easy.',
+    distance: '5 miles', duration: '60–70 min', intervals: '60s RUN / 30s WALK', xp: 70,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 5 mi', time: '55 min' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 5 mi', time: '55 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-06-07', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST UP', moto: 'Rest day. Eat well, sleep well, drink water. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 3 (Jun 8–14) ===
+  { date: '2026-06-08', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'WEEK 3!', moto: 'Week 3! 3 miles — dial in your run/walk rhythm.',
+    steadyMoto: 'Easy 3 miles steady.',
+    distance: '3 miles', duration: '35–40 min', intervals: '60s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 3 mi', time: '30 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 3 mi', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-09', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'POWER!', moto: 'Strength A — try adding a little weight if you can! 💪',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 35,
+    steps: [
+      { text: 'Goblet squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×20' },
+      { text: 'Push-ups 3×12', time: '5 min', bw: 'Push-ups 3×12' },
+      { text: 'Walking lunges 3×12 each', time: '5 min', bw: 'Walking lunges 3×12 each' },
+      { text: 'Single-leg glute bridges 3×10 each', time: '5 min', bw: 'Glute bridges 3×20' },
+      { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
+    ] },
+  { date: '2026-06-10', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'STEADY!', moto: '3 miles midweek — notice how much easier it feels already!',
+    steadyMoto: 'Smooth 3 miles.',
+    distance: '3 miles', duration: '35–40 min', intervals: '60s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 3 mi', time: '30 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 3 mi', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-11', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'BUILD!', moto: 'Strength B — strong back, strong run! 🦾',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 35,
+    steps: [
+      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×15' },
+      { text: 'Bent-over rows 3×12', time: '5 min', bw: 'Band rows 3×15' },
+      { text: 'Curtsy lunges 3×10 each', time: '5 min', bw: 'Curtsy lunges 3×10 each' },
+      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
+      { text: 'Bird-dog 3×10 each', time: '3 min', bw: 'Bird-dog 3×10 each' }
+    ] },
+  { date: '2026-06-12', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FRIDAY!', moto: '3.5 miles — push into the weekend feeling accomplished! 🔥',
+    steadyMoto: 'Steady 3.5 miles.',
+    distance: '3.5 miles', duration: '40–45 min', intervals: '60s RUN / 30s WALK', xp: 40,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 3.5 mi', time: '35 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 3.5 mi', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-13', type: 'longrun', title: 'LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'GO LONG!', moto: '6 miles — you're in half marathon territory now! Fuel well and enjoy. 🌄',
+    steadyMoto: 'Steady 6 miles. Long and proud.',
+    distance: '6 miles', duration: '70–80 min', intervals: '60s RUN / 30s WALK', xp: 80,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 6 mi', time: '65 min' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 6 mi', time: '65 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-06-14', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: 'Recovery day. Let the body absorb all that hard work. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 4 (Jun 15–21) ===
+  { date: '2026-06-15', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'WEEK 4!', moto: 'Build phase begins! 3 miles — fresh legs after rest. 💥',
+    steadyMoto: 'Easy steady 3 miles.',
+    distance: '3 miles', duration: '35–40 min', intervals: '90s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 3 mi', time: '30 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 3 mi', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-16', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'BUILD PHASE!', moto: 'Strength A — build phase edition. Add weight, slow down reps. 🔥',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Goblet squats 4×12', time: '6 min', bw: 'Bodyweight squats 4×20' },
+      { text: 'Push-ups 3×15', time: '5 min', bw: 'Push-ups 3×15' },
+      { text: 'Reverse lunges 4×10 each', time: '6 min', bw: 'Reverse lunges 4×10 each' },
+      { text: 'Single-leg glute bridge 3×12 each', time: '5 min', bw: 'Single-leg glute bridge 3×12 each' },
+      { text: 'Plank 3×45s', time: '3 min', bw: 'Plank 3×45s' }
+    ] },
+  { date: '2026-06-17', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'MIDWEEK!', moto: '3.5 miles — build is real, enjoy it!',
+    steadyMoto: 'Steady 3.5 miles.',
+    distance: '3.5 miles', duration: '40–45 min', intervals: '90s RUN / 30s WALK', xp: 40,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 3.5 mi', time: '35 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 3.5 mi', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-18', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'GRIND!', moto: 'Strength B — build phase. You're getting seriously strong! 💥',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Romanian deadlift 4×10', time: '6 min', bw: 'Good mornings 4×15' },
+      { text: 'Bent-over rows 4×10', time: '6 min', bw: 'Band rows 4×15' },
+      { text: 'Side lunges 3×12 each', time: '5 min', bw: 'Side squats 3×12 each' },
+      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
+      { text: 'Hollow body hold 3×20s', time: '3 min', bw: 'Hollow body hold 3×20s' }
+    ] },
+  { date: '2026-06-19', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FRIDAY FIRE!', moto: '4 miles — first Friday at this distance! 🔥',
+    steadyMoto: 'Steady 4 miles.',
+    distance: '4 miles', duration: '45–55 min', intervals: '90s RUN / 30s WALK', xp: 45,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 4 mi', time: '45 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4 mi', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-20', type: 'longrun', title: 'LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'GO LONG!', moto: '7 miles — over half the half marathon distance! You're doing it! 🌄',
+    steadyMoto: 'Steady 7 miles. Pace yourself.',
+    distance: '7 miles', duration: '80–95 min', intervals: '90s RUN / 30s WALK', xp: 90,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 7 mi', time: '80 min' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 7 mi', time: '80 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-06-21', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: 'Rest and recover. Long run done — you crushed it! 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 5 (Jun 22–28) ===
+  { date: '2026-06-22', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'WEEK 5!', moto: '3.5 miles — halfway through the plan, warrior! 💥',
+    steadyMoto: 'Easy steady 3.5 miles.',
+    distance: '3.5 miles', duration: '40–45 min', intervals: '90s RUN / 30s WALK', xp: 40,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 3.5 mi', time: '38 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 3.5 mi', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-23', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'POWER!', moto: 'Strength A — week 5. Feel the difference? 🔥',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Goblet squats 4×12', time: '6 min', bw: 'Bodyweight squats 4×20' },
+      { text: 'Push-ups 4×12', time: '6 min', bw: 'Push-ups 4×12' },
+      { text: 'Step-ups 3×12 each', time: '5 min', bw: 'Step-ups on chair 3×12 each' },
+      { text: 'Glute bridge march 3×10 each', time: '5 min', bw: 'Glute bridge march 3×10 each' },
+      { text: 'Side plank 3×25s each', time: '4 min', bw: 'Side plank on knees 3×25s each' }
+    ] },
+  { date: '2026-06-24', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'BUILDING!', moto: '4 miles mid-week — this is race pace training country! 🏃‍♀️',
+    steadyMoto: 'Steady 4 miles.',
+    distance: '4 miles', duration: '45–55 min', intervals: '90s RUN / 30s WALK', xp: 45,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 4 mi', time: '45 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4 mi', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-25', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'IRON LEGS!', moto: 'Strength B — strong glutes = fast running! 💥',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Romanian deadlift 4×10', time: '6 min', bw: 'Good mornings 4×15' },
+      { text: 'Single-arm rows 3×12 each', time: '5 min', bw: 'Towel rows 3×12 each' },
+      { text: 'Lateral band walks 3×15 each', time: '5 min', bw: 'Lateral shuffles 3×15 each' },
+      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
+      { text: 'Reverse hypers 3×12', time: '3 min', bw: 'Superman 3×15' }
+    ] },
+  { date: '2026-06-26', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FRIDAY!', moto: '4 miles to close out the week! Solid effort. 🔥',
+    steadyMoto: 'Steady 4 miles.',
+    distance: '4 miles', duration: '45–55 min', intervals: '90s RUN / 30s WALK', xp: 45,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 4 mi', time: '45 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4 mi', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-27', type: 'longrun', title: 'LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'GO LONG!', moto: '8 miles — this is where champions are made! ��',
+    steadyMoto: 'Steady 8 miles. Fuel at mile 4.',
+    distance: '8 miles', duration: '95–110 min', intervals: '90s RUN / 30s WALK', xp: 100,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 8 mi', time: '95 min' }, { text: 'Fuel/water at mile 4', time: 'during' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 8 mi, fuel at mile 4', time: '90 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-06-28', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: '8 miles done. LEGEND. Rest hard. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 6 (Jun 29–Jul 5) ===
+  { date: '2026-06-29', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'WEEK 6!', moto: '4 miles — peak training window is HERE! 💥',
+    steadyMoto: 'Easy steady 4 miles.',
+    distance: '4 miles', duration: '45–55 min', intervals: '2 min RUN / 30s WALK', xp: 45,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 4 mi', time: '45 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4 mi', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-06-30', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'PEAK STRENGTH!', moto: 'Strength A — peak phase. Work hard, you're almost there! ��',
+    distance: '', duration: '40 min', intervals: 'CIRCUIT', xp: 45,
+    steps: [
+      { text: 'Goblet squats 4×15', time: '6 min', bw: 'Bodyweight squats 4×25' },
+      { text: 'Push-ups 4×15', time: '6 min', bw: 'Push-ups 4×15' },
+      { text: 'Step-up with knee drive 3×12 each', time: '6 min', bw: 'Step-up with knee drive 3×12 each' },
+      { text: 'Hip thrust 3×15', time: '5 min', bw: 'Glute bridge 3×20' },
+      { text: 'Plank 3×50s', time: '4 min', bw: 'Plank 3×50s' }
+    ] },
+  { date: '2026-07-01', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'JULY!', moto: 'Welcome to July! 4 miles — the race is getting close! 🏃‍♀️',
+    steadyMoto: 'Steady 4 miles.',
+    distance: '4 miles', duration: '45–55 min', intervals: '2 min RUN / 30s WALK', xp: 45,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 4 mi', time: '45 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4 mi', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-02', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'STRONG!', moto: 'Strength B — peak edition. You're race-ready strong! 💥',
+    distance: '', duration: '40 min', intervals: 'CIRCUIT', xp: 45,
+    steps: [
+      { text: 'Romanian deadlift 4×12', time: '6 min', bw: 'Good mornings 4×15' },
+      { text: 'Bent-over rows 4×12', time: '6 min', bw: 'Band rows 4×15' },
+      { text: 'Cossack squats 3×8 each', time: '5 min', bw: 'Deep side lunges 3×8 each' },
+      { text: 'Pallof press 3×10 each', time: '4 min', bw: 'Band rotation 3×10 each' },
+      { text: 'Superman 3×15', time: '3 min', bw: 'Superman 3×15' }
+    ] },
+  { date: '2026-07-03', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FIRE!', moto: '4.5 miles — long weekend energy! 🔥',
+    steadyMoto: 'Steady 4.5 miles.',
+    distance: '4.5 miles', duration: '50–60 min', intervals: '2 min RUN / 30s WALK', xp: 50,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 4.5 mi', time: '50 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4.5 mi', time: '50 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-04', type: 'longrun', title: 'LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'GO LONG!', moto: '9 miles — Independence Day long run! Run free, run far! 🎆🌄',
+    steadyMoto: 'Steady 9 miles. This is your peak.',
+    distance: '9 miles', duration: '105–120 min', intervals: '2 min RUN / 30s WALK', xp: 110,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 9 mi', time: '105 min' }, { text: 'Fuel/water every 3 miles', time: 'during' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 9 mi, fuel every 3 miles', time: '105 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-07-05', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: '9 miles! You are officially a runner. Rest up. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 7 (Jul 6–12) ===
+  { date: '2026-07-06', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'WEEK 7!', moto: '4 miles — active recovery. Legs should feel good off rest. 💥',
+    steadyMoto: 'Easy steady 4 miles.',
+    distance: '4 miles', duration: '45–55 min', intervals: '2 min RUN / 30s WALK', xp: 45,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 4 mi', time: '45 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4 mi', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-07', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'POWER!', moto: 'Strength A — keeping the engine running! 🔥',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Goblet squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×20' },
+      { text: 'Push-ups 3×15', time: '5 min', bw: 'Push-ups 3×15' },
+      { text: 'Reverse lunges 3×12 each', time: '5 min', bw: 'Reverse lunges 3×12 each' },
+      { text: 'Hip thrust 3×15', time: '5 min', bw: 'Glute bridge 3×20' },
+      { text: 'Plank 3×45s', time: '3 min', bw: 'Plank 3×45s' }
+    ] },
+  { date: '2026-07-08', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'KEEP GOING!', moto: '4.5 miles — so close to peak week! 🏃‍♀️',
+    steadyMoto: 'Steady 4.5 miles.',
+    distance: '4.5 miles', duration: '50–60 min', intervals: '2 min RUN / 30s WALK', xp: 50,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 4.5 mi', time: '50 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4.5 mi', time: '50 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-09', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'GRIND!', moto: 'Strength B — last heavy strength before peak! 💥',
+    distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×15' },
+      { text: 'Rows 3×12', time: '5 min', bw: 'Band rows 3×15' },
+      { text: 'Side lunges 3×10 each', time: '5 min', bw: 'Side squats 3×10 each' },
+      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
+      { text: 'Bird-dog 3×10 each', time: '3 min', bw: 'Bird-dog 3×10 each' }
+    ] },
+  { date: '2026-07-10', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FRIDAY FIRE!', moto: '5 miles Friday — peak week preview! 🔥',
+    steadyMoto: 'Steady 5 miles.',
+    distance: '5 miles', duration: '55–65 min', intervals: '2 min RUN / 30s WALK', xp: 55,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 5 mi', time: '55 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 5 mi', time: '55 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-11', type: 'longrun', title: 'LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'GO LONG!', moto: '10 miles — double digits! This is your proving ground. 🌄',
+    steadyMoto: 'Steady 10 miles. Fuel like race day.',
+    distance: '10 miles', duration: '115–135 min', intervals: '2 min RUN / 30s WALK', xp: 120,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 10 mi', time: '115 min' }, { text: 'Fuel/water every 3 miles', time: 'during' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 10 mi, fuel every 3 miles', time: '115 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-07-12', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: '10 miles. You are absolutely incredible. REST! 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 8 — PEAK (Jul 13–19) ===
+  { date: '2026-07-13', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'PEAK WEEK!', moto: 'PEAK WEEK IS HERE! 4.5 miles — keep it easy, save legs for Saturday. 💥',
+    steadyMoto: 'Easy steady 4.5 miles.',
+    distance: '4.5 miles', duration: '50–60 min', intervals: '2 min RUN / 30s WALK', xp: 50,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 4.5 mi', time: '50 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 4.5 mi', time: '50 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-14', type: 'strength', title: 'STRENGTH A', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'PEAK POWER!', moto: 'Strength A — peak week. Moderate effort, save energy for the long run! 🔥',
+    distance: '', duration: '30–35 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Goblet squats 3×12', time: '5 min', bw: 'Bodyweight squats 3×15' },
+      { text: 'Push-ups 3×12', time: '5 min', bw: 'Push-ups 3×12' },
+      { text: 'Reverse lunges 3×10 each', time: '5 min', bw: 'Reverse lunges 3×10 each' },
+      { text: 'Glute bridge 3×15', time: '4 min', bw: 'Glute bridge 3×15' },
+      { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
+    ] },
+  { date: '2026-07-15', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'PEAK!', moto: '5 miles midweek during peak week — THAT is elite. 🏃‍♀️',
+    steadyMoto: 'Steady 5 miles.',
+    distance: '5 miles', duration: '55–65 min', intervals: '2 min RUN / 30s WALK', xp: 55,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 5 mi', time: '55 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 5 mi', time: '55 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-16', type: 'strength', title: 'STRENGTH B', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'STRONG!', moto: 'Strength B — last hard session before the big 12! Keep it moderate. 💥',
+    distance: '', duration: '30–35 min', intervals: 'CIRCUIT', xp: 40,
+    steps: [
+      { text: 'Romanian deadlift 3×10', time: '5 min', bw: 'Good mornings 3×12' },
+      { text: 'Rows 3×10', time: '4 min', bw: 'Band rows 3×12' },
+      { text: 'Side lunges 3×10 each', time: '4 min', bw: 'Side squats 3×10 each' },
+      { text: 'Dead bug 3×8 each', time: '3 min', bw: 'Dead bug 3×8 each' },
+      { text: 'Superman 3×12', time: '3 min', bw: 'Superman 3×12' }
+    ] },
+  { date: '2026-07-17', type: 'run', title: 'EASY FRIDAY', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'EASY!', moto: 'Easy 3 miles Friday — saving legs for peak long run tomorrow! 🔥',
+    steadyMoto: 'Easy 3 miles. Save it for Saturday.',
+    distance: '3 miles', duration: '35–40 min', intervals: '90s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy Galloway 90s/30s for 3 mi', time: '30 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy steady 3 mi', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-18', type: 'longrun', title: 'PEAK LONG RUN', icon: '🏆', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'PEAK!', moto: '12 MILES — YOUR LONGEST RUN EVER. You are ready for Aug 9. GO! 🌄🔥',
+    steadyMoto: 'Steady 12 miles. This is your race day rehearsal.',
+    distance: '12 miles', duration: '135–155 min', intervals: '2 min RUN / 30s WALK', xp: 150,
+    steps: [ { text: 'Early start — warmup walk', time: '5 min' }, { text: 'Galloway 2min/30s for 12 mi', time: '140 min' }, { text: 'Fuel/water every 3 miles', time: 'during' }, { text: 'Cooldown + full stretch', time: '15 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Steady 12 mi, fuel every 3 miles', time: '135 min' }, { text: 'Cooldown + full stretch', time: '15 min' } ] },
+  { date: '2026-07-19', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'LEGEND', moto: '12 MILES. You are an absolute legend. TAPER BEGINS. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, legs up', time: 'all day' } ] },
+
+  // === WEEK 9 — TAPER (Jul 20–26) ===
+  { date: '2026-07-20', type: 'run', title: 'TAPER RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'TAPER!', moto: 'TAPER WEEK — 3.5 miles. Feel the freshness returning! 💥',
+    steadyMoto: 'Easy steady 3.5 miles.',
+    distance: '3.5 miles', duration: '40–45 min', intervals: '90s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 3.5 mi', time: '35 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy steady 3.5 mi', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-21', type: 'strength', title: 'STRENGTH A (LIGHT)', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'LIGHT!', moto: 'Light strength — maintain, don't train. Keep the body primed! 🔥',
+    distance: '', duration: '25–30 min', intervals: 'LIGHT CIRCUIT', xp: 30,
+    steps: [
+      { text: 'Bodyweight squats 2×15', time: '4 min', bw: 'Bodyweight squats 2×15' },
+      { text: 'Push-ups 2×10', time: '3 min', bw: 'Push-ups 2×10' },
+      { text: 'Reverse lunges 2×10 each', time: '4 min', bw: 'Reverse lunges 2×10 each' },
+      { text: 'Glute bridge 2×15', time: '3 min', bw: 'Glute bridge 2×15' },
+      { text: 'Plank 2×30s', time: '2 min', bw: 'Plank 2×30s' }
+    ] },
+  { date: '2026-07-22', type: 'run', title: 'TAPER RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'FRESH LEGS!', moto: '4 miles — notice how light your legs feel! Taper magic! 🏃‍♀️',
+    steadyMoto: 'Easy 4 miles. Enjoy the taper.',
+    distance: '4 miles', duration: '45–55 min', intervals: '90s RUN / 30s WALK', xp: 40,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 4 mi', time: '45 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy steady 4 mi', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-23', type: 'strength', title: 'STRENGTH B (LIGHT)', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'MAINTAIN!', moto: 'Light Strength B — activate the muscles, then rest. 💥',
+    distance: '', duration: '25–30 min', intervals: 'LIGHT CIRCUIT', xp: 30,
+    steps: [
+      { text: 'Good mornings 2×12', time: '4 min', bw: 'Good mornings 2×12' },
+      { text: 'Band rows 2×12', time: '3 min', bw: 'Band rows 2×12' },
+      { text: 'Side lunges 2×8 each', time: '3 min', bw: 'Side lunges 2×8 each' },
+      { text: 'Dead bug 2×8 each', time: '3 min', bw: 'Dead bug 2×8 each' },
+      { text: 'Bird-dog 2×8 each', time: '3 min', bw: 'Bird-dog 2×8 each' }
+    ] },
+  { date: '2026-07-24', type: 'run', title: 'TAPER RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'TAPER!', moto: '3.5 miles easy — run relaxed, feel powerful! 🔥',
+    steadyMoto: 'Easy 3.5 miles.',
+    distance: '3.5 miles', duration: '40–45 min', intervals: '90s RUN / 30s WALK', xp: 35,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 3.5 mi', time: '35 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy 3.5 mi', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-25', type: 'longrun', title: 'TAPER LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'TAPER!', moto: '8 miles — controlled, relaxed, confident. The hay is in the barn. 🌄',
+    steadyMoto: 'Steady 8 miles. Easy effort.',
+    distance: '8 miles', duration: '90–105 min', intervals: '90s RUN / 30s WALK', xp: 80,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 90s/30s for 8 mi', time: '90 min' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy steady 8 mi', time: '90 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-07-26', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: 'Two weeks to race day! Rest up, visualize success. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, foam roll', time: 'all day' } ] },
+
+  // === WEEK 10 — FINAL TAPER (Jul 27–Aug 2) ===
+  { date: '2026-07-27', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'ALMOST THERE!', moto: '3 miles — feeling fast and fresh! Race week is next! 💥',
+    steadyMoto: 'Easy 3 miles.',
+    distance: '3 miles', duration: '35–40 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 3 mi', time: '30 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy 3 mi', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-28', type: 'strength', title: 'STRENGTH A (LIGHT)', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'LIGHT!', moto: 'Final strength A — activate and go. Nothing heavy! 🔥',
+    distance: '', duration: '20–25 min', intervals: 'LIGHT CIRCUIT', xp: 25,
+    steps: [
+      { text: 'Bodyweight squats 2×12', time: '3 min', bw: 'Bodyweight squats 2×12' },
+      { text: 'Push-ups 2×8', time: '3 min', bw: 'Push-ups 2×8' },
+      { text: 'Reverse lunges 2×8 each', time: '3 min', bw: 'Reverse lunges 2×8 each' },
+      { text: 'Glute bridge 2×12', time: '3 min', bw: 'Glute bridge 2×12' },
+      { text: 'Plank 2×25s', time: '2 min', bw: 'Plank 2×25s' }
+    ] },
+  { date: '2026-07-29', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'WEEK 10!', moto: '3 miles easy — just keep the legs moving! 🏃‍♀️',
+    steadyMoto: 'Easy 3 miles.',
+    distance: '3 miles', duration: '35–40 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 3 mi', time: '30 min' }, { text: 'Cooldown walk', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy 3 mi', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-07-30', type: 'strength', title: 'STRENGTH B (LIGHT)', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'LIGHT!', moto: 'Final Strength B — gentle activation only! 💥',
+    distance: '', duration: '20–25 min', intervals: 'LIGHT CIRCUIT', xp: 25,
+    steps: [
+      { text: 'Good mornings 2×10', time: '3 min', bw: 'Good mornings 2×10' },
+      { text: 'Band rows 2×10', time: '3 min', bw: 'Band rows 2×10' },
+      { text: 'Side lunges 2×8 each', time: '3 min', bw: 'Side lunges 2×8 each' },
+      { text: 'Dead bug 2×6 each', time: '3 min', bw: 'Dead bug 2×6 each' },
+      { text: 'Bird-dog 2×6 each', time: '2 min', bw: 'Bird-dog 2×6 each' }
+    ] },
+  { date: '2026-07-31', type: 'run', title: 'SHAKEOUT RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'SHAKEOUT!', moto: '3 miles — last real run before race week! Keep it FUN! 🔥',
+    steadyMoto: 'Easy 3 miles. Fun run!',
+    distance: '3 miles', duration: '35–40 min', intervals: '60s RUN / 30s WALK', xp: 30,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy 3 miles Galloway', time: '30 min' }, { text: 'Cooldown + stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy 3 miles steady', time: '30 min' }, { text: 'Cooldown + stretch', time: '5 min' } ] },
+  { date: '2026-08-01', type: 'longrun', title: 'TAPER LONG RUN', icon: '🏅', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'LAST LONG!', moto: '6 miles — your final long run before the race. Relax and enjoy every step. 🌄',
+    steadyMoto: 'Easy 6 miles. Last long run!',
+    distance: '6 miles', duration: '65–80 min', intervals: '60s RUN / 30s WALK', xp: 60,
+    steps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Galloway 60s/30s for 6 mi', time: '65 min' }, { text: 'Cooldown + stretch', time: '10 min' } ],
+    steadySteps: [ { text: 'Warmup walk', time: '5 min' }, { text: 'Easy steady 6 mi', time: '65 min' }, { text: 'Cooldown + stretch', time: '10 min' } ] },
+  { date: '2026-08-02', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: 'ONE WEEK UNTIL RACE DAY. Rest. Visualize. Believe. 💤', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Rest, hydrate, lay out gear', time: 'all day' } ] },
+
+  // === RACE WEEK (Aug 3–9) ===
+  { date: '2026-08-03', type: 'run', title: 'RACE WEEK SHAKEOUT', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'RACE WEEK!', moto: 'RACE WEEK! Easy 2 miles — just spin the legs. You are ready. 💥',
+    steadyMoto: 'Easy 2 miles. Feel good.',
+    distance: '2 miles', duration: '20–25 min', intervals: '60s RUN / 30s WALK', xp: 20,
+    steps: [ { text: 'Easy 2 miles, no pressure', time: '20 min' }, { text: 'Cooldown + stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Easy 2 miles steady', time: '20 min' }, { text: 'Cooldown + stretch', time: '5 min' } ] },
+  { date: '2026-08-04', type: 'strength', title: 'ACTIVATION (LIGHT)', icon: '💪', headerClass: 'strength-header', btnClass: 'strength-btn',
+    pow: 'ACTIVATE!', moto: 'Light activation only — wake the muscles up. Nothing hard! 🔥',
+    distance: '', duration: '15–20 min', intervals: 'ACTIVATION', xp: 15,
+    steps: [
+      { text: 'Glute bridges 2×10', time: '2 min', bw: 'Glute bridges 2×10' },
+      { text: 'Clamshells 2×10 each', time: '2 min', bw: 'Clamshells 2×10 each' },
+      { text: 'Reverse lunges 2×6 each', time: '2 min', bw: 'Reverse lunges 2×6 each' },
+      { text: 'Dead bug 2×5 each', time: '2 min', bw: 'Dead bug 2×5 each' },
+      { text: 'Cat-cow stretch 2×10', time: '2 min', bw: 'Cat-cow stretch 2×10' }
+    ] },
+  { date: '2026-08-05', type: 'run', title: 'SHAKEOUT RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'SHAKEOUT!', moto: '2 easy miles — stay loose and confident. You've done the work! 🏃‍♀️',
+    steadyMoto: 'Easy 2 miles.',
+    distance: '2 miles', duration: '20–25 min', intervals: '60s RUN / 30s WALK', xp: 20,
+    steps: [ { text: 'Easy 2 miles Galloway', time: '20 min' }, { text: 'Cooldown', time: '5 min' } ],
+    steadySteps: [ { text: 'Easy 2 miles steady', time: '20 min' }, { text: 'Cooldown', time: '5 min' } ] },
+  { date: '2026-08-06', type: 'rest', title: 'REST DAY', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'REST', moto: '3 days to race! Rest, hydrate, carb load begins. 💤', distance: '', duration: 'REST', intervals: 'PRE-RACE', xp: 10, steps: [ { text: 'Rest & hydrate all day', time: 'all day' } ] },
+  { date: '2026-08-07', type: 'run', title: 'FINAL SHAKEOUT', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
+    pow: 'ALMOST TIME!', moto: '1.5 miles — just feel the legs. You're ready. Trust it. 🔥',
+    steadyMoto: '1.5 easy miles.',
+    distance: '1.5 miles', duration: '15–20 min', intervals: '60s RUN / 30s WALK', xp: 15,
+    steps: [ { text: 'Easy 1.5 miles', time: '15 min' }, { text: 'Stretch', time: '5 min' } ],
+    steadySteps: [ { text: 'Easy 1.5 miles', time: '15 min' }, { text: 'Stretch', time: '5 min' } ] },
+  { date: '2026-08-08', type: 'rest', title: 'PRE-RACE REST', icon: '😴', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'TOMORROW IS RACE DAY. Carb-load dinner, lay out gear, sleep early. You are READY. 💤', distance: '', duration: 'REST', intervals: 'PRE-RACE', xp: 10, steps: [ { text: 'Carb-load dinner 🍝', time: 'dinner' }, { text: 'Lay out race gear', time: 'evening' }, { text: 'Sleep early!', time: '9pm' } ] },
+  { date: '2026-08-09', type: 'longrun', title: '🏆 VIRTUAL HALF MARATHON!', icon: '🏆', headerClass: 'longrun-header', btnClass: 'long-btn',
+    pow: 'RACE DAY!!', moto: 'THIS IS IT! 13.1 miles. You trained 11 weeks for this moment. GO GET IT, IRON LIZZIE! 🔥🏅',
+    steadyMoto: 'RACE DAY! 13.1 miles. Trust your training, fuel smart, and FINISH STRONG!',
+    distance: '13.1 miles (Half Marathon)', duration: 'RACE DAY!', intervals: 'Galloway your plan', xp: 500,
+    steps: [
+      { text: 'Hydrate & light breakfast 🍌', time: '60 min before' },
+      { text: 'Gear up — bib, shoes, fuel, watch', time: '30 min before' },
+      { text: '10 min warmup walk', time: '10 min' },
+      { text: 'START THE RACE! Run/walk your plan with confidence', time: 'LET'S GO!' },
+      { text: 'Fuel & water every 3–4 miles', time: 'during' },
+      { text: 'Miles 10–11 — dig deep, you've got this!', time: 'almost there' },
+      { text: 'FINISH LINE — 13.1 MILES DONE! 🏆', time: 'VICTORY!' },
+      { text: 'Cooldown walk + celebrate!', time: '15 min' }
     ],
     steadySteps: [
-      { text: 'Put on your favorite podcast or playlist \uD83C\uDFA7', time: '2 min' },
-      { text: '5 min easy warmup walk', time: '5 min' },
-      { text: 'Run 1.5 miles at easy, conversational pace', time: '15\u201320 min' },
-      { text: '3 min cooldown walk', time: '3 min' },
-      { text: 'Stretch: calves + hip flexors', time: '3 min' },
-    ]
-  },
-  { date: '2026-03-28', type: 'longrun',
-    title: 'LONG RUN \u00B7 2 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn',
-    pow: 'EPIC!', moto: 'First long run! 2 miles. Walk breaks are your superpower. You ARE doing this. \uD83C\uDF05',
-    steadyMoto: 'Steady state long run \u2014 2 miles at one comfortable pace. Enjoy the journey! \uD83C\uDF05',
-    distance: '2 miles', duration: '~30 min', intervals: '60s RUN / 30s WALK', xp: 40,
-    steps: [
-      { text: 'Hydrate before you head out \uD83D\uDCA7', time: '5 min' },
-      { text: '5 min easy warmup walk', time: '5 min' },
-      { text: 'Galloway: 60s run / 30s walk for 2 miles', time: '20\u201325 min' },
-      { text: '5 min cooldown walk', time: '5 min' },
-      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
-    ],
-    steadySteps: [
-      { text: 'Hydrate before you head out \uD83D\uDCA7', time: '5 min' },
-      { text: '5 min easy warmup walk', time: '5 min' },
-      { text: 'Run 2 miles at easy, steady pace', time: '22\u201328 min' },
-      { text: '5 min cooldown walk', time: '5 min' },
-      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
-    ]
-  },
-  { date: '2026-03-29', type: 'rest',
-    title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '',
-    pow: 'ZZZ', moto: 'Rest IS training. Muscles grow on days like today. Hydrate and recharge! \uD83D\uDCA7',
-    distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
-    steps: [
-      { text: 'Hydrate well today \uD83D\uDCA7', time: 'all day' },
-      { text: 'Light walk if you want \uD83D\uDC3E', time: 'optional' },
-      { text: 'Foam roll or gentle stretching', time: '10 min' },
-      { text: 'Rest up \u2014 you earned it', time: 'evening' },
-    ]
-  },
-
-  // === WEEK 2 (Mar 30 - Apr 5) ===
-  { date: '2026-03-30', type: 'run',
-    title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn',
-    pow: 'GO!', moto: 'Week 2! Keep it easy. Harry Potter on. Let Hogwarts carry you. \uD83E\uDDD9\u200D\u2640\uFE0F',
-    steadyMoto: 'Steady state \u2014 2 miles, one easy pace. Find your groove. \uD83E\uDDD9\u200D\u2640\uFE0F',
-    distance: '2 miles', duration: '25\u201330 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [
-      { text: 'Podcast/music on \uD83C\uDFA7', time: '1 min' },
-      { text: '5 min warmup walk', time: '5 min' },
-      { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20\u201325 min' },
-      { text: '3 min cooldown walk', time: '3 min' },
-      { text: 'Stretch it out', time: '3 min' },
-    ],
-    steadySteps: [
-      { text: 'Podcast/music on \uD83C\uDFA7', time: '1 min' },
-      { text: '5 min warmup walk', time: '5 min' },
-      { text: 'Run 2 miles at easy, steady pace', time: '22\u201328 min' },
-      { text: '3 min cooldown walk', time: '3 min' },
-      { text: 'Stretch it out', time: '3 min' },
-    ]
-  },
-  { date: '2026-03-31', type: 'strength',
-    title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn',
-    pow: 'LIFT!', moto: 'Lower body power. Movie on before you start \u2014 NON-NEGOTIABLE. \uD83C\uDFAC',
-    distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
-    steps: [
-      { text: 'Movie/show on \uD83C\uDFAC', time: '1 min' },
-      { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710, cat-cow \u00D75', time: '3 min' },
-      { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' },
-      { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' },
-      { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' },
-      { text: 'Lateral Band Walk \u2014 2\u00D715 each', time: '4 min', bw: '\uD83C\uDFE0 BW: Lateral Lunges 2\u00D712 each' },
-      { text: 'Step-Up \u2014 2\u00D710 each leg', time: '4 min', bw: '\uD83C\uDFE0 BW: Reverse Lunge 2\u00D712 each' },
-      { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' },
-      { text: 'Stretch: figure-4, hip flexor', time: '3 min' },
-    ]
-  },
-  { date: '2026-04-01', type: 'run',
-    title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn',
-    pow: 'RUN!', moto: 'Mid-week run. Stay easy. Don\'t chase speed \u2014 chase consistency. \uD83D\uDCD6',
-    steadyMoto: 'Steady state \u2014 2 miles, relaxed pace. Just keep moving forward. \uD83D\uDCD6',
-    distance: '2 miles', duration: '25\u201330 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [
-      { text: 'Audio entertainment on \uD83C\uDFA7', time: '1 min' },
-      { text: '5 min warmup walk', time: '5 min' },
-      { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20\u201325 min' },
-      { text: '3 min cooldown walk', time: '3 min' },
-      { text: 'Stretch: calves + quads', time: '3 min' },
-    ],
-    steadySteps: [
-      { text: 'Audio entertainment on \uD83C\uDFA7', time: '1 min' },
-      { text: '5 min warmup walk', time: '5 min' },
-      { text: 'Run 2 miles at easy pace', time: '22\u201328 min' },
-      { text: '3 min cooldown walk', time: '3 min' },
-      { text: 'Stretch: calves + quads', time: '3 min' },
-    ]
-  },
-  { date: '2026-04-02', type: 'strength',
-    title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn',
-    pow: 'PUSH!', moto: 'Upper body day. Movie on. You always feel better after. \uD83C\uDFAC\uD83D\uDCAA',
-    distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
-    steps: [
-      { text: 'Movie/show on \uD83C\uDFAC', time: '1 min' },
-      { text: 'Warm-up: Band pull-apart \u00D715, arm circles', time: '3 min' },
-      { text: 'DB Row \u2014 3\u00D712 each arm', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' },
-      { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D710\u201315' },
-      { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D78\u201310' },
-      { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D78 each' },
-      { text: 'Suitcase Carry \u2014 2\u00D730s each', time: '3 min', bw: '\uD83C\uDFE0 BW: Side Plank 2\u00D730s each' },
-      { text: 'Plank \u2014 2\u00D745s', time: '3 min' },
-      { text: 'Stretch: doorway chest, thoracic rotation', time: '3 min' },
-    ]
-  },
-  { date: '2026-04-03', type: 'rest',
-    title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '',
-    pow: 'ZZZ', moto: 'Heroes rest before long run day. Hydrate. Foam roll. Recharge. \uD83D\uDD0B',
-    distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
-    steps: [
-      { text: 'Hydrate well \uD83D\uDCA7', time: 'all day' },
-      { text: 'Foam roll legs if available', time: '10 min' },
-      { text: 'Gentle stretching', time: '5 min' },
-      { text: 'Early night \u2014 big run tomorrow!', time: 'evening' },
-    ]
-  },
-  { date: '2026-04-04', type: 'longrun',
-    title: 'LONG RUN \u00B7 2.5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn',
-    pow: 'EPIC!', moto: '2.5 miles! Walk breaks are your superpower. Enjoy the adventure. \uD83C\uDF05',
-    steadyMoto: 'Steady state long run \u2014 2.5 miles, one easy pace the whole way. \uD83C\uDF05',
-    distance: '2.5 miles', duration: '~35 min', intervals: '60s RUN / 30s WALK', xp: 45,
-    steps: [
-      { text: 'Hydrate 16oz water before you start \uD83D\uDCA7', time: '5 min' },
-      { text: '5 min easy warmup walk', time: '5 min' },
-      { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25\u201330 min' },
-      { text: '5 min cooldown walk', time: '5 min' },
-      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
-    ],
-    steadySteps: [
-      { text: 'Hydrate 16oz water before you start \uD83D\uDCA7', time: '5 min' },
-      { text: '5 min easy warmup walk', time: '5 min' },
-      { text: 'Run 2.5 miles at easy, steady pace', time: '27\u201335 min' },
-      { text: '5 min cooldown walk', time: '5 min' },
-      { text: 'Stretch: calves, quads, hip flexors', time: '5 min' },
-    ]
-  },
-  { date: '2026-04-05', type: 'rest',
-    title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '',
-    pow: 'ZZZ', moto: 'Recovery Sunday. Celebrate your long run! \uD83E\uDD73',
-    distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
-    steps: [
-      { text: 'Hydrate \uD83D\uDCA7', time: 'all day' },
-      { text: 'Light walk if you feel like it', time: 'optional' },
-      { text: 'Rest those legs!', time: 'all day' },
-    ]
-  },
-
-  // === WEEK 3 (Apr 6 - Apr 12) ===
-  { date: '2026-04-06', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 3! Base building. You\'re getting stronger each run. \uD83D\uDCAA', steadyMoto: 'Steady state \u2014 2.5 miles, easy pace. Feel the progress! \uD83D\uDCAA', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles at easy pace', time: '27\u201333 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-07', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body power. Movie on. Get after it. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' }, { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' }, { text: 'Lateral Band Walk \u2014 2\u00D715 each', time: '4 min', bw: '\uD83C\uDFE0 BW: Lateral Lunges 2\u00D712 each' }, { text: 'Step-Up \u2014 2\u00D710 each leg', time: '4 min', bw: '\uD83C\uDFE0 BW: Reverse Lunge 2\u00D712 each' }, { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-08', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'RUN!', moto: 'Mid-week miles. Stay in the story. Walk breaks = power ups. \uD83C\uDFAE', steadyMoto: 'Steady 2.5 miles. Smooth and easy. \uD83C\uDFAE', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles at easy pace', time: '27\u201333 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-09', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'PUSH!', moto: 'Upper body. Show up strong. Movie on. \uD83C\uDFAC\uD83D\uDCAA', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Band pull-apart \u00D715', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D712' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D78 each' }, { text: 'Plank \u2014 2\u00D745s', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-10', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest before long run. Hydrate! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10,
-    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
-  { date: '2026-04-11', type: 'longrun', title: 'LONG RUN \u00B7 3 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!', moto: '3 miles! New distance unlocked. You\'re building something incredible. \uD83D\uDD13', steadyMoto: 'Steady state 3 miles \u2014 one easy pace. New distance! \uD83D\uDD13', distance: '3 miles', duration: '~40 min', intervals: '60s RUN / 30s WALK', xp: 50,
-    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30\u201335 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles at steady pace', time: '33\u201340 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
-  { date: '2026-04-12', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recharge Sunday! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' }, { text: 'Light walk optional', time: 'optional' } ] },
-
-  // === WEEK 4 (Apr 13 - Apr 19) ===
-  { date: '2026-04-13', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 4! 2.5 easy miles. You know the drill. \uD83D\uDD25', steadyMoto: 'Steady 2.5 mi. Smooth operator mode. \uD83D\uDD25', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles steady', time: '27\u201333 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-14', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body. Movie on. Crush it. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' }, { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' }, { text: 'Walking Lunges \u2014 2\u00D712 each', time: '4 min' }, { text: 'Step-Up \u2014 2\u00D710 each', time: '4 min', bw: '\uD83C\uDFE0 BW: Bulgarian Split Squat 2\u00D78 each' }, { text: 'Dead Bug \u2014 3\u00D710', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-15', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'FASTER!', moto: 'Push the pace slightly. Still conversational, just more INTENTION. \uD83D\uDD25', steadyMoto: 'Steady 3 miles at a slightly brisker pace. Push with purpose! \uD83D\uDD25', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 35,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (slightly faster) / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles at moderate pace', time: '30\u201336 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-16', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. Last lift before long run. Feel good going in. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Band pull-apart \u00D715', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D712\u201315' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D78 each' }, { text: 'Farmer\'s Carry \u2014 2\u00D730s', time: '3 min', bw: '\uD83C\uDFE0 BW: Side Plank 2\u00D730s each' }, { text: 'Plank \u2014 2\u00D71 min', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-17', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest before the big one! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll + gentle stretch', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
-  { date: '2026-04-18', type: 'longrun', title: 'LONG RUN \u00B7 3.5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!', moto: '3.5 miles! More than halfway to 10K distance. You\'re building a legend. \uD83D\uDCAB', steadyMoto: 'Steady 3.5 miles. More than halfway to race distance! \uD83D\uDCAB', distance: '3.5 miles', duration: '~50 min', intervals: '60s RUN / 30s WALK', xp: 55,
-    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5\u20138 min warmup walk', time: '7 min' }, { text: 'Galloway: 60s run / 30s walk for 3.5 mi', time: '35\u201340 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '5\u20138 min warmup walk', time: '7 min' }, { text: 'Run 3.5 miles at steady pace', time: '38\u201348 min' }, { text: '5 min cooldown walk', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
-  { date: '2026-04-19', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest & celebrate \u2014 new distance PR! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' }, { text: 'Light walk optional', time: 'optional' } ] },
-
-  // === WEEK 5 (Apr 20 - Apr 26) ===
-  { date: '2026-04-20', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 5! Recovery run. Keep it chill. \uD83C\uDF3F', steadyMoto: 'Easy steady 2.5 mi. Active recovery. \uD83C\uDF3F', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles easy', time: '27\u201333 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-21', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body. Stronger legs = faster miles. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Jump Squat 3\u00D710' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D710 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D720' }, { text: 'Walking Lunges \u2014 3\u00D712 each', time: '5 min' }, { text: 'Calf Raises \u2014 3\u00D720', time: '3 min' }, { text: 'Dead Bug \u2014 3\u00D712', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-22', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '3 miles with intention. Run with PURPOSE. \uD83D\uDD25', steadyMoto: 'Steady 3 miles at moderate effort. Feel the power! \uD83D\uDD25', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 35,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles at moderate pace', time: '30\u201336 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-23', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. Strong arms carry you to the finish line. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Arm circles + band pull-apart', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Bench Press \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Push-Up 3\u00D715' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-24', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest up for 4-miler! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
-  { date: '2026-04-25', type: 'longrun', title: 'LONG RUN \u00B7 4 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!!', moto: '4 MILES! You\'re past the halfway mark to 10K. The duo is becoming unstoppable! \uD83D\uDE80', steadyMoto: 'Steady 4 miles! Past halfway to race distance. Legends in the making! \uD83D\uDE80', distance: '4 miles', duration: '~55 min', intervals: '60s RUN / 30s WALK', xp: 60,
-    steps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 4 mi', time: '40\u201345 min' }, { text: 'Water at mile 2', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 4 miles at steady pace', time: '44\u201355 min' }, { text: 'Water at mile 2', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
-  { date: '2026-04-26', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '4 miles done! Heroes rest. \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
-
-  // === WEEK 6 (Apr 27 - May 3) ===
-  { date: '2026-04-27', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 6! Easy 3 mi. Enjoy the rhythm. \uD83C\uDFB6', steadyMoto: 'Steady 3 miles. You\'re a runner now. Own it. \uD83C\uDFB6', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-28', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body power up! \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Glute bridge \u00D710, BW squat \u00D710', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Jump Squat 3\u00D712' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D720' }, { text: 'Bulgarian Split Squat \u2014 2\u00D710 each', time: '5 min' }, { text: 'Calf Raises \u2014 3\u00D720', time: '3 min' }, { text: 'Plank \u2014 2\u00D71 min', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-29', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'FASTER!', moto: '3.5 mi with some push. You\'re getting FAST. \uD83D\uDCA8', steadyMoto: 'Steady 3.5 miles at tempo effort. Dementors can\'t catch you! \uD83D\uDCA8', distance: '3.5 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 40,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3.5 mi', time: '35 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3.5 miles at moderate pace', time: '35\u201342 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-04-30', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'PUSH!', moto: 'Upper body. Stay consistent. \uD83C\uDFAC\uD83D\uDCAA', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up: Band pull-apart \u00D715', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Inverted Row (table) 3\u00D710' }, { text: 'Bench Press \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Diamond Push-Up 3\u00D710' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D712' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-01', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest day! Big long run tomorrow. \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
-  { date: '2026-05-02', type: 'longrun', title: 'LONG RUN \u00B7 4.5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!!', moto: '4.5 miles! You can almost taste race distance. The fortress is crumbling. \uD83C\uDFF0\uD83D\uDCA5', steadyMoto: 'Steady 4.5 miles. The fortress is crumbling! \uD83C\uDFF0\uD83D\uDCA5', distance: '4.5 miles', duration: '~60 min', intervals: '60s RUN / 30s WALK', xp: 65,
-    steps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 4.5 mi', time: '45\u201350 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 4.5 miles at steady pace', time: '50\u201360 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Full stretch', time: '5 min' } ] },
-  { date: '2026-05-03', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recharge! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
-
-  // === WEEK 7 (May 4 - May 10) ===
-  { date: '2026-05-04', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 7! Easy 3 mi. May the 4th be with you. \u2B50', steadyMoto: 'Steady 3 mi. May the 4th be with you! \u2B50', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-05', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body power! \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Squat Pulse 3\u00D720' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D720', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D725' }, { text: 'Bulgarian Split Squat \u2014 3\u00D710 each', time: '6 min' }, { text: 'Calf Raises \u2014 3\u00D725', time: '3 min' }, { text: 'Dead Bug \u2014 3\u00D712', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-06', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '3.5 mi with effort. You are getting STRONG. \uD83D\uDD25', steadyMoto: 'Steady 3.5 mi at moderate effort. Feel it! \uD83D\uDD25', distance: '3.5 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 40,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3.5 mi', time: '35 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3.5 miles at moderate pace', time: '35\u201342 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-07', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. Keep building. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Inverted Row 3\u00D710' }, { text: 'Push-Up \u2014 3\u00D715', time: '5 min' }, { text: 'Overhead Press \u2014 3\u00D712', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D712' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-08', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest up! 5-miler tomorrow! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' }, { text: 'Early night', time: 'evening' } ] },
-  { date: '2026-05-09', type: 'longrun', title: 'LONG RUN \u00B7 5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!!', moto: '5 MILES! Almost race distance! The 10K is shaking in its boots. \uD83D\uDCA5', steadyMoto: 'Steady 5 miles! Almost race distance. The villain trembles! \uD83D\uDCA5', distance: '5 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 70,
-    steps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 5 mi', time: '50\u201355 min' }, { text: 'Fuel/water at mile 2.5', time: 'mid-run' }, { text: '8 min cooldown', time: '8 min' }, { text: 'Full stretch', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate 16oz \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 5 miles at steady pace', time: '55\u201365 min' }, { text: 'Fuel/water at mile 2.5', time: 'mid-run' }, { text: '8 min cooldown', time: '8 min' }, { text: 'Full stretch', time: '5 min' } ] },
-  { date: '2026-05-10', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '5 miles DONE! Legendary rest. \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
-
-  // === WEEK 8 (May 11 - May 17) ===
-  { date: '2026-05-11', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Week 8! Recovery easy 3 mi. \uD83C\uDF3F', steadyMoto: 'Steady easy 3 miles. Keep it chill. \uD83C\uDF3F', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-12', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body. Keep building race-ready legs. \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'LOWER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Squat Jump 3\u00D712' }, { text: 'Romanian Deadlift \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Deadlift 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D720', time: '6 min', bw: '\uD83C\uDFE0 BW: Elevated Glute Bridge 3\u00D725' }, { text: 'Bulgarian Split Squat \u2014 3\u00D710 each', time: '6 min' }, { text: 'Dead Bug \u2014 3\u00D712', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-13', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '4 mi with intention. The Deadline fears you now. \uD83D\uDD25', steadyMoto: 'Steady 4 miles at moderate effort. Deadline fears you! \uD83D\uDD25', distance: '4 miles', duration: '45 min', intervals: '60s RUN / 30s WALK', xp: 45,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 4 mi', time: '40 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 4 miles at moderate pace', time: '40\u201348 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-14', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'STRONG!', moto: 'Upper body. One more before the big one! \uD83C\uDFAC', distance: '', duration: '40\u201350 min', intervals: 'UPPER FOCUS', xp: 35,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '2 min' }, { text: 'DB Row \u2014 3\u00D712 each', time: '6 min', bw: '\uD83C\uDFE0 BW: Inverted Row 3\u00D712' }, { text: 'Push-Up \u2014 3\u00D715', time: '5 min' }, { text: 'Overhead Press \u2014 3\u00D712', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D712' }, { text: 'Face Pull \u2014 3\u00D715', time: '5 min', bw: '\uD83C\uDFE0 BW: YTW Raises 3\u00D710 each' }, { text: 'Plank \u2014 3\u00D71 min', time: '4 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-15', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest up! RACE DISTANCE tomorrow! \uD83D\uDD0B\uD83C\uDFC6', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate extra \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll + stretch', time: '15 min' }, { text: 'Lay out your gear', time: 'evening' } ] },
-  { date: '2026-05-16', type: 'longrun', title: 'LONG RUN \u00B7 6.2 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: '10K!!', moto: '6.2 MILES = 10K! You just ran race distance in training! Whatever happens June 13, YOU ALREADY DID IT. \uD83C\uDFC6\uD83C\uDFC6', steadyMoto: 'RACE DISTANCE! 6.2 miles steady state. You just proved you can do this! \uD83C\uDFC6\uD83C\uDFC6', distance: '6.2 miles (10K)', duration: '~85 min', intervals: '60s RUN / 30s WALK', xp: 100,
-    steps: [ { text: 'Hydrate 16oz + light snack \uD83D\uDCA7', time: '10 min' }, { text: '10 min warmup walk', time: '10 min' }, { text: 'Galloway: 60s run / 30s walk \u2014 all the way', time: '60\u201370 min' }, { text: 'Fuel at mile 3 \u2014 non-negotiable', time: 'mid-run' }, { text: '10 min cooldown walk', time: '10 min' }, { text: 'Full stretch: quads, calves, IT band, hip flexors', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate 16oz + light snack \uD83D\uDCA7', time: '10 min' }, { text: '10 min warmup walk', time: '10 min' }, { text: 'Run 6.2 miles at steady, easy pace', time: '68\u201380 min' }, { text: 'Fuel at mile 3 \u2014 non-negotiable', time: 'mid-run' }, { text: '10 min cooldown walk', time: '10 min' }, { text: 'Full stretch: quads, calves, IT band, hip flexors', time: '5 min' } ] },
-  { date: '2026-05-17', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'RACE DISTANCE DONE! You are LEGENDS. Rest like heroes. \uD83E\uDD73\uD83C\uDFC6', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Celebrate! You ran a 10K! \uD83E\uDD73', time: 'all day' }, { text: 'Hydrate & rest', time: 'all day' } ] },
-
-  // === WEEK 9 (May 18 - May 24) — Maintenance ===
-  { date: '2026-05-18', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Maintenance phase! Keep the engine warm. Easy 3 mi. \uD83D\uDE80', steadyMoto: 'Steady 3 miles. Stay sharp. \uD83D\uDE80', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 3 mi', time: '30 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '33\u201340 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-19', type: 'strength', title: 'STRENGTH \u00B7 DAY A', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT!', moto: 'Lower body maintenance! \uD83C\uDFAC', distance: '', duration: '35\u201345 min', intervals: 'LOWER FOCUS', xp: 30,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat \u2014 3\u00D712', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3\u00D715' }, { text: 'Romanian Deadlift \u2014 3\u00D710', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3\u00D712 each' }, { text: 'Hip Thrust \u2014 3\u00D715', time: '6 min', bw: '\uD83C\uDFE0 BW: Glute Bridge March 3\u00D720' }, { text: 'Walking Lunges \u2014 2\u00D712 each', time: '4 min' }, { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-20', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH!', moto: '3.5 mi moderate. Stay sharp! \uD83D\uDD25', steadyMoto: 'Steady 3.5 mi. Race-ready pace! \uD83D\uDD25', distance: '3.5 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 35,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run (push!) / 30s walk for 3.5 mi', time: '35 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3.5 miles at moderate pace', time: '35\u201342 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-21', type: 'strength', title: 'STRENGTH \u00B7 DAY B', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'PUSH!', moto: 'Upper body maintenance! \uD83C\uDFAC', distance: '', duration: '35\u201345 min', intervals: 'UPPER FOCUS', xp: 30,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '2 min' }, { text: 'DB Row \u2014 3\u00D710 each', time: '5 min', bw: '\uD83C\uDFE0 BW: Superman Hold 3\u00D730s' }, { text: 'Push-Up \u2014 3\u00D712', time: '4 min' }, { text: 'Overhead Press \u2014 3\u00D710', time: '5 min', bw: '\uD83C\uDFE0 BW: Pike Push-Up 3\u00D710' }, { text: 'Plank \u2014 2\u00D71 min', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-22', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest before 5-miler! \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' } ] },
-  { date: '2026-05-23', type: 'longrun', title: 'LONG RUN \u00B7 5 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC!', moto: '5 miles! Maintaining fitness. You\'ve got this locked in. \uD83D\uDD12', steadyMoto: 'Steady 5 miles. Race-ready fitness! \uD83D\uDD12', distance: '5 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 60,
-    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 5 mi', time: '50\u201355 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 5 miles steady', time: '55\u201365 min' }, { text: 'Water at mile 2.5', time: 'mid-run' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-05-24', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
-
-  // === WEEK 10 (May 25 - May 31) — Taper Start ===
-  { date: '2026-05-25', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO!', moto: 'Taper begins! Easy 2.5 mi. Let the body recover while staying sharp. \uD83C\uDF3F', steadyMoto: 'Steady 2.5 mi. Taper mode \u2014 rest is the secret weapon. \uD83C\uDF3F', distance: '2.5 miles', duration: '30 min', intervals: '60s RUN / 30s WALK', xp: 25,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2.5 mi', time: '25 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2.5 miles easy', time: '27\u201333 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-26', type: 'strength', title: 'STRENGTH \u00B7 LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE!', moto: 'Light strength \u2014 keep moving, reduce volume. \uD83C\uDFAC', distance: '', duration: '30\u201340 min', intervals: 'FULL BODY LIGHT', xp: 25,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'BW Squat \u2014 2\u00D712', time: '3 min' }, { text: 'Glute Bridge \u2014 2\u00D715', time: '3 min' }, { text: 'Push-Up \u2014 2\u00D710', time: '3 min' }, { text: 'Dead Bug \u2014 2\u00D710', time: '3 min' }, { text: 'Plank \u2014 2\u00D745s', time: '3 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-05-27', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'RUN!', moto: 'Easy 2 mi. Short and sweet. \uD83D\uDC9A', steadyMoto: 'Steady 2 mi. Keep the legs turning over. \uD83D\uDC9A', distance: '2 miles', duration: '25 min', intervals: '60s RUN / 30s WALK', xp: 25,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2 miles easy', time: '22\u201328 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-05-28', type: 'strength', title: 'STRENGTH \u00B7 LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE!', moto: 'Light strength. Keep it moving! \uD83C\uDFAC', distance: '', duration: '30 min', intervals: 'FULL BODY LIGHT', xp: 25,
-    steps: [ { text: 'Movie on \uD83C\uDFAC', time: '1 min' }, { text: 'Warm-up', time: '3 min' }, { text: 'Reverse Lunge \u2014 2\u00D710 each', time: '3 min' }, { text: 'Glute Bridge \u2014 2\u00D715', time: '3 min' }, { text: 'Push-Up \u2014 2\u00D710', time: '3 min' }, { text: 'Superman \u2014 2\u00D710', time: '3 min' }, { text: 'Plank \u2014 2\u00D745s', time: '3 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-05-29', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! Short long run tomorrow. \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Foam roll', time: '10 min' } ] },
-  { date: '2026-05-30', type: 'longrun', title: 'LONG RUN \u00B7 4 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'SHARP!', moto: '4 miles \u2014 taper long run. Stay sharp, don\'t push. Save the fire for race day! \uD83D\uDD25', steadyMoto: 'Steady 4 miles. Save the best for race day! \uD83D\uDD25', distance: '4 miles', duration: '~55 min', intervals: '60s RUN / 30s WALK', xp: 50,
-    steps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Galloway: 60s run / 30s walk for 4 mi', time: '40\u201345 min' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ],
-    steadySteps: [ { text: 'Hydrate \uD83D\uDCA7', time: '5 min' }, { text: '8 min warmup walk', time: '8 min' }, { text: 'Run 4 miles steady', time: '44\u201355 min' }, { text: '5 min cooldown', time: '5 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-05-31', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! \uD83E\uDD73', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & rest \uD83D\uDCA7', time: 'all day' } ] },
-
-  // === WEEK 11 (Jun 1 - Jun 7) — Race Week Taper ===
-  { date: '2026-06-01', type: 'run', title: 'SHAKEOUT RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY!', moto: 'Race week! Super easy 2 mi shakeout. Keep loose. \uD83C\uDF3F', steadyMoto: 'Steady 2 mi shakeout. Feel good, stay loose! \uD83C\uDF3F', distance: '2 miles', duration: '25 min', intervals: '60s RUN / 30s WALK', xp: 25,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 2 mi', time: '20 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 2 miles easy', time: '22\u201328 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-06-02', type: 'strength', title: 'STRENGTH \u00B7 LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIGHT!', moto: 'Very light strength. Activation only! \uD83C\uDFAC', distance: '', duration: '20\u201330 min', intervals: 'ACTIVATION', xp: 20,
-    steps: [ { text: 'Warm-up: light stretching', time: '3 min' }, { text: 'Glute bridge \u2014 2\u00D712', time: '3 min' }, { text: 'BW Squat \u2014 2\u00D710', time: '3 min' }, { text: 'Push-Up \u2014 2\u00D78', time: '2 min' }, { text: 'Plank \u2014 2\u00D730s', time: '2 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-06-03', type: 'run', title: 'SHAKEOUT RUN', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY!', moto: 'Last mid-week run before the big one! 1.5 mi easy. \uD83C\uDF3F', steadyMoto: 'Steady 1.5 mi. Just loosening up! \uD83C\uDF3F', distance: '1.5 miles', duration: '20 min', intervals: '60s RUN / 30s WALK', xp: 20,
-    steps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Galloway: 60s run / 30s walk for 1.5 mi', time: '15 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: 'Audio on \uD83C\uDFA7', time: '1 min' }, { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 1.5 miles easy', time: '15\u201320 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-06-04', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Full rest. Save your energy. \uD83D\uDD0B', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Light walk optional', time: 'optional' } ] },
-  { date: '2026-06-05', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest! Your body is storing power for race day. \u26A1', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate extra \uD83D\uDCA7', time: 'all day' }, { text: 'Lay out race day gear', time: 'evening' } ] },
-  { date: '2026-06-06', type: 'run', title: 'SHAKEOUT \u00B7 1 MI', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'READY!', moto: '1 mile super easy shakeout. Just enough to stay loose. RACE WEEK! \uD83C\uDFC1', steadyMoto: 'Steady 1 mile. Final shakeout before glory! \uD83C\uDFC1', distance: '1 mile', duration: '15 min', intervals: '60s RUN / 30s WALK', xp: 15,
-    steps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Easy 1 mile', time: '10\u201312 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ],
-    steadySteps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 1 mile easy', time: '10\u201312 min' }, { text: '3 min cooldown walk', time: '3 min' }, { text: 'Stretch', time: '3 min' } ] },
-  { date: '2026-06-07', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Final rest before race week! Sleep well. \uD83D\uDE34', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Rest & hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Visualize your race \uD83E\uDDD8', time: 'evening' } ] },
-
-  // === RACE WEEK FINAL (Jun 8 - Jun 13) ===
-  { date: '2026-06-08', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest. 5 days to race day! \u26A1', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Light walk + hydrate \uD83D\uDCA7', time: 'all day' } ] },
-  { date: '2026-06-09', type: 'run', title: 'SHAKEOUT \u00B7 1 MI', icon: '\uD83C\uDFC3\u200D\u2640\uFE0F', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY!', moto: 'Final shakeout! 1 mile easy. You are READY. \uD83C\uDFC1', steadyMoto: 'Steady 1 mi. The final tune-up! \uD83C\uDFC1', distance: '1 mile', duration: '15 min', intervals: '60s RUN / 30s WALK', xp: 15,
-    steps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Easy 1 mile', time: '10\u201312 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch well', time: '5 min' } ],
-    steadySteps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 1 mile easy', time: '10\u201312 min' }, { text: '3 min cooldown', time: '3 min' }, { text: 'Stretch well', time: '5 min' } ] },
-  { date: '2026-06-10', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '3 days! Rest and visualize. \u26A1', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & eat well \uD83D\uDCA7', time: 'all day' }, { text: 'Prep race day nutrition', time: 'evening' } ] },
-  { date: '2026-06-11', type: 'rest', title: 'REST DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: '2 days! The calm before the storm. \u26A1\uD83C\uDF29\uFE0F', distance: '', duration: 'FULL REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate \uD83D\uDCA7', time: 'all day' }, { text: 'Lay out everything for race day', time: 'evening' }, { text: 'Early night!', time: '9 PM' } ] },
-  { date: '2026-06-12', type: 'rest', title: 'PRE-RACE REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: '\u26A1', moto: 'TOMORROW IS RACE DAY! Light walk only. Eat well. Sleep well. You are READY. \uD83C\uDFC6', distance: '', duration: 'LIGHT WALK ONLY', intervals: 'PRE-RACE', xp: 10, steps: [ { text: 'Light 10 min walk', time: '10 min' }, { text: 'Carb-load dinner \uD83C\uDF5D', time: 'dinner' }, { text: 'Lay out race outfit & gear', time: 'evening' }, { text: 'Bed early \u2014 you\'re ready!', time: '9 PM' } ] },
-  { date: '2026-06-13', type: 'longrun', title: 'VIRTUAL 10K RACE!', icon: '\uD83C\uDFC6', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'RACE!!', moto: 'THIS IS IT! 6.2 miles. Lizzie & Sarah vs The Deadline. You trained for this. You are READY. LET\'S GO!! \uD83C\uDFC6\uD83D\uDD25\u26A1', steadyMoto: 'RACE DAY! 6.2 miles steady state. Everything you\'ve trained for comes down to NOW. \uD83C\uDFC6\uD83D\uDD25', distance: '6.2 miles (10K)', duration: 'RACE DAY!', intervals: '60s RUN / 30s WALK', xp: 150,
-    steps: [
-      { text: 'Wake up, hydrate 16oz, light breakfast \uD83D\uDCA7', time: '60 min before' },
-      { text: 'Gear up \u2014 race day outfit ON', time: '30 min before' },
-      { text: '10 min easy warmup walk', time: '10 min' },
-      { text: 'START THE RACE! Galloway: 60s run / 30s walk', time: 'LET\'S GO!' },
-      { text: 'Fuel/water at mile 3', time: 'mid-race' },
-      { text: 'Push through miles 5\u20136 \u2014 this is YOUR moment!', time: 'almost there!' },
-      { text: 'CROSS THE FINISH LINE! \uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6', time: 'VICTORY!' },
-      { text: 'Cooldown walk + celebrate!', time: '10 min' },
-      { text: 'Full stretch \u2014 you did it!', time: '10 min' },
-    ],
-    steadySteps: [
-      { text: 'Wake up, hydrate 16oz, light breakfast \uD83D\uDCA7', time: '60 min before' },
-      { text: 'Gear up \u2014 race day outfit ON', time: '30 min before' },
-      { text: '10 min easy warmup walk', time: '10 min' },
-      { text: 'START THE RACE! Steady pace \u2014 comfortable & controlled', time: 'LET\'S GO!' },
-      { text: 'Fuel/water at mile 3', time: 'mid-race' },
-      { text: 'Push through miles 5\u20136 \u2014 this is YOUR moment!', time: 'almost there!' },
-      { text: 'CROSS THE FINISH LINE! \uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6', time: 'VICTORY!' },
-      { text: 'Cooldown walk + celebrate!', time: '10 min' },
-      { text: 'Full stretch \u2014 you did it!', time: '10 min' },
-    ]
-  },
-  // POST-10K: Build toward Half Marathon (Jun 14 - Aug 9)
-  { date: '2026-06-14', type: 'rest', title: 'RECOVERY DAY', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recover and celebrate the 10K! Light movement only.', distance: '', duration: 'REST', intervals: 'RECOVERY MODE', xp: 10, steps: [ { text: 'Hydrate & gentle walk', time: 'all day' } ] },
-  { date: '2026-06-15', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy miles to keep the legs moving. Listen to your body.', steadyMoto: 'Steady easy 3 miles.', distance: '3 miles', duration: '35 min', intervals: '60s RUN / 30s WALK', xp: 30, steps: [ { text: '5 min warmup walk', time: '5 min' }, { text: 'Run 3 miles easy', time: '30 min' }, { text: 'Cooldown + stretch', time: '5 min' } ], steadySteps: [ { text: '5 min warmup', time: '5 min' }, { text: 'Run 3 miles steady', time: '30 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  // build weeks (three short build, two medium, two long)
-  { date: '2026-06-16', type: 'strength', title: 'STRENGTH · FULL', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT', moto: 'Full body strength to support longer miles.', distance: '', duration: '40 min', intervals: 'FULL', xp: 35, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'Squat or BW Squat 3x12', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3x15' }, { text: 'Push-Up 3x10', time: '5 min', bw: '\uD83C\uDFE0 BW: Knee Push-Up 3x12' }, { text: 'Single-Leg Glute Bridge 3x10 each', time: '6 min' }, { text: 'Plank 3x45s', time: '4 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-06-17', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '6 miles at conversational to moderate effort.', steadyMoto: 'Steady 6 miles - building endurance.', distance: '6 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 80, steps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles (Galloway or steady)', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles steady', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-06-18', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery day after a bigger effort.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Foam roll and hydrate', time: 'all day' } ] },
-  { date: '2026-06-19', type: 'longrun', title: 'LONG RUN · 7 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: 'Step up week — 7 miles long run. Hydrate + pace smart.', steadyMoto: 'Steady 7 miles. Focus on form and fueling.', distance: '7 miles', duration: '~95 min', intervals: 'Galloway optional', xp: 120, steps: [ { text: 'Hydrate + snack', time: '10 min' }, { text: 'Run 7 miles', time: '80–95 min' }, { text: 'Cooldown + stretch', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + snack', time: '10 min' }, { text: 'Run 7 miles steady', time: '80–95 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  // Insert multiple weeks building to 10-12-14-16 miles by Aug 9
-  { date: '2026-06-20', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Easy day. Walk and recover.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Easy walk + hydrate', time: 'all day' } ] },
-  { date: '2026-06-21', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy recovery run 4 miles.', steadyMoto: 'Steady 4 miles easy.', distance: '4 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 35, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 4 miles easy', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 4 miles steady', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-06-22', type: 'strength', title: 'STRENGTH · LOWER', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT', moto: 'Lower body strength for endurance.', distance: '', duration: '40 min', intervals: 'LOWER', xp: 35, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat 3x12', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3x15' }, { text: 'Romanian Deadlift 3x10', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3x12 each' }, { text: 'Walking Lunges 2x12 each', time: '5 min' }, { text: 'Calf Raises 3x20', time: '3 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-06-23', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '6 miles with some faster segments.', steadyMoto: 'Steady 6 miles with a few brisk efforts.', distance: '6 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 50, steps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles steady', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-06-24', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recover after mid-week effort.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate + foam roll', time: 'all day' } ] },
-  { date: '2026-06-25', type: 'longrun', title: 'LONG RUN · 8 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: '8 miles long run — keep fueling and steady pacing.', steadyMoto: 'Steady 8 miles. Practice fueling and patience.', distance: '8 miles', duration: '~110 min', intervals: 'Galloway optional', xp: 140, steps: [ { text: 'Hydrate + fuel', time: '10 min' }, { text: 'Run 8 miles', time: '95–110 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + fuel', time: '10 min' }, { text: 'Run 8 miles steady', time: '95–110 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-06-26', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recover well!', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate & rest', time: 'all day' } ] },
-  // ... continue building weeks with similar pattern up to Aug 9
-  { date: '2026-06-27', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy 4 miles.', steadyMoto: 'Steady 4 miles.', distance: '4 miles', duration: '40 min', intervals: '60s RUN / 30s WALK', xp: 35, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 4 miles easy', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 4 miles steady', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-06-28', type: 'strength', title: 'STRENGTH · LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE', moto: 'Light strength session.', distance: '', duration: '30 min', intervals: 'LIGHT', xp: 25, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'BW Squat 2x12', time: '3 min' }, { text: 'Push-Up 2x10', time: '3 min' }, { text: 'Glute Bridge 2x15', time: '4 min' }, { text: 'Plank 2x45s', time: '3 min' } ] },
-  { date: '2026-06-29', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '5 miles moderate.', steadyMoto: 'Steady 5 miles.', distance: '5 miles', duration: '~50 min', intervals: '60s RUN / 30s WALK', xp: 45, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles steady', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-06-30', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recover.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-01', type: 'longrun', title: 'LONG RUN · 9 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: '9 miles long run. Keep fueling and steady pacing.', steadyMoto: 'Steady 9 miles.', distance: '9 miles', duration: '~125 min', intervals: 'Galloway optional', xp: 160, steps: [ { text: 'Hydrate + fuel', time: '10 min' }, { text: 'Run 9 miles', time: '110–125 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + fuel', time: '10 min' }, { text: 'Run 9 miles steady', time: '110–125 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  // Weeks continue: 10,11,12 building to 12,14,16 miles and taper to Aug 9
-  { date: '2026-07-02', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery day.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-03', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy 5 miles.', steadyMoto: 'Steady 5 miles.', distance: '5 miles', duration: '~50 min', intervals: '60s RUN / 30s WALK', xp: 50, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles easy', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles steady', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-07-04', type: 'strength', title: 'STRENGTH · LOWER', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT', moto: 'Lower strength.', distance: '', duration: '40 min', intervals: 'LOWER', xp: 35, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'Goblet Squat 3x12', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3x15' }, { text: 'Romanian Deadlift 3x10', time: '6 min', bw: '\uD83C\uDFE0 BW: Single-Leg Glute Bridge 3x12 each' }, { text: 'Walking Lunges 2x12 each', time: '5 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-07-05', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '6 miles moderate.', steadyMoto: 'Steady 6 miles.', distance: '6 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 60, steps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles steady', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-06', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-07', type: 'longrun', title: 'LONG RUN · 12 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: '12 miles long run — big confidence builder. Pacing and fueling are key.', steadyMoto: 'Steady 12 miles. Practice fueling.', distance: '12 miles', duration: '~3.0 hr', intervals: 'Galloway optional', xp: 260, steps: [ { text: 'Hydrate + fueling plan', time: '15 min' }, { text: 'Run 12 miles', time: '160–180 min' }, { text: 'Cooldown + stretch', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + fueling plan', time: '15 min' }, { text: 'Run 12 miles steady', time: '160–180 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-08', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery week — take it easy this weekend.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-09', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy 5 miles.', steadyMoto: 'Steady 5 miles.', distance: '5 miles', duration: '~50 min', intervals: '60s RUN / 30s WALK', xp: 50, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles easy', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles steady', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-07-10', type: 'strength', title: 'STRENGTH · LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE', moto: 'Light strength.', distance: '', duration: '30 min', intervals: 'LIGHT', xp: 25, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'BW Squat 2x12', time: '3 min' }, { text: 'Push-Up 2x10', time: '3 min' }, { text: 'Glute Bridge 2x15', time: '4 min' }, { text: 'Plank 2x45s', time: '3 min' } ] },
-  { date: '2026-07-11', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '6 miles moderate.', steadyMoto: 'Steady 6 miles.', distance: '6 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 60, steps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles steady', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-12', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery day.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-13', type: 'longrun', title: 'LONG RUN · 14 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: '14 miles long run — long endurance builder. Fueling & patience required.', steadyMoto: 'Steady 14 miles. Comfort with distance.', distance: '14 miles', duration: '~3.5 hr', intervals: 'Galloway optional', xp: 320, steps: [ { text: 'Hydrate + fueling plan', time: '15 min' }, { text: 'Run 14 miles', time: '200–220 min' }, { text: 'Cooldown + stretch', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + fueling plan', time: '15 min' }, { text: 'Run 14 miles steady', time: '200–220 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-14', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recover from long efforts.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-15', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy 6 miles.', steadyMoto: 'Steady 6 miles.', distance: '6 miles', duration: '~60 min', intervals: '60s RUN / 30s WALK', xp: 60, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 6 miles easy', time: '50 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 6 miles steady', time: '50 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-07-16', type: 'strength', title: 'STRENGTH · FULL', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'LIFT', moto: 'Full body strength.', distance: '', duration: '40 min', intervals: 'FULL', xp: 35, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'Squat 3x12', time: '6 min', bw: '\uD83C\uDFE0 BW: Bodyweight Squat 3x15' }, { text: 'Push-Up 3x12', time: '5 min', bw: '\uD83C\uDFE0 BW: Knee Push-Up 3x15' }, { text: 'Dead Bug 3x12', time: '4 min' }, { text: 'Plank 3x1 min', time: '3 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-07-17', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '7 miles moderate.', steadyMoto: 'Steady 7 miles.', distance: '7 miles', duration: '~80 min', intervals: '60s RUN / 30s WALK', xp: 70, steps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 7 miles', time: '70 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 7 miles steady', time: '70 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-18', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-19', type: 'longrun', title: 'LONG RUN · 16 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: '16 miles long run — peak distance. Focus on fueling and steady pacing.', steadyMoto: 'Steady 16 miles. Confidence builder for race day.', distance: '16 miles', duration: '~4.5 hr', intervals: 'Galloway optional', xp: 360, steps: [ { text: 'Hydrate + fueling plan', time: '15 min' }, { text: 'Run 16 miles', time: '240–270 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + fueling plan', time: '15 min' }, { text: 'Run 16 miles steady', time: '240–270 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-20', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recover.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-21', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy 6 miles.', steadyMoto: 'Steady 6 miles.', distance: '6 miles', duration: '~60 min', intervals: '60s RUN / 30s WALK', xp: 60, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 6 miles easy', time: '50 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 6 miles steady', time: '50 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-07-22', type: 'strength', title: 'STRENGTH · LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE', moto: 'Light strength.', distance: '', duration: '30 min', intervals: 'LIGHT', xp: 25, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'BW Squat 2x12', time: '3 min' }, { text: 'Push-Up 2x10', time: '3 min' }, { text: 'Glute Bridge 2x15', time: '4 min' }, { text: 'Plank 2x45s', time: '3 min' } ] },
-  { date: '2026-07-23', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '6 miles moderate.', steadyMoto: 'Steady 6 miles.', distance: '6 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 60, steps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles steady', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-24', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-25', type: 'longrun', title: 'LONG RUN · 10 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: '10 miles long run — steady and practiced.', steadyMoto: 'Steady 10 miles.', distance: '10 miles', duration: '~2.0–2.5 hr', intervals: 'Galloway optional', xp: 200, steps: [ { text: 'Hydrate + fuel', time: '15 min' }, { text: 'Run 10 miles', time: '110–150 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + fuel', time: '15 min' }, { text: 'Run 10 miles steady', time: '110–150 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-26', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-27', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy 5 miles.', steadyMoto: 'Steady 5 miles.', distance: '5 miles', duration: '~50 min', intervals: '60s RUN / 30s WALK', xp: 50, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles easy', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 5 miles steady', time: '45 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-07-28', type: 'strength', title: 'STRENGTH · LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE', moto: 'Light strength.', distance: '', duration: '30 min', intervals: 'LIGHT', xp: 25, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'BW Squat 2x12', time: '3 min' }, { text: 'Push-Up 2x10', time: '3 min' }, { text: 'Glute Bridge 2x15', time: '4 min' }, { text: 'Plank 2x45s', time: '3 min' } ] },
-  { date: '2026-07-29', type: 'run', title: 'MODERATE RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'PUSH', moto: '6 miles moderate.', steadyMoto: 'Steady 6 miles.', distance: '6 miles', duration: '~70 min', intervals: '60s RUN / 30s WALK', xp: 60, steps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Warm-up', time: '10 min' }, { text: 'Run 6 miles steady', time: '60 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-07-30', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Recovery.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-07-31', type: 'longrun', title: 'LONG RUN · 14 MI', icon: '\u2B50', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'EPIC', moto: '14 miles long run — final big run before taper.', steadyMoto: 'Steady 14 miles.', distance: '14 miles', duration: '~3.5–4.0 hr', intervals: 'Galloway optional', xp: 320, steps: [ { text: 'Hydrate + fuel', time: '15 min' }, { text: 'Run 14 miles', time: '200–240 min' }, { text: 'Cooldown', time: '10 min' } ], steadySteps: [ { text: 'Hydrate + fuel', time: '15 min' }, { text: 'Run 14 miles steady', time: '200–240 min' }, { text: 'Cooldown', time: '10 min' } ] },
-  { date: '2026-08-01', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Begin taper — recover and stay sharp.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-08-02', type: 'run', title: 'EASY RUN', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'GO', moto: 'Easy 4 miles.', steadyMoto: 'Steady 4 miles.', distance: '4 miles', duration: '~40 min', intervals: '60s RUN / 30s WALK', xp: 40, steps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 4 miles easy', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ], steadySteps: [ { text: 'Warm-up', time: '5 min' }, { text: 'Run 4 miles steady', time: '35 min' }, { text: 'Cooldown', time: '5 min' } ] },
-  { date: '2026-08-03', type: 'strength', title: 'STRENGTH · LIGHT', icon: '\uD83D\uDCAA', headerClass: 'strength-header', btnClass: 'strength-btn', pow: 'TONE', moto: 'Light strength.', distance: '', duration: '30 min', intervals: 'LIGHT', xp: 25, steps: [ { text: 'Warm-up', time: '3 min' }, { text: 'BW Squat 2x12', time: '3 min' }, { text: 'Push-Up 2x10', time: '3 min' }, { text: 'Glute Bridge 2x15', time: '4 min' }, { text: 'Plank 2x45s', time: '3 min' } ] },
-  { date: '2026-08-04', type: 'run', title: 'SHAKEOUT', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY', moto: 'Short shakeout to stay loose.', steadyMoto: 'Short shakeout.', distance: '2 miles', duration: '25 min', intervals: '60s RUN / 30s WALK', xp: 25, steps: [ { text: 'Easy 2 miles', time: '20 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-08-05', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Rest and prepare for race week.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-08-06', type: 'rest', title: 'REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Taper continues.', distance: '', duration: 'REST', intervals: 'RECOVERY', xp: 10, steps: [ { text: 'Hydrate', time: 'all day' } ] },
-  { date: '2026-08-07', type: 'run', title: 'SHAKEOUT', icon: '\uD83C\uDFC3', headerClass: 'run-header', btnClass: 'run-btn', pow: 'EASY', moto: '1.5 miles easy. Stay calm.', steadyMoto: '1.5 miles easy.', distance: '1.5 miles', duration: '20 min', intervals: '60s RUN / 30s WALK', xp: 20, steps: [ { text: 'Easy 1.5 miles', time: '15 min' }, { text: 'Stretch', time: '5 min' } ] },
-  { date: '2026-08-08', type: 'rest', title: 'PRE-RACE REST', icon: '\uD83D\uDE34', headerClass: 'rest-header', btnClass: '', pow: 'ZZZ', moto: 'Final rest — carb load and sleep early.', distance: '', duration: 'REST', intervals: 'PRE-RACE', xp: 10, steps: [ { text: 'Carb-load dinner', time: 'dinner' } ] },
-  { date: '2026-08-09', type: 'longrun', title: 'VIRTUAL HALF MARATHON!', icon: '\uD83C\uDFC6', headerClass: 'longrun-header', btnClass: 'long-btn', pow: 'RACE!!', moto: 'HALF MARATHON RACE DAY! 13.1 miles. Lizzie & Sarah take on the next challenge — go claim it!', steadyMoto: 'RACE DAY! 13.1 miles steady state. Trust your training and fuel smart.', distance: '13.1 miles (Half Marathon)', duration: 'RACE DAY!', intervals: 'Galloway optional', xp: 500,
-    steps: [ { text: 'Hydrate & light breakfast', time: '60 min before' }, { text: 'Gear up', time: '30 min before' }, { text: '10 min warmup walk', time: '10 min' }, { text: 'START THE RACE! Keep steady or use run/walk as planned', time: 'LET\'S GO' }, { text: 'Fuel/water every 3–4 miles', time: 'during' }, { text: 'Finish line!', time: 'VICTORY' }, { text: 'Cooldown + celebrate', time: '10 min' } ] },
+      { text: 'Hydrate & light breakfast 🍌', time: '60 min before' },
+      { text: 'Gear up', time: '30 min before' },
+      { text: '10 min warmup walk', time: '10 min' },
+      { text: 'Steady race pace — you know your body!', time: 'GO!' },
+      { text: 'Fuel every 3–4 miles', time: 'during' },
+      { text: 'FINISH LINE! 🏆', time: 'VICTORY!' },
+      { text: 'Cooldown + celebrate!', time: '15 min' }
+    ] },
 ];
 
 // STATE
