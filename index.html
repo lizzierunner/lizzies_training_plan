@@ -3381,36 +3381,50 @@ var paceTableOpen = false;
 function generatePaceTableHTML(day) {
   var dist = parseMiles(day.distance);
   if (!dist) return '';
+  var WALK_MPH = 3.0; // walk speed for Galloway intervals
   var speeds = [4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5];
   var rows = speeds.map(function(mph) {
-    var totalMin = (dist / mph) * 60;
+    // Galloway 1:1 — 1 min run at mph, 1 min walk at 3.0 mph
+    // Distance covered per 2-min cycle = (mph + WALK_MPH) / 60
+    var distPerCycle = (mph + WALK_MPH) / 60;
+    var totalMin = (dist / distPerCycle) * 2;
+
     var h = Math.floor(totalMin / 60);
     var m = Math.floor(totalMin % 60);
     var s = Math.round((totalMin - Math.floor(totalMin)) * 60);
     if (s === 60) { s = 0; m++; }
-    var timeStr = h > 0 ? (h + ':' + (m<10?'0':'')+m+':' + (s<10?'0':'')+s) : (m + ':' + (s<10?'0':'')+s);
-    var paceMin = 60 / mph;
-    var pM = Math.floor(paceMin);
-    var pS = Math.round((paceMin - pM) * 60);
+    var timeStr = h > 0
+      ? (h + ':' + (m<10?'0':'')+m+':' + (s<10?'0':'')+s)
+      : (m + ':' + (s<10?'0':'')+s);
+
+    // Effective average pace = totalTime / dist (min/mile)
+    var effPaceMin = totalMin / dist;
+    var pM = Math.floor(effPaceMin);
+    var pS = Math.round((effPaceMin - pM) * 60);
     if (pS === 60) { pS = 0; pM++; }
     var paceStr = pM + ':' + (pS<10?'0':'') + pS + '/mi';
+
     var zone = mph <= 5.0 ? 'pace-zone-easy' : (mph <= 6.5 ? 'pace-zone-mod' : 'pace-zone-tempo');
     var zoneLabel = mph <= 5.0 ? 'easy' : (mph <= 6.5 ? 'moderate' : 'tempo');
     return '<tr class="' + zone + '"><td><strong>' + mph.toFixed(1) + '</strong><span class="zone-tag">' + zoneLabel + '</span></td>' +
       '<td>' + paceStr + '</td><td><strong>' + timeStr + '</strong></td></tr>';
   }).join('');
+
   return '<div class="pace-table-wrap">' +
     '<button class="pace-table-toggle' + (paceTableOpen ? ' open' : '') + '" id="paceTableBtn">' +
       '<span>\uD83C\uDFC3\u200D\u2640\uFE0F TREADMILL PACE GUIDE \u2014 ' + dist + ' MI</span>' +
       '<span class="pace-arrow">\u25BC</span>' +
     '</button>' +
     '<div class="pace-table-body' + (paceTableOpen ? ' open' : '') + '" id="paceTableBody">' +
-      '<table class="pace-table"><thead><tr><th>MPH</th><th>PACE</th><th>FINISH TIME</th></tr></thead>' +
+      '<table class="pace-table"><thead><tr><th>RUN MPH</th><th>AVG PACE</th><th>FINISH TIME</th></tr></thead>' +
       '<tbody>' + rows + '</tbody></table>' +
       '<div class="pace-legend">' +
         '<span><span class="pace-leg-dot" style="background:#e8f5e9;"></span>EASY</span>' +
         '<span><span class="pace-leg-dot" style="background:#fff8e1;"></span>MODERATE</span>' +
         '<span><span class="pace-leg-dot" style="background:#fce4ec;"></span>TEMPO</span>' +
+      '</div>' +
+      '<div style="padding:4px 10px 8px;font-family:\'Comic Neue\',cursive;font-size:10px;color:rgba(0,0,0,0.4);font-weight:700;letter-spacing:0.5px;">' +
+        '\u23F1\uFE0F 1 min run at listed speed + 1 min walk @ 3.0 mph' +
       '</div>' +
     '</div>' +
   '</div>';
