@@ -1357,6 +1357,205 @@ body::after {
 .bored-claim-btn:hover:not(:disabled) { transform: scale(1.07); }
 .bored-claim-btn:disabled { opacity: 0.6; cursor: default; }
 
+/* ===== WEEZER SIDE QUEST ===== */
+.wsq-wrap {
+  margin: 0 0 var(--gutter);
+}
+.wsq-trigger-row {
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+}
+.wsq-trigger-label {
+  font-family: 'Bangers', cursive;
+  font-size: 18px;
+  letter-spacing: 3px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wsq-dog-emoji { font-size: 22px; animation: wsqWag 1.2s ease-in-out infinite alternate; }
+@keyframes wsqWag {
+  from { transform: rotate(-10deg); }
+  to   { transform: rotate(12deg); }
+}
+.wsq-trigger-btn {
+  background: var(--yellow);
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  border-radius: 6px;
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.wsq-trigger-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+}
+/* Quest card */
+.wsq-card {
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+  background: #fff;
+}
+.wsq-card-header {
+  background: var(--wsq-color, #8BC34A);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+}
+.wsq-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+.wsq-header-dog { font-size: 20px; }
+.wsq-reroll-btn {
+  background: rgba(255,255,255,0.25);
+  border: 1.5px solid rgba(255,255,255,0.6);
+  border-radius: 5px;
+  color: #fff;
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.wsq-reroll-btn:hover { background: rgba(255,255,255,0.4); }
+/* Hero block */
+.wsq-hero {
+  text-align: center;
+  padding: 14px 16px 8px;
+  background: #fafafa;
+  border-bottom: 1.5px solid rgba(0,0,0,0.08);
+}
+.wsq-hero-emoji {
+  font-size: 44px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.wsq-hero-emoji.wsq-pop { animation: wsqPop 0.4s cubic-bezier(0.36,0.07,0.19,0.97); }
+@keyframes wsqPop {
+  0%   { transform: scale(0.5); opacity: 0.3; }
+  60%  { transform: scale(1.25); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+.wsq-hero-name {
+  font-family: 'Bangers', cursive;
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: var(--ink);
+  min-height: 32px;
+  transition: opacity 0.15s;
+}
+.wsq-hero-name.wsq-spin { opacity: 0.5; }
+.wsq-hero-name.wsq-locked { opacity: 1; }
+.wsq-duration-badge {
+  display: inline-block;
+  margin-top: 6px;
+  background: var(--wsq-color, #8BC34A);
+  color: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 3px 12px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+/* Body text */
+.wsq-desc {
+  padding: 10px 14px 6px;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.wsq-tip {
+  padding: 6px 14px 10px;
+  font-family: 'Comic Neue', cursive;
+  font-size: 11px;
+  color: rgba(0,0,0,0.55);
+  font-style: italic;
+  line-height: 1.5;
+}
+/* Footer row */
+.wsq-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 2px solid var(--ink);
+  background: #f9f5ed;
+  gap: 10px;
+}
+.wsq-tag {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  background: var(--wsq-color, #8BC34A);
+  color: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  padding: 3px 10px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+  white-space: nowrap;
+}
+.wsq-claim-btn {
+  background: var(--ink);
+  color: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+  transition: transform 0.1s;
+  white-space: nowrap;
+}
+.wsq-claim-btn:hover { transform: scale(1.06); }
+.wsq-claimed-badge {
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #388E3C;
+  background: #E8F5E9;
+  border: 2px solid #388E3C;
+  border-radius: 6px;
+  padding: 5px 12px;
+  display: inline-block;
+  white-space: nowrap;
+}
+.wsq-card-dismiss {
+  text-align: right;
+  padding: 4px 14px 8px;
+}
+
 /* ===== I'M BORED BUTTON & CARD ===== */
 .bored-wrap {
   margin: 0 0 var(--gutter);
@@ -2733,6 +2932,9 @@ body::after {
   <!-- I'M BORED BUTTON — fun workout suggestion generator -->
   <div id="boredBox"></div>
 
+  <!-- WEEZER SIDE QUEST — dog-themed bonus movement missions -->
+  <div id="weezerSideQuestBox"></div>
+
   <div class="page-number">-- PAGE 1 OF THE IRON LIZZIE HALF MARATHON SAGA --</div>
 </div>
 
@@ -3599,6 +3801,9 @@ function getTotalXP() {
 
   // Weezer Walk bonus: +20 XP each time the bored-box Weezer Walk is claimed
   xp += (state._weezerWalks || 0) * 20;
+
+  // Weezer Side Quest XP: accumulated from claimed dog-mission completions
+  xp += state._sideQuestXP || 0;
 
   return xp;
 }
@@ -4637,6 +4842,99 @@ var BORED_OPTIONS = [
   }
 ];
 
+// ── WEEZER SIDE QUESTS ────────────────────────────────────────
+// Dog-themed bonus movement missions. XP is claimable once per session per quest.
+var WEEZER_QUESTS = [
+  {
+    id: 'sniffari_walk',
+    name: 'SNIFFARI WALK',
+    emoji: '\uD83D\uDC3E',
+    xp: 15,
+    duration: '20 min',
+    desc: 'Let Weezer lead the whole walk. No destination, no pace, no plan. She sniffs every blade of grass. You just hold the leash and breathe.',
+    tip: 'Science says sniff-led walks are mentally enriching for dogs AND humans. You both win.',
+    tag: '\uD83C\uDF32 SLOW ZONE',
+    color: '#8BC34A'
+  },
+  {
+    id: 'squirrel_patrol',
+    name: 'SQUIRREL PATROL',
+    emoji: '\uD83D\uDC3F\uFE0F',
+    xp: 20,
+    duration: '15–30 min',
+    desc: 'Scout the neighbourhood for squirrels, birds, suspicious leaves, and anything that moves. Weezer spots the threats. You keep up with the pursuit.',
+    tip: 'High-alert walking counts as cardio. Keeping up with a determined dog is interval training.',
+    tag: '\uD83D\uDD34 HIGH ALERT',
+    color: '#FF7043'
+  },
+  {
+    id: 'good_boy_bonus',
+    name: 'GOOD BOY BONUS',
+    emoji: '\uD83E\uDDB4',
+    xp: 10,
+    duration: '10 min',
+    desc: 'Weezer gets to choose the whole route for 10 minutes, no redirects. Wherever her nose says go, you go. Trust the process.',
+    tip: 'Dogs navigate by smell-mapping. Following their route is basically a guided meditation.',
+    tag: '\uD83D\uDC9B WEEZER\'S CHOICE',
+    color: '#FFCA28'
+  },
+  {
+    id: 'neighborhood_sweep',
+    name: 'NEIGHBORHOOD SECURITY SWEEP',
+    emoji: '\uD83D\uDD75\uFE0F',
+    xp: 25,
+    duration: '30–45 min',
+    desc: 'Full perimeter check of the neighborhood. Every block, every alley, every suspicious bush. Weezer is the lead detective. You are the backup.',
+    tip: 'Longer walk = longer cool-down on a rest day. You\'re recovering while also being heroic.',
+    tag: '\uD83D\uDD34 DETECTIVE MODE',
+    color: '#5C6BC0'
+  },
+  {
+    id: 'zoomies_companion',
+    name: 'ZOOMIES COMPANION RUN',
+    emoji: '\uD83C\uDFCB\uFE0F',
+    xp: 30,
+    duration: 'Until Weezer stops',
+    desc: 'When Weezer gets the zoomies, match her energy. Full sprint, direction changes, chaotic joy. No plan. Just SPEED and happiness.',
+    tip: 'Fartlek intervals inspired by your dog\'s chaos instinct. Certified training methodology.',
+    tag: '\uD83D\uDD34 CHAOTIC GOOD',
+    color: '#E91E63'
+  },
+  {
+    id: 'puddle_mission',
+    name: 'PUDDLE AVOIDANCE MISSION',
+    emoji: '\uD83D\uDCA7',
+    xp: 15,
+    duration: '20 min',
+    desc: 'Post-rain walk. Navigate around every puddle. Weezer will absolutely try to walk THROUGH every puddle. Maintain control. Stay dry. Good luck.',
+    tip: 'Lateral agility training disguised as dog parenting. Your ankles are getting stronger.',
+    tag: '\uD83E\uDD2D CHAOS MODE',
+    color: '#26C6DA'
+  },
+  {
+    id: 'sunset_lap',
+    name: 'GOLDEN HOUR LAP',
+    emoji: '\uD83C\uDF05',
+    xp: 20,
+    duration: '25–35 min',
+    desc: 'One easy lap of the neighbourhood at golden hour, Weezer in tow, no headphones. Watch the light. Notice things. This is active recovery done right.',
+    tip: 'Evening walks reduce cortisol and help you sleep. This is basically training for tomorrow.',
+    tag: '\uD83D\uDFE1 RECOVERY MODE',
+    color: '#FFA726'
+  },
+  {
+    id: 'treat_run',
+    name: 'TREAT RUN',
+    emoji: '\uD83E\uDDB4',
+    xp: 15,
+    duration: '15–20 min',
+    desc: 'Walk to the pet store or corner shop. Buy Weezer a treat. Walk back. That\'s the whole mission. Mutual reward achieved.',
+    tip: 'Studies confirm that buying your dog something small improves YOUR mood significantly.',
+    tag: '\uD83C\uDF1F TREAT YOURSELF',
+    color: '#AB47BC'
+  },
+];
+
 // Render the I\'m Bored widget into #boredBox
 // Unlike the Mission Reveal, this is stateless — no persistence, re-rolls freely.
 function renderBoredBox() {
@@ -4938,6 +5236,125 @@ var historyLogOpen = false;function renderTrainingLog() {
   });
 }
 
+// ── WEEZER SIDE QUEST WIDGET ──────────────────────────────────
+function renderWeezerSideQuest() {
+  var el = document.getElementById('weezerSideQuestBox');
+  if (!el) return;
+
+  // Re-render preserving current pick if one exists
+  if (!window._weezerQuestPick) {
+    el.innerHTML =
+      '<div class="wsq-wrap">' +
+        '<div class="wsq-trigger-row">' +
+          '<div class="wsq-trigger-label">' +
+            '<span class="wsq-dog-emoji">\uD83D\uDC36</span>' +
+            'WEEZER SIDE QUEST' +
+            '<span class="wsq-dog-emoji">\uD83D\uDC36</span>' +
+          '</div>' +
+          '<button class="wsq-trigger-btn" id="wsqBtn">ROLL A DOG MISSION</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('wsqBtn').addEventListener('click', function() {
+      window._weezerQuestPick = WEEZER_QUESTS[Math.floor(Math.random() * WEEZER_QUESTS.length)];
+      showWeezerQuest(true);
+    });
+  } else {
+    showWeezerQuest(false);
+  }
+}
+
+function showWeezerQuest(animate) {
+  var el = document.getElementById('weezerSideQuestBox');
+  if (!el) return;
+  var q = window._weezerQuestPick;
+  var claimedKey = '_sqClaimed_' + q.id;
+  var alreadyClaimed = !!(state[claimedKey]);
+
+  el.innerHTML =
+    '<div class="wsq-wrap">' +
+      '<div class="wsq-card" style="--wsq-color:' + q.color + '">' +
+
+        '<div class="wsq-card-header">' +
+          '<div class="wsq-header-left">' +
+            '<span class="wsq-header-dog">\uD83D\uDC15</span>' +
+            '<span class="wsq-header-title">WEEZER SIDE QUEST</span>' +
+          '</div>' +
+          '<button class="wsq-reroll-btn" id="wsqRerollBtn">\uD83C\uDFB2 NEW QUEST</button>' +
+        '</div>' +
+
+        '<div class="wsq-hero">' +
+          '<div class="wsq-hero-emoji' + (animate ? ' wsq-pop' : '') + '">' + q.emoji + '</div>' +
+          '<div class="wsq-hero-name' + (animate ? ' wsq-spin' : ' wsq-locked') + '" id="wsqName">' +
+            (animate ? '???' : q.name) +
+          '</div>' +
+          '<div class="wsq-duration-badge">\u23F1\uFE0F ' + q.duration + '</div>' +
+        '</div>' +
+
+        '<div class="wsq-desc">' + q.desc + '</div>' +
+
+        '<div class="wsq-tip">\uD83D\uDCA1 ' + q.tip + '</div>' +
+
+        '<div class="wsq-footer">' +
+          '<div class="wsq-tag">' + q.tag + '</div>' +
+          '<div class="wsq-xp-claim">' +
+            (alreadyClaimed
+              ? '<span class="wsq-claimed-badge">\u2713 +' + q.xp + ' XP CLAIMED</span>'
+              : '<button class="wsq-claim-btn" id="wsqClaimBtn">\uD83D\uDC3E COMPLETE +' + q.xp + ' XP</button>') +
+          '</div>' +
+        '</div>' +
+
+        '<div class="wsq-card-dismiss">' +
+          '<button class="mission-dismiss-btn" id="wsqDismissBtn">dismiss quest</button>' +
+        '</div>' +
+
+      '</div>' +
+    '</div>';
+
+  // Re-roll
+  document.getElementById('wsqRerollBtn').addEventListener('click', function() {
+    var prev = window._weezerQuestPick;
+    var pool = WEEZER_QUESTS.filter(function(q) { return q.id !== prev.id; });
+    window._weezerQuestPick = pool[Math.floor(Math.random() * pool.length)];
+    showWeezerQuest(true);
+  });
+
+  // Dismiss
+  document.getElementById('wsqDismissBtn').addEventListener('click', function() {
+    window._weezerQuestPick = null;
+    renderWeezerSideQuest();
+  });
+
+  // Claim XP
+  var claimBtn = document.getElementById('wsqClaimBtn');
+  if (claimBtn) {
+    claimBtn.addEventListener('click', function() {
+      state[claimedKey] = true;
+      state._sideQuestXP = (state._sideQuestXP || 0) + q.xp;
+      saveState(state);
+      checkAchievements();
+      renderAll();
+    });
+  }
+
+  if (!animate) return;
+
+  // Slot machine spin for quest name
+  var nameEl = document.getElementById('wsqName');
+  var names = WEEZER_QUESTS.map(function(q) { return q.name; });
+  var spinI = setInterval(function() {
+    if (nameEl && nameEl.classList.contains('wsq-spin')) {
+      nameEl.textContent = names[Math.floor(Math.random() * names.length)];
+    }
+  }, 75);
+  setTimeout(function() {
+    clearInterval(spinI);
+    if (!nameEl) return;
+    nameEl.classList.remove('wsq-spin');
+    nameEl.textContent = q.name;
+    nameEl.classList.add('wsq-locked');
+  }, 550);
+}
+
 function renderAll() {
   renderProgress();
   renderHeroStrip();
@@ -4950,6 +5367,7 @@ function renderAll() {
   renderStoryRecap();
   renderTrainingLog();
   renderBoredBox();
+  renderWeezerSideQuest();
 }
 
 // EFFECTS
