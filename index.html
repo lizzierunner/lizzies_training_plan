@@ -826,6 +826,121 @@ body::after {
 }
 .ileg-dot { width: 10px; height: 10px; border: 1.5px solid var(--ink); border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
 
+/* GALLOWAY SURPRISE ME */
+.gal-surprise-wrap {
+  padding: 10px 14px 12px;
+  border-bottom: 2px solid var(--ink);
+  background: #fffde7;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+.gal-surprise-btn {
+  width: 100%;
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: 15px;
+  letter-spacing: 2px;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 9px 14px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.25);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.gal-surprise-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+}
+.gal-surprise-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.25);
+}
+.gal-surprise-result {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, margin-top 0.2s;
+  margin-top: 0;
+}
+.gal-surprise-result.visible {
+  max-height: 300px;
+  margin-top: 10px;
+}
+.gal-result-card {
+  border: 2.5px solid #000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.18);
+}
+.gal-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  color: #fff;
+}
+.gal-result-label {
+  font-family: 'Bangers', cursive;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+}
+.gal-result-tag {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+.gal-result-blocks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 14px 10px;
+  background: #fff;
+}
+.gal-block {
+  border: 2.5px solid #000;
+  border-radius: 6px;
+  width: 72px;
+  text-align: center;
+  padding: 8px 4px 6px;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+}
+.gal-block.gal-run { background: #ffeaea; }
+.gal-block.gal-walk { background: #e3f0ff; border-color: #555; }
+.gal-block-num {
+  font-family: 'Bangers', cursive;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ink);
+}
+.gal-block-label {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  margin-top: 2px;
+}
+.gal-block-sep {
+  font-family: 'Bangers', cursive;
+  font-size: 28px;
+  color: rgba(0,0,0,0.3);
+}
+.gal-result-desc {
+  padding: 8px 12px 10px;
+  font-family: 'Comic Neue', cursive;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  background: #fafafa;
+  line-height: 1.5;
+  border-top: 1.5px solid rgba(0,0,0,0.1);
+}
+
 /* STEPS */
 .steps-section { padding: 12px 14px; }
 .steps-title {
@@ -2630,6 +2745,45 @@ var RACE_DATE = new Date('2026-08-09T00:00:00');
 var ACTION_WORDS = ['POW!','ZAP!','BAM!','KA-POW!','WHAM!','SMASH!','BOOM!','KAPOW!','THWACK!','CRUNCH!','YES!!','HEROIC!'];
 var SFX_WORDS = ['*WHOOSH*','*THUD*','*CRACK*','*SWOOSH*','*ZING*','*KAPOW*','*WHAM*','*THWIP*'];
 
+// ── GALLOWAY INTERVAL OPTIONS ─────────────────────────────────
+var GALLOWAY_INTERVALS = [
+  {
+    label: '30s / 30s',
+    run: 30, walk: 30,
+    tag: '\uD83D\uDC23 BEGINNER FRIENDLY',
+    desc: 'Equal run/walk time — great for your first few weeks or when you\'re coming back from a rough day. Keeps your heart rate stable and legs fresh.',
+    color: '#4CAF50'
+  },
+  {
+    label: '45s / 30s',
+    run: 45, walk: 30,
+    tag: '\uD83D\uDCCA BUILDING MOMENTUM',
+    desc: 'A gentle step up from 30/30. You\'re running a bit more than you\'re walking — good for weeks 3–5 when you want to feel the progression without torching yourself.',
+    color: '#2196F3'
+  },
+  {
+    label: '60s / 30s',
+    run: 60, walk: 30,
+    tag: '\u26A1 THE SWEET SPOT',
+    desc: 'The classic Galloway workhorse. 2:1 run-to-walk ratio hits a rhythm most runners love. This is what the training plan is built around — use it with confidence.',
+    color: '#FF5722'
+  },
+  {
+    label: '60s / 60s',
+    run: 60, walk: 60,
+    tag: '\uD83C\uDF21\uFE0F HEAT / TIRED LEGS MODE',
+    desc: 'Same run time but double the recovery walk. Reach for this on hot summer days, when you didn\'t sleep enough, or when your legs just aren\'t feeling it. Zero shame — it\'s still running.',
+    color: '#FF9800'
+  },
+  {
+    label: '90s / 30s',
+    run: 90, walk: 30,
+    tag: '\uD83D\uDE80 ADVANCED MODE',
+    desc: 'More run than walk — 3:1 ratio. You\'re feeling strong, your base is solid, and you want to push. Save this for weeks 8+ or when you\'re chasing a fast long-run finish.',
+    color: '#9C27B0'
+  },
+];
+
 var RANKS = [
   { min: 0,    name: 'SIDEKICK',        emoji: '\uD83E\uDDB8' },
   { min: 100,  name: 'ROOKIE RUNNER',   emoji: '\u26A1' },
@@ -3749,6 +3903,18 @@ function renderWorkout() {
     intervalHTML = '<div class="interval-visual"><div class="interval-label">\uD83C\uDFC3\u200D\u2640\uFE0F STEADY STATE:</div><div class="interval-blocks"><div class="iblock steady"></div></div><div class="interval-legend"><span><span class="ileg-dot" style="background:var(--green)"></span>ONE COMFORTABLE PACE</span></div></div>';
   }
 
+  // GALLOWAY SURPRISE ME
+  var surpriseMeHTML = '';
+  if (isRunDay && currentMode === 'galloway') {
+    surpriseMeHTML =
+      '<div class="gal-surprise-wrap" id="galSurpriseWrap">' +
+        '<button class="gal-surprise-btn" id="galSurpriseBtn">' +
+          '\uD83C\uDFB2 SURPRISE ME \u2014 Pick a Random Interval' +
+        '</button>' +
+        '<div class="gal-surprise-result" id="galSurpriseResult"></div>' +
+      '</div>';
+  }
+
   // DISTANCE BADGE
   var distBadgeHTML = '';
   if (day.distance) {
@@ -3802,7 +3968,7 @@ function renderWorkout() {
     swapHTML = '<div class="swap-wrap"><div class="swap-label">\uD83D\uDCC5 BUSY DAY?</div><button class="swap-btn" id="swapDayBtn"><span class="swap-icon">\uD83D\uDD00</span> SWAP DAY</button></div>';
   }
 
-  content.innerHTML = '<div class="workout-panel"><div class="panel-header ' + day.headerClass + '"><div class="pow-badge">' + day.pow + '</div><div class="header-top-row"><div class="panel-icon">' + day.icon + '</div><div class="panel-titles"><div class="panel-title">' + day.title + '</div><div class="panel-subtitle">' + subtitleText + '</div></div></div></div>' + swapHTML + venueHTML + paceTableHTML + toggleHTML + intervalHTML + distBadgeHTML + '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MISSION BRIEFING</div>' + stepsHTML + '</div>' + xpBadge + journalHTML + btnHTML + '</div>';
+  content.innerHTML = '<div class="workout-panel"><div class="panel-header ' + day.headerClass + '"><div class="pow-badge">' + day.pow + '</div><div class="header-top-row"><div class="panel-icon">' + day.icon + '</div><div class="panel-titles"><div class="panel-title">' + day.title + '</div><div class="panel-subtitle">' + subtitleText + '</div></div></div></div>' + swapHTML + venueHTML + paceTableHTML + toggleHTML + intervalHTML + surpriseMeHTML + distBadgeHTML + '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MISSION BRIEFING</div>' + stepsHTML + '</div>' + xpBadge + journalHTML + btnHTML + '</div>';
 
   // VENUE TOGGLE LISTENERS
   content.querySelectorAll('[data-venue]').forEach(function(btn) {
@@ -3838,6 +4004,45 @@ function renderWorkout() {
       renderWorkout();
     });
   });
+
+  // GALLOWAY SURPRISE ME LISTENER
+  var galBtn = document.getElementById('galSurpriseBtn');
+  if (galBtn) {
+    galBtn.addEventListener('click', function() {
+      var prev = galBtn._lastPick;
+      var pool = prev != null
+        ? GALLOWAY_INTERVALS.filter(function(_, i) { return i !== prev; })
+        : GALLOWAY_INTERVALS;
+      var idx = Math.floor(Math.random() * pool.length);
+      var pick = pool[idx];
+      // track which index we actually picked in the original array so next roll avoids it
+      galBtn._lastPick = GALLOWAY_INTERVALS.indexOf(pick);
+
+      var result = document.getElementById('galSurpriseResult');
+      result.innerHTML =
+        '<div class="gal-result-card" style="border-color:' + pick.color + '">' +
+          '<div class="gal-result-header" style="background:' + pick.color + '">' +
+            '<span class="gal-result-label">' + pick.label + '</span>' +
+            '<span class="gal-result-tag">' + pick.tag + '</span>' +
+          '</div>' +
+          '<div class="gal-result-blocks">' +
+            '<div class="gal-block gal-run" style="border-color:' + pick.color + '">' +
+              '<div class="gal-block-num">' + pick.run + 's</div>' +
+              '<div class="gal-block-label">RUN</div>' +
+            '</div>' +
+            '<div class="gal-block-sep">/</div>' +
+            '<div class="gal-block gal-walk">' +
+              '<div class="gal-block-num">' + pick.walk + 's</div>' +
+              '<div class="gal-block-label">WALK</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="gal-result-desc">' + pick.desc + '</div>' +
+        '</div>';
+
+      result.classList.add('visible');
+      galBtn.textContent = '\uD83C\uDFB2 ROLL AGAIN';
+    });
+  }
 
   // SWAP DAY LISTENERS
   var swapBtn = document.getElementById('swapDayBtn');
