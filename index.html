@@ -1635,6 +1635,29 @@ body::after {
 .sfx-toggle:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
 .sfx-toggle.sfx-off { background: #ccc; opacity: 0.75; }
 
+.print-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--paper);
+  border: 2.5px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: background 0.15s, box-shadow 0.1s;
+  padding: 0;
+  line-height: 1;
+}
+.print-btn:hover { background: #eee; }
+.print-btn:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+
 /* ===== MISSION DEBRIEF MODAL ===== */
 .debrief-overlay {
   position: fixed;
@@ -2113,6 +2136,7 @@ body::after {
     <!-- MASTHEAD -->
     <div class="masthead">
       <button class="sfx-toggle" id="sfxToggle" title="Toggle sound effects">🔊</button>
+      <button class="print-btn" id="printPlanBtn" title="Print / Save PDF Training Plan">🖨️</button>
       <div class="masthead-badge" id="mastheadBadge">&#x1F3C1; AUG 9 &middot; VIRTUAL HALF MARATHON</div>
       <div class="masthead-vol">
         <span>VOL. 1 &middot; ISSUE #<span id="issueNum">1</span></span>
@@ -3562,10 +3586,110 @@ function generatePaceTableHTML(day) {
   '</div>';
 }
 
+// PRINT PLAN
+function printPlan() {
+  var weeks = [];
+  var weekMap = {};
+  planDays.forEach(function(d) {
+    var wk = getWeekNumber(d.date);
+    if (!weekMap[wk]) { weekMap[wk] = { num: wk, days: [] }; weeks.push(weekMap[wk]); }
+    weekMap[wk].days.push(d);
+  });
+  var TYPE_COLOR = { run: '#e03030', longrun: '#27ae60', strength: '#7d3fc8', rest: '#aaaaaa' };
+  var TYPE_LABEL = { run: 'RUN', longrun: 'LONG RUN', strength: 'STRENGTH', rest: 'REST' };
+  var rowsHTML = '';
+  weeks.forEach(function(wk) {
+    var firstDate = new Date(wk.days[0].date + 'T12:00:00');
+    var lastDate  = new Date(wk.days[wk.days.length - 1].date + 'T12:00:00');
+    var weekMiles = 0; var weekXP = 0;
+    wk.days.forEach(function(d) { weekMiles += d.distance ? parseMiles(d.distance) : 0; weekXP += d.xp || 0; });
+    var wkLabel = MONTHS[firstDate.getMonth()] + ' ' + firstDate.getDate() + ' \u2013 ' + MONTHS[lastDate.getMonth()] + ' ' + lastDate.getDate();
+    rowsHTML += '<tr class="week-header"><td colspan="8">WEEK ' + wk.num + ' \u00b7 ' + wkLabel + ' \u00b7 ' + (weekMiles > 0 ? weekMiles.toFixed(1) + ' mi \u00b7 ' : '') + weekXP + ' XP</td></tr>';
+    wk.days.forEach(function(d) {
+      var dateObj = new Date(d.date + 'T12:00:00');
+      var dateLabel = WEEK_DAYS[dateObj.getDay()] + ' ' + MONTHS[dateObj.getMonth()] + ' ' + dateObj.getDate();
+      var typeColor = TYPE_COLOR[d.type] || '#aaa';
+      var typeLabel = TYPE_LABEL[d.type] || d.type.toUpperCase();
+      var done = state[d.date] && state[d.date].done;
+      var skipped = state[d.date] && state[d.date].skipped;
+      var statusCell = done ? '<span class="status-done">&#x2705; Done</span>' : skipped ? '<span class="status-skip">&#x23ED; Skipped</span>' : '';
+      var journal = state.journal && state.journal[d.date];
+      var feelStr = ''; var noteStr = ''; var actualStr = '';
+      if (journal) {
+        if (journal.feel) { var fo = FEEL_OPTIONS[journal.feel - 1]; feelStr = fo.emoji + ' ' + fo.label; }
+        if (journal.note) noteStr = journal.note;
+        if (journal.actualDist) actualStr = journal.actualDist;
+      }
+      rowsHTML += '<tr><td class="col-date">' + dateLabel + '</td>' +
+        '<td class="col-type" style="border-left:4px solid ' + typeColor + ';color:' + typeColor + '">' + typeLabel + '</td>' +
+        '<td class="col-icon">' + d.icon + '</td>' +
+        '<td class="col-title">' + d.title + '</td>' +
+        '<td class="col-dist">' + (d.distance || '\u2014') + '</td>' +
+        '<td class="col-dur">' + (d.duration || '\u2014') + '</td>' +
+        '<td class="col-xp">+' + d.xp + '</td>' +
+        '<td class="col-status">' + statusCell +
+          (feelStr ? '<br><span class="feel-str">' + feelStr + '</span>' : '') +
+          (actualStr ? '<br><span class="actual-str">&#x1F4CD; ' + actualStr + '</span>' : '') +
+          (noteStr ? '<br><em class="note-str">&ldquo;' + noteStr + '&rdquo;</em>' : '') +
+        '</td></tr>';
+    });
+  });
+  var totalMiles = 0; var totalXP = 0; var doneCount = 0;
+  planDays.forEach(function(d) {
+    totalMiles += d.distance ? parseMiles(d.distance) : 0;
+    totalXP += d.xp || 0;
+    if (state[d.date] && state[d.date].done) doneCount++;
+  });
+  var n = new Date();
+  var printDate = MONTHS[n.getMonth()] + ' ' + n.getDate() + ', ' + n.getFullYear();
+  var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Iron Lizzie HM Training Plan</title>' +
+    '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+    '<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">' +
+    '<style>' +
+    'body{margin:0;padding:20px;font-family:"Comic Neue",Arial,sans-serif;background:#fff;color:#111;font-size:12px}' +
+    '.print-header{text-align:center;border-bottom:4px solid #111;padding-bottom:12px;margin-bottom:14px}' +
+    '.print-header h1{font-family:"Bangers",Impact,sans-serif;font-size:46px;letter-spacing:4px;margin:0;text-shadow:3px 3px 0 #e03030}' +
+    '.print-header h2{font-family:"Bangers",Impact,sans-serif;font-size:20px;letter-spacing:3px;color:#e03030;margin:2px 0 6px}' +
+    '.print-meta{font-size:11px;color:#555}' +
+    '.summary-bar{display:flex;gap:20px;justify-content:center;background:#111;color:#fff;padding:7px 16px;font-family:"Bangers",sans-serif;font-size:15px;letter-spacing:2px;margin-bottom:14px}' +
+    'table{width:100%;border-collapse:collapse}' +
+    'th{background:#111;color:#fff;font-family:"Bangers",sans-serif;font-size:13px;letter-spacing:1px;padding:6px 8px;text-align:left}' +
+    'td{padding:5px 8px;border-bottom:1px solid #e8e8e8;vertical-align:top}' +
+    'tr:nth-child(even) td{background:#f9f9f9}' +
+    '.week-header td{background:#fffbe6!important;font-family:"Bangers",sans-serif;font-size:13px;letter-spacing:2px;border-top:3px solid #111;border-bottom:1px solid #111;padding:7px 8px;color:#111}' +
+    '.col-date{white-space:nowrap;font-weight:700;font-size:11px;color:#444;width:90px}' +
+    '.col-type{font-family:"Bangers",sans-serif;letter-spacing:1px;font-size:13px;width:78px}' +
+    '.col-icon{font-size:15px;width:24px}' +
+    '.col-title{font-family:"Bangers",sans-serif;font-size:13px;letter-spacing:1px}' +
+    '.col-dist{white-space:nowrap;color:#1a6eb5;font-weight:700;width:60px}' +
+    '.col-dur{color:#555;font-size:11px;width:78px}' +
+    '.col-xp{color:#27ae60;font-family:"Bangers",sans-serif;font-size:13px;width:36px}' +
+    '.col-status{font-size:11px;min-width:100px}' +
+    '.status-done{color:#27ae60;font-weight:700}' +
+    '.status-skip{color:#e67e22;font-weight:700}' +
+    '.feel-str{color:#7d3fc8;font-size:10px}' +
+    '.actual-str{color:#1a6eb5;font-size:10px}' +
+    '.note-str{color:#777;font-size:10px;display:block}' +
+    '.print-footer{text-align:center;margin-top:16px;padding-top:10px;border-top:2px solid #111;font-size:10px;color:#888;font-family:"Bangers",sans-serif;letter-spacing:2px}' +
+    '@media print{body{padding:10px}table{page-break-inside:auto}tr{page-break-inside:avoid}.week-header{page-break-before:auto}}' +
+    '</style></head><body>' +
+    '<div class="print-header"><h1>&#x26A1; IRON LIZZIE &#x26A1;</h1><h2>HALF MARATHON TRAINING PLAN</h2>' +
+    '<div class="print-meta">May 25 \u2013 Aug 9, 2026 &nbsp;&middot;&nbsp; 11 Weeks &nbsp;&middot;&nbsp; Race Day: AUG 9, 2026 &nbsp;&middot;&nbsp; Printed: ' + printDate + '</div></div>' +
+    '<div class="summary-bar"><span>&#x1F3C1; ' + planDays.length + ' DAYS</span><span>&#x1F3C3; ' + totalMiles.toFixed(1) + ' MI PLANNED</span><span>&#x26A1; ' + totalXP + ' XP</span><span>&#x2705; ' + doneCount + ' DONE</span></div>' +
+    '<table><thead><tr><th>DATE</th><th>TYPE</th><th></th><th>WORKOUT</th><th>DIST</th><th>DURATION</th><th>XP</th><th>STATUS / NOTES</th></tr></thead>' +
+    '<tbody>' + rowsHTML + '</tbody></table>' +
+    '<div class="print-footer">IRON LIZZIE &mdash; HALF MARATHON SAGA &mdash; VOL. 1 &mdash; &copy; 2026</div>' +
+    '<scr' + 'ipt>window.onload=function(){window.print();}<\/scr' + 'ipt>' +
+    '</body></html>';
+  var w = window.open('', '_blank', 'width=960,height=750');
+  if (!w) { alert('Please allow pop-ups to use the Print Plan feature.'); return; }
+  w.document.write(html);
+  w.document.close();
+}
+
 // RENDER ALL
 // RENDER TRAINING HISTORY LOG
-var historyLogOpen = false;
-function renderTrainingLog() {
+var historyLogOpen = false;function renderTrainingLog() {
   var el = document.getElementById('trainingLog');
   if (!el) return;
 
@@ -3944,6 +4068,10 @@ if (sfxBtn) {
   if (!sfxEnabled) { sfxBtn.textContent = '\uD83D\uDD07'; sfxBtn.classList.add('sfx-off'); }
   sfxBtn.addEventListener('click', toggleSfx);
 }
+
+// Print Plan button
+var printBtn = document.getElementById('printPlanBtn');
+if (printBtn) { printBtn.addEventListener('click', printPlan); }
 
 // Live countdown clock — ticks every second
 function startLiveCountdown() {
