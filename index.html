@@ -1159,6 +1159,124 @@ body::after {
   background: var(--orange) !important;
   color: white !important;
 }
+/* ── I DON'T WANNA BUTTON ── */
+.dont-wanna-wrap {
+  padding: 4px 14px 14px;
+  text-align: center;
+}
+.dont-wanna-btn {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: rgba(0,0,0,0.4);
+  background: none;
+  border: 1.5px dashed rgba(0,0,0,0.2);
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 6px 14px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.dont-wanna-btn:hover { color: var(--ink); border-color: rgba(0,0,0,0.4); }
+
+/* ── MIN EFFORT ENCOURAGEMENT STRIP ── */
+.me-encouragement {
+  background: #fff9e6;
+  border-left: 3px solid var(--yellow, #ffd600);
+  padding: 10px 14px;
+  margin: 0 0 10px;
+  font-family: 'Comic Neue', cursive;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+/* ── MIN EFFORT CANCEL BUTTON ── */
+.me-cancel-wrap { padding: 6px 14px 14px; text-align: center; }
+.me-cancel-btn {
+  font-family: 'Comic Neue', cursive;
+  font-size: 11px;
+  color: rgba(0,0,0,0.35);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+.me-cancel-btn:hover { color: var(--orange); }
+
+/* ── MIN EFFORT PICKER OVERLAY ── */
+.me-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.me-picker-modal {
+  background: var(--paper, #fff);
+  border-radius: 12px;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 20px 18px 18px;
+  max-width: 380px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.me-picker-header {
+  font-family: 'Bangers', cursive;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: var(--red, #e53935);
+  margin-bottom: 6px;
+  text-align: center;
+}
+.me-picker-sub {
+  font-family: 'Comic Neue', cursive;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(0,0,0,0.55);
+  text-align: center;
+  margin-bottom: 14px;
+}
+.me-picker-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.me-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--paper, #fff);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, transform 0.1s;
+  font-family: 'Comic Neue', cursive;
+}
+.me-option-btn:hover { background: #fff9e6; transform: translateX(3px); }
+.me-opt-emoji { font-size: 24px; flex-shrink: 0; }
+.me-opt-title { font-weight: 700; font-size: 13px; color: var(--ink); letter-spacing: 0.5px; }
+.me-opt-meta { font-size: 11px; color: rgba(0,0,0,0.5); margin-top: 2px; }
+.me-picker-cancel {
+  display: block;
+  width: 100%;
+  font-family: 'Comic Neue', cursive;
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(0,0,0,0.4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 6px;
+  transition: color 0.15s;
+}
+.me-picker-cancel:hover { color: var(--ink); }
+
 .skip-badge {
   display: inline-block;
   font-family: 'Bangers', cursive;
@@ -2607,6 +2725,165 @@ body::after {
 }
 .journal-edit-btn:hover { border-color: var(--ink); color: var(--ink); }
 
+/* inline journal row layout (new fields) */
+.journal-feel-row { margin-bottom: 5px; }
+.journal-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 3px;
+  font-family: 'Comic Neue', cursive;
+  font-size: 12px;
+  color: var(--ink);
+}
+.journal-row-label {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(0,0,0,0.45);
+  white-space: nowrap;
+}
+.journal-row-val { font-weight: 700; }
+
+/* ── ADVENTURE JOURNAL SECTION ── */
+.aj-wrap {
+  margin: 0 0 var(--gutter);
+}
+.aj-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink);
+  color: var(--yellow);
+  border: 3px solid var(--ink);
+  border-radius: 10px 10px 10px 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+  transition: background 0.15s;
+}
+.aj-wrap:has(.aj-cards) .aj-header {
+  border-radius: 10px 10px 0 0;
+}
+.aj-header:hover { background: #222; }
+.aj-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.aj-header-icon { font-size: 22px; }
+.aj-header-title {
+  font-family: 'Bangers', cursive;
+  font-size: 18px;
+  letter-spacing: 3px;
+}
+.aj-entry-count {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 1px;
+  background: var(--yellow);
+  color: var(--ink);
+  border-radius: 20px;
+  padding: 2px 10px;
+}
+.aj-toggle-arrow {
+  font-size: 14px;
+  opacity: 0.7;
+}
+/* Cards container */
+.aj-cards {
+  border: 3px solid var(--ink);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+}
+.aj-card {
+  background: #fff;
+  border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+.aj-card:last-child { border-bottom: none; }
+.aj-card-header {
+  padding: 10px 14px 6px;
+  border-left: 5px solid var(--red);
+  background: #fafafa;
+  border-bottom: 1.5px solid rgba(0,0,0,0.07);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.aj-card-date {
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.4);
+  flex-basis: 100%;
+}
+.aj-card-title {
+  font-family: 'Bangers', cursive;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  flex: 1;
+}
+.aj-card-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.aj-feel-chip {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 12px;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: 20px;
+  padding: 1px 9px;
+  white-space: nowrap;
+}
+.aj-card-body {
+  padding: 10px 14px 12px;
+}
+.aj-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  margin-bottom: 8px;
+}
+.aj-meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: 'Comic Neue', cursive;
+  font-size: 12px;
+  color: var(--ink);
+}
+.aj-meta-icon { font-size: 13px; flex-shrink: 0; }
+.aj-meta-val  { font-weight: 700; line-height: 1.4; }
+.aj-note {
+  font-family: 'Comic Neue', cursive;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(0,0,0,0.65);
+  margin: 6px 0 8px;
+  line-height: 1.5;
+  padding-left: 8px;
+  border-left: 3px solid var(--yellow);
+}
+.aj-edit-btn {
+  background: none;
+  border: 1.5px solid rgba(0,0,0,0.2);
+  font-family: 'Comic Neue', cursive;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.45);
+  padding: 3px 10px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: color 0.1s, border-color 0.1s;
+}
+.aj-edit-btn:hover { color: var(--ink); border-color: var(--ink); }
+
 /* ===== PWA INSTALL BANNER ===== */
 .install-banner {
   position: fixed;
@@ -3005,6 +3282,9 @@ body::after {
     <div id="trainingLog"></div>
   </div>
 
+  <!-- ADVENTURE JOURNAL — full rich log of all debriefed runs -->
+  <div id="adventureJournal"></div>
+
   <!-- I'M BORED BUTTON — fun workout suggestion generator -->
   <div id="boredBox"></div>
 
@@ -3022,6 +3302,92 @@ var RACE_DATE = new Date('2026-08-09T00:00:00');
 
 var ACTION_WORDS = ['POW!','ZAP!','BAM!','KA-POW!','WHAM!','SMASH!','BOOM!','KAPOW!','THWACK!','CRUNCH!','YES!!','HEROIC!'];
 var SFX_WORDS = ['*WHOOSH*','*THUD*','*CRACK*','*SWOOSH*','*ZING*','*KAPOW*','*WHAM*','*THWIP*'];
+
+// ── MINIMUM EFFORT MISSIONS ───────────────────────────────────
+// Rolled when the user clicks "I Don't Wanna" — still counts as complete.
+var MINIMUM_EFFORT_MISSIONS = [
+  {
+    id: 'ten_min_walk',
+    title: '10-MINUTE WALK',
+    emoji: '\uD83D\uDEB6\u200D\u2640\uFE0F',
+    duration: '10 min',
+    xpLabel: '+15 XP (Minimum Effort Bonus)',
+    steps: [
+      { text: 'Put on shoes. Step outside.', time: '1 min' },
+      { text: 'Walk for 10 minutes at any pace. No targets. No pressure.', time: '10 min' },
+      { text: 'Come back. You did it. That counts.', time: '1 min' },
+    ],
+    encouragement: 'A 10-minute walk still counts. Movement is movement. You showed up.',
+    headerClass: 'header-rest',
+    pow: 'OK!',
+    btnClass: 'run-btn',
+  },
+  {
+    id: 'fifteen_treadmill_walk',
+    title: 'TREADMILL DRIFT',
+    emoji: '\uD83C\uDFCB\uFE0F\u200D\u2640\uFE0F',
+    duration: '15 min',
+    xpLabel: '+15 XP (Minimum Effort Bonus)',
+    steps: [
+      { text: 'Treadmill. 3.0 mph. Flat. No incline required today.', time: '1 min' },
+      { text: 'Walk for 15 minutes. Watch something. Think about nothing.', time: '15 min' },
+      { text: 'Done. You moved your body. That\'s the whole job today.', time: '1 min' },
+    ],
+    encouragement: '15 minutes on the treadmill is still 15 minutes more than the couch. Heroic, honestly.',
+    headerClass: 'header-strength',
+    pow: 'YEP!',
+    btnClass: 'strength-btn',
+  },
+  {
+    id: 'weezer_walk',
+    title: 'WEEZER WALK (MINIMUM)',
+    emoji: '\uD83C\uDFB8',
+    duration: '20 min',
+    xpLabel: '+20 XP (Weezer Walk Bonus!)',
+    steps: [
+      { text: 'Queue up the Blue Album. Or any Weezer. No wrong answers.', time: '2 min' },
+      { text: 'Walk for 20 minutes. Weezer (dog optional) leads the route.', time: '20 min' },
+      { text: 'Return home. You have listened to Weezer AND walked. Double win.', time: '1 min' },
+    ],
+    encouragement: 'A Weezer Walk still counts as a walk. Rivers Cuomo would be proud. You\'re doing great.',
+    headerClass: 'header-run',
+    pow: 'YES!',
+    btnClass: 'run-btn',
+  },
+  {
+    id: 'stretch_and_breathe',
+    title: 'STRETCH & BREATHE',
+    emoji: '\uD83E\uDDD8\u200D\u2640\uFE0F',
+    duration: '12 min',
+    xpLabel: '+10 XP (Recovery Mode)',
+    steps: [
+      { text: 'Stand up. Reach your arms overhead. Hold for 5 breaths.', time: '2 min' },
+      { text: 'Hip flexor stretch, each side. Your legs have been working hard.', time: '3 min' },
+      { text: 'Seated forward fold, or lie on the floor — whatever feels right.', time: '3 min' },
+      { text: 'Three deep belly breaths. You are a person who showed up today.', time: '2 min' },
+    ],
+    encouragement: 'Stretching is active recovery. This is training. You\'re doing exactly enough.',
+    headerClass: 'header-rest',
+    pow: 'SURE!',
+    btnClass: 'run-btn',
+  },
+  {
+    id: 'lap_outside',
+    title: 'ONE LAP. JUST ONE.',
+    emoji: '\uD83C\uDF33',
+    duration: '~10 min',
+    xpLabel: '+15 XP (Fresh Air Bonus)',
+    steps: [
+      { text: 'Go outside. Breathe actual air.', time: '1 min' },
+      { text: 'Walk one loop — your block, your street, wherever. No distance minimum.', time: '8–10 min' },
+      { text: 'Return. Note how you feel vs 15 minutes ago.', time: '1 min' },
+    ],
+    encouragement: 'One lap outside is still one lap. The air was free. You took it.',
+    headerClass: 'header-run',
+    pow: 'GO!',
+    btnClass: 'run-btn',
+  },
+];
 
 // ── GALLOWAY INTERVAL OPTIONS ─────────────────────────────────
 var GALLOWAY_INTERVALS = [
@@ -4167,9 +4533,102 @@ function renderWorkout() {
   }
   // ────────────────────────────────────────────────────────────────
 
-  var isDone = state[activeDate] && state[activeDate].done;
+  var isDone    = state[activeDate] && state[activeDate].done;
   var isSkipped = state[activeDate] && state[activeDate].skipped;
   var checkedSteps = (state[activeDate] && state[activeDate].steps) || {};
+
+  // ── MINIMUM EFFORT MODE ──────────────────────────────────────
+  // If the user hit "I Don't Wanna" and picked a min-effort mission,
+  // render that stripped-down card instead of the full workout.
+  var minEffortId = state[activeDate] && state[activeDate]._minEffort;
+  if (minEffortId && !isDone) {
+    var mem = MINIMUM_EFFORT_MISSIONS.filter(function(m){ return m.id === minEffortId; })[0];
+    if (mem) {
+      var meStepsHTML = mem.steps.map(function(step, i) {
+        var isChecked = checkedSteps[i];
+        return '<div class="step ' + (isChecked ? 'checked' : '') + '" data-step="' + i + '">' +
+          '<div class="step-num">' + (isChecked ? '' : (i+1)) + '</div>' +
+          '<div class="step-body"><div class="step-text">' + step.text + '</div>' +
+          '<div class="step-time">' + step.time + '</div></div></div>';
+      }).join('');
+
+      content.innerHTML =
+        '<div class="workout-panel">' +
+          '<div class="panel-header ' + mem.headerClass + '">' +
+            '<div class="pow-badge">' + mem.pow + '</div>' +
+            '<div class="header-top-row">' +
+              '<div class="panel-icon">' + mem.emoji + '</div>' +
+              '<div class="panel-titles">' +
+                '<div class="panel-title">' + mem.title + '</div>' +
+                '<div class="panel-subtitle">' + mem.duration + ' \u00B7 MINIMUM EFFORT MODE</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="me-encouragement">' +
+            '<span class="me-enc-icon">\uD83E\uDDB8\u200D\u2640\uFE0F</span>' +
+            mem.encouragement +
+          '</div>' +
+
+          '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MINIMUM MISSION</div>' +
+            meStepsHTML +
+          '</div>' +
+
+          '<div style="text-align:center;padding:6px 14px 2px;font-family:Bangers,cursive;font-size:11px;letter-spacing:2px;color:rgba(0,0,0,0.3);">' +
+            '\u26A1 ' + mem.xpLabel +
+          '</div>' +
+
+          '<div class="complete-wrap">' +
+            '<button class="complete-btn ' + mem.btnClass + '" id="completeBtn">\uD83D\uDCAA MINIMUM MISSION ACCOMPLISHED!</button>' +
+          '</div>' +
+
+          '<div class="me-cancel-wrap">' +
+            '<button class="me-cancel-btn" id="meCancelBtn">\u2190 Actually, I\'ll do the full mission</button>' +
+          '</div>' +
+        '</div>';
+
+      // Step checkboxes
+      content.querySelectorAll('.step').forEach(function(el) {
+        el.addEventListener('click', function() {
+          var i = parseInt(el.dataset.step);
+          if (!state[activeDate]) state[activeDate] = {};
+          if (!state[activeDate].steps) state[activeDate].steps = {};
+          state[activeDate].steps[i] = !state[activeDate].steps[i];
+          saveState(state);
+          if (state[activeDate].steps[i]) { spawnMiniSfx(el); playSfxStep(); }
+          renderWorkout();
+        });
+      });
+
+      // Complete
+      var meCompleteBtn = document.getElementById('completeBtn');
+      if (meCompleteBtn) {
+        meCompleteBtn.addEventListener('click', function() {
+          if (!state[activeDate]) state[activeDate] = {};
+          state[activeDate].done = true;
+          saveState(state);
+          playSfxComplete(false);
+          fireActionWord(); fireConfetti(); shakeScreen(); checkAchievements(); checkMilestones();
+          renderQuoteBox(true);
+          setTimeout(function(){ showDebriefModal(activeDate); }, 900);
+          renderAll();
+        });
+      }
+
+      // Cancel: go back to full mission
+      var meCancelBtn = document.getElementById('meCancelBtn');
+      if (meCancelBtn) {
+        meCancelBtn.addEventListener('click', function() {
+          if (state[activeDate]) delete state[activeDate]._minEffort;
+          saveState(state);
+          renderWorkout();
+        });
+      }
+
+      return; // skip normal workout render
+    }
+  }
+  // ─────────────────────────────────────────────────────────────
   var hasRunMode = day.steadySteps && day.steadySteps.length > 0;
   var currentMode = (state[activeDate] && state[activeDate].mode) || 'galloway';
   var isRunDay = (day.type === 'run' || day.type === 'longrun');
@@ -4273,7 +4732,11 @@ function renderWorkout() {
   if (isSkipped) {
     btnHTML = '<div class="complete-wrap"><button class="complete-btn skipped-btn" id="completeBtn">\u23ED\uFE0F MISSION SKIPPED</button></div><div class="skip-wrap"><button class="skip-btn" id="unskipBtn">\u21A9 UNDO SKIP \u2014 I changed my mind!</button></div>';
   } else if (day.type !== 'rest') {
-    btnHTML = '<div class="complete-wrap"><button class="complete-btn ' + (isDone ? 'done-btn' : day.btnClass) + '" id="completeBtn">' + (isDone ? '\u2705 MISSION COMPLETE!' : '\u26A1 MISSION ACCOMPLISHED!') + '</button></div>' + (isDone ? '' : '<div class="skip-wrap"><button class="skip-btn" id="skipBtn">\u23ED Skip this mission \u2014 life happens!</button></div>');
+    btnHTML = '<div class="complete-wrap"><button class="complete-btn ' + (isDone ? 'done-btn' : day.btnClass) + '" id="completeBtn">' + (isDone ? '\u2705 MISSION COMPLETE!' : '\u26A1 MISSION ACCOMPLISHED!') + '</button></div>' +
+      (isDone ? '' :
+        '<div class="skip-wrap"><button class="skip-btn" id="skipBtn">\u23ED Skip this mission \u2014 life happens!</button></div>' +
+        '<div class="dont-wanna-wrap"><button class="dont-wanna-btn" id="dontWannaBtn">\uD83D\uDE2E\u200D\uD83D\uDCA8 I Don\'t Wanna \u2014 Give me the minimum</button></div>'
+      );
   } else {
     btnHTML = '<div class="complete-wrap"><button class="complete-btn ' + (isDone ? 'done-btn' : '') + '" id="completeBtn" style="' + (isDone ? '' : 'background:#bbb;color:var(--ink);') + '">' + (isDone ? '\u2705 REST LOGGED!' : '\uD83D\uDE34 LOG REST DAY') + '</button></div>';
   }
@@ -4427,6 +4890,50 @@ function renderWorkout() {
       if (!state[activeDate]) state[activeDate] = {};
       state[activeDate].skipped = false;
       saveState(state); renderAll();
+    });
+  }
+
+  // I DON'T WANNA LISTENER — show mission picker overlay
+  var dontWannaBtn = document.getElementById('dontWannaBtn');
+  if (dontWannaBtn) {
+    dontWannaBtn.addEventListener('click', function() {
+      var existing = document.querySelector('.me-picker-overlay');
+      if (existing) existing.remove();
+
+      var optionsHTML = MINIMUM_EFFORT_MISSIONS.map(function(m) {
+        return '<button class="me-option-btn" data-id="' + m.id + '">' +
+          '<span class="me-opt-emoji">' + m.emoji + '</span>' +
+          '<div class="me-opt-body">' +
+            '<div class="me-opt-title">' + m.title + '</div>' +
+            '<div class="me-opt-meta">' + m.duration + ' \u00B7 ' + m.xpLabel + '</div>' +
+          '</div>' +
+        '</button>';
+      }).join('');
+
+      var overlay = document.createElement('div');
+      overlay.className = 'me-picker-overlay';
+      overlay.innerHTML =
+        '<div class="me-picker-modal">' +
+          '<div class="me-picker-header">\uD83D\uDE2E\u200D\uD83D\uDCA8 OK. MINIMUM EFFORT MODE.</div>' +
+          '<div class="me-picker-sub">Pick your mission. It still counts. You\'re still a hero.</div>' +
+          '<div class="me-picker-options">' + optionsHTML + '</div>' +
+          '<button class="me-picker-cancel" id="mePickerCancel">never mind, I\'ll do the full thing</button>' +
+        '</div>';
+      document.body.appendChild(overlay);
+
+      overlay.querySelectorAll('.me-option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (!state[activeDate]) state[activeDate] = {};
+          state[activeDate]._minEffort = btn.dataset.id;
+          if (state[activeDate].steps) state[activeDate].steps = {};
+          saveState(state);
+          overlay.remove();
+          renderWorkout();
+        });
+      });
+
+      document.getElementById('mePickerCancel').addEventListener('click', function() { overlay.remove(); });
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
     });
   }
 
@@ -5355,6 +5862,109 @@ var historyLogOpen = false;function renderTrainingLog() {
   });
 }
 
+// ── ADVENTURE JOURNAL ─────────────────────────────────────────
+var adventureJournalOpen = false;
+
+function renderAdventureJournal() {
+  var el = document.getElementById('adventureJournal');
+  if (!el) return;
+
+  // Collect all entries that have at least one rich field
+  var entries = [];
+  planDays.forEach(function(pd) {
+    var ds = pd.date;
+    var j  = state.journal && state.journal[ds];
+    if (!j) return;
+    if (!j.feel && !j.note && !j.actualDist && !j.location && !j.listening && !j.favMoment && !j.interval) return;
+    var day = getDayForDate(ds) || pd;
+    entries.push({ ds: ds, j: j, day: day });
+  });
+
+  // Sort reverse chronological (newest first)
+  entries.sort(function(a, b) { return b.ds.localeCompare(a.ds); });
+
+  if (entries.length === 0) {
+    el.innerHTML = '';
+    return;
+  }
+
+  // Build collapsed/expanded toggle header
+  var headerHTML =
+    '<div class="aj-header" id="ajHeader">' +
+      '<div class="aj-header-left">' +
+        '<span class="aj-header-icon">\uD83D\uDCD6</span>' +
+        '<span class="aj-header-title">ADVENTURE JOURNAL</span>' +
+        '<span class="aj-entry-count">' + entries.length + ' ENTR' + (entries.length === 1 ? 'Y' : 'IES') + '</span>' +
+      '</div>' +
+      '<span class="aj-toggle-arrow">' + (adventureJournalOpen ? '\u25B2' : '\u25BC') + '</span>' +
+    '</div>';
+
+  var cardsHTML = '';
+  if (adventureJournalOpen) {
+    entries.forEach(function(e) {
+      var ds    = e.ds;
+      var j     = e.j;
+      var day   = e.day;
+      var dateObj = new Date(ds + 'T12:00:00');
+      var dateLabel = WEEK_DAYS[dateObj.getDay()] + ' ' + MONTHS[dateObj.getMonth()] + ' ' + dateObj.getDate();
+      var feel = j.feel ? FEEL_OPTIONS[j.feel - 1] : null;
+      var TYPE_COLOR = { run: 'var(--red)', longrun: '#27ae60', strength: '#7d3fc8', rest: '#aaa' };
+      var typeColor = TYPE_COLOR[day.type] || 'var(--ink)';
+
+      var feelChip = feel
+        ? '<span class="aj-feel-chip" title="' + feel.label + '">' + feel.emoji + ' ' + feel.label + '</span>'
+        : '';
+
+      var metaRows = '';
+      if (j.actualDist) metaRows += '<div class="aj-meta-row"><span class="aj-meta-icon">\uD83D\uDCCF</span><span class="aj-meta-val">' + j.actualDist + '</span></div>';
+      if (j.location)   metaRows += '<div class="aj-meta-row"><span class="aj-meta-icon">\uD83D\uDCCD</span><span class="aj-meta-val">' + j.location   + '</span></div>';
+      if (j.interval)   metaRows += '<div class="aj-meta-row"><span class="aj-meta-icon">\u23F1\uFE0F</span><span class="aj-meta-val">' + j.interval   + '</span></div>';
+      if (j.listening)  metaRows += '<div class="aj-meta-row"><span class="aj-meta-icon">\uD83C\uDFB5</span><span class="aj-meta-val">' + j.listening  + '</span></div>';
+      if (j.favMoment)  metaRows += '<div class="aj-meta-row"><span class="aj-meta-icon">\u2728</span><span class="aj-meta-val">' + j.favMoment + '</span></div>';
+
+      var noteBlock = j.note
+        ? '<div class="aj-note">\u201C' + j.note + '\u201D</div>'
+        : '';
+
+      cardsHTML +=
+        '<div class="aj-card">' +
+          '<div class="aj-card-header" style="border-left-color:' + typeColor + '">' +
+            '<div class="aj-card-date">' + dateLabel + '</div>' +
+            '<div class="aj-card-title">' + day.title + '</div>' +
+            '<div class="aj-card-chips">' + feelChip + '</div>' +
+          '</div>' +
+          '<div class="aj-card-body">' +
+            (metaRows ? '<div class="aj-meta-grid">' + metaRows + '</div>' : '') +
+            noteBlock +
+            '<button class="aj-edit-btn" data-date="' + ds + '">\u270F\uFE0F EDIT</button>' +
+          '</div>' +
+        '</div>';
+    });
+  }
+
+  el.innerHTML =
+    '<div class="aj-wrap">' +
+      headerHTML +
+      (adventureJournalOpen
+        ? '<div class="aj-cards" id="ajCards">' + cardsHTML + '</div>'
+        : '') +
+    '</div>';
+
+  document.getElementById('ajHeader').addEventListener('click', function() {
+    adventureJournalOpen = !adventureJournalOpen;
+    renderAdventureJournal();
+  });
+
+  if (adventureJournalOpen) {
+    el.querySelectorAll('.aj-edit-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(ev) {
+        ev.stopPropagation();
+        showDebriefModal(btn.dataset.date);
+      });
+    });
+  }
+}
+
 // ── WEEZER SIDE QUEST WIDGET ──────────────────────────────────
 function renderWeezerSideQuest() {
   var el = document.getElementById('weezerSideQuestBox');
@@ -5488,6 +6098,7 @@ function renderAll() {
   renderBoredBox();
   renderWeezerSideQuest();
   renderQuoteBox(false);
+  renderAdventureJournal();
 }
 
 // ── IRON LIZZIE SAYS — QUOTE BOX ─────────────────────────────
@@ -5765,14 +6376,34 @@ function showDebriefModal(dateStr) {
     ? '<div class="debrief-section"><div class="debrief-label">\uD83D\uDCCF ACTUAL DISTANCE (optional)</div><input class="debrief-dist-input" id="debriefDist" type="text" placeholder="e.g. 6.2 miles" maxlength="20" value="' + (existingEntry.actualDist || '') + '"></div>'
     : '';
 
+  // Derive interval label from saved mode
+  var modeStr = (state[dateStr] && state[dateStr].mode) || 'galloway';
+  var intervalDefault = existingEntry.interval || (modeStr === 'steady' ? 'Steady state' : '60s / 30s Galloway');
+
   var overlay = document.createElement('div');
   overlay.className = 'debrief-overlay';
   overlay.innerHTML =
     '<div class="debrief-modal">' +
       '<div class="debrief-header">\uD83D\uDCD3 MISSION DEBRIEF!<div class="debrief-header-sub">' + day.title + ' \u00B7 ' + (day.distance || day.duration) + '</div></div>' +
+
       '<div class="debrief-section"><div class="debrief-label">\u26A1 HOW DID IT FEEL?</div><div class="debrief-feel-row">' + feelHTML + '</div></div>' +
+
       distSection +
-      '<div class="debrief-section"><div class="debrief-label">\u270F\uFE0F NOTES (optional)</div><textarea class="debrief-note-input" id="debriefNote" rows="2" maxlength="120" placeholder="How did it go? Any highlights?">' + (existingEntry.note || '') + '</textarea></div>' +
+
+      (isRunDay
+        ? '<div class="debrief-section"><div class="debrief-label">\uD83D\uDCCD WHERE DID YOU RUN? (optional)</div><input class="debrief-dist-input" id="debriefLocation" type="text" placeholder="e.g. River path, treadmill, neighborhood loop" maxlength="60" value="' + (existingEntry.location || '') + '"></div>'
+        : '') +
+
+      '<div class="debrief-section"><div class="debrief-label">\uD83C\uDFB5 WHAT WERE YOU LISTENING TO? (optional)</div><input class="debrief-dist-input" id="debriefListening" type="text" placeholder="e.g. Weezer Blue Album, true crime pod, silence" maxlength="80" value="' + (existingEntry.listening || '') + '"></div>' +
+
+      '<div class="debrief-section"><div class="debrief-label">\u2728 FAVOURITE MOMENT? (optional)</div><input class="debrief-dist-input" id="debriefFavMoment" type="text" placeholder="e.g. hit a flow state at mile 2, saw a fox" maxlength="100" value="' + (existingEntry.favMoment || '') + '"></div>' +
+
+      (isRunDay
+        ? '<div class="debrief-section"><div class="debrief-label">\u23F1\uFE0F INTERVAL USED (optional)</div><input class="debrief-dist-input" id="debriefInterval" type="text" placeholder="e.g. 60s/30s, steady state, 30s/30s" maxlength="40" value="' + intervalDefault + '"></div>'
+        : '') +
+
+      '<div class="debrief-section"><div class="debrief-label">\u270F\uFE0F NOTES (optional)</div><textarea class="debrief-note-input" id="debriefNote" rows="2" maxlength="160" placeholder="How did it go? Any highlights?">' + (existingEntry.note || '') + '</textarea></div>' +
+
       '<button class="debrief-submit" id="debriefSubmit">\uD83D\uDCBE SAVE DEBRIEF</button>' +
       '<button class="debrief-skip" id="debriefSkip">skip for now</button>' +
     '</div>';
@@ -5790,13 +6421,27 @@ function showDebriefModal(dateStr) {
   });
 
   function saveDebrief() {
-    var note = (document.getElementById('debriefNote') || {}).value || '';
-    var dist = (document.getElementById('debriefDist') || {}).value || '';
+    var note       = (document.getElementById('debriefNote')      || {}).value || '';
+    var dist       = (document.getElementById('debriefDist')      || {}).value || '';
+    var location   = (document.getElementById('debriefLocation')  || {}).value || '';
+    var listening  = (document.getElementById('debriefListening') || {}).value || '';
+    var favMoment  = (document.getElementById('debriefFavMoment') || {}).value || '';
+    var interval   = (document.getElementById('debriefInterval')  || {}).value || '';
     if (!state.journal) state.journal = {};
-    state.journal[dateStr] = { feel: selectedFeel, note: note.trim(), actualDist: dist.trim(), ts: Date.now() };
+    state.journal[dateStr] = {
+      feel:       selectedFeel,
+      note:       note.trim(),
+      actualDist: dist.trim(),
+      location:   location.trim(),
+      listening:  listening.trim(),
+      favMoment:  favMoment.trim(),
+      interval:   interval.trim(),
+      ts:         Date.now(),
+    };
     saveState(state);
     overlay.remove();
     renderWorkout();
+    renderAdventureJournal();
     playSfxStep();
   }
 
@@ -5807,16 +6452,22 @@ function showDebriefModal(dateStr) {
 
 function renderJournalEntry(dateStr) {
   var entry = state.journal && state.journal[dateStr];
-  if (!entry || (!entry.feel && !entry.note && !entry.actualDist)) return '';
+  if (!entry || (!entry.feel && !entry.note && !entry.actualDist && !entry.location && !entry.listening && !entry.favMoment)) return '';
   var feel = entry.feel ? FEEL_OPTIONS[entry.feel - 1] : null;
   var feelHTML = feel
     ? '<span class="journal-feel-display">' + feel.emoji + '</span><span class="journal-feel-strong">' + feel.label + '</span>'
     : '';
-  var noteHTML = entry.note ? '<div class="journal-note-display">\u201C' + entry.note + '\u201D</div>' : '';
-  var distHTML = entry.actualDist ? '<div class="journal-dist-display">\uD83D\uDCCF ACTUAL: ' + entry.actualDist + '</div>' : '';
-  return '<div class="journal-log"><div class="journal-log-title">\uD83D\uDCD3 MISSION LOG</div>' +
-    (feelHTML ? '<div>' + feelHTML + '</div>' : '') +
-    noteHTML + distHTML +
+  var rows = '';
+  if (entry.actualDist) rows += '<div class="journal-row"><span class="journal-row-label">\uD83D\uDCCF DISTANCE</span><span class="journal-row-val">' + entry.actualDist + '</span></div>';
+  if (entry.location)   rows += '<div class="journal-row"><span class="journal-row-label">\uD83D\uDCCD WHERE</span><span class="journal-row-val">' + entry.location + '</span></div>';
+  if (entry.interval)   rows += '<div class="journal-row"><span class="journal-row-label">\u23F1\uFE0F INTERVAL</span><span class="journal-row-val">' + entry.interval + '</span></div>';
+  if (entry.listening)  rows += '<div class="journal-row"><span class="journal-row-label">\uD83C\uDFB5 LISTENING</span><span class="journal-row-val">' + entry.listening + '</span></div>';
+  if (entry.favMoment)  rows += '<div class="journal-row"><span class="journal-row-label">\u2728 FAV MOMENT</span><span class="journal-row-val">' + entry.favMoment + '</span></div>';
+  if (entry.note)       rows += '<div class="journal-note-display">\u201C' + entry.note + '\u201D</div>';
+  return '<div class="journal-log">' +
+    '<div class="journal-log-title">\uD83D\uDCD3 MISSION LOG</div>' +
+    (feelHTML ? '<div class="journal-feel-row">' + feelHTML + '</div>' : '') +
+    rows +
     '<button class="journal-edit-btn" id="journalEditBtn">\u270F\uFE0F EDIT LOG</button>' +
     '</div>';
 }
