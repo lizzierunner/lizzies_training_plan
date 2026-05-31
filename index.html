@@ -1244,6 +1244,20 @@ body::after {
   background: var(--green);
   box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
 }
+.mode-btn.outdoor-active {
+  background: #5ba85a;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
+}
+.mode-btn.treadmill-active {
+  background: #3a7abf;
+  color: #fff;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
+}
+.venue-toggle-wrap {
+  padding: 6px 14px 4px;
+  background: #f5f0e0;
+  border-bottom: 2px solid var(--ink);
+}
 .mode-btn:not(.mode-active):hover {
   background: #f0ece0;
 }
@@ -1608,11 +1622,12 @@ var planDays = [
     pow: 'POWER!', moto: 'Strength Day A — lower body + push. Build the engine! 🔥',
     distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
     steps: [
-      { text: 'Bodyweight squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×15' },
-      { text: 'Push-ups 3×10 (knees OK)', time: '5 min', bw: 'Wall push-ups 3×12' },
-      { text: 'Reverse lunges 3×10 each leg', time: '5 min', bw: 'Step-back lunges 3×10' },
-      { text: 'Glute bridges 3×15', time: '5 min', bw: 'Glute bridges 3×15' },
-      { text: 'Plank hold 3×30s', time: '3 min', bw: 'Plank on knees 3×30s' }
+      { text: 'Barbell back squat 3×12 (moderate weight, build form)', time: '8 min', bw: 'Goblet squat 3×15' },
+      { text: 'Dumbbell bench press 3×12', time: '6 min', bw: 'Push-ups 3×15' },
+      { text: 'Romanian deadlift 3×12 (barbell or DB)', time: '6 min', bw: 'Good mornings 3×15' },
+      { text: 'Dumbbell shoulder press 3×12', time: '5 min', bw: 'Pike push-ups 3×12' },
+      { text: 'Cable or band pull-aparts 3×15', time: '4 min', bw: 'Band pull-aparts 3×15' },
+      { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
     ] },
   { date: '2026-05-27', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'KEEP MOVING!', moto: 'Midweek run — easy effort, just get the miles in.',
@@ -1624,11 +1639,12 @@ var planDays = [
     pow: 'GRIND!', moto: 'Strength Day B — hinge + core + upper back. Support those running muscles! 💥',
     distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
     steps: [
-      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×12' },
-      { text: 'Bent-over dumbbell rows 3×12', time: '5 min', bw: 'Resistance band rows 3×12' },
-      { text: 'Side lunges 3×10 each side', time: '5 min', bw: 'Side step squats 3×10' },
-      { text: 'Dead bug 3×8 each side', time: '4 min', bw: 'Dead bug 3×8 each side' },
-      { text: 'Superman hold 3×10', time: '3 min', bw: 'Superman hold 3×10' }
+      { text: 'Conventional deadlift 3×5 (focus on form, moderate weight)', time: '10 min', bw: 'Romanian deadlift 3×12' },
+      { text: 'Pull-ups or lat pulldown 3×10', time: '7 min', bw: 'Ring rows or towel rows 3×12' },
+      { text: 'Barbell or DB bent-over row 3×12', time: '6 min', bw: 'DB row 3×12 each' },
+      { text: 'Barbell hip thrust 3×15', time: '6 min', bw: 'Glute bridge 3×20' },
+      { text: 'Reverse lunges with DB 3×10 each', time: '5 min', bw: 'Reverse lunges 3×12 each' },
+      { text: 'Dead bug 3×10 each side', time: '4 min', bw: 'Dead bug 3×10 each side' }
     ] },
   { date: '2026-05-29', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FRIDAY FIRE!', moto: 'End the week strong — easy 2.5 miles.',
@@ -1655,11 +1671,12 @@ var planDays = [
     pow: 'STRONGER!', moto: 'Strength A — push those numbers up a little this week! 🔥',
     distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
     steps: [
-      { text: 'Goblet squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×15' },
-      { text: 'Push-ups 3×12', time: '5 min', bw: 'Incline push-ups 3×12' },
-      { text: 'Walking lunges 3×10 each', time: '5 min', bw: 'Walking lunges 3×10 each' },
-      { text: 'Glute bridges 3×15', time: '5 min', bw: 'Glute bridges 3×15' },
-      { text: 'Plank 3×35s', time: '3 min', bw: 'Plank on knees 3×35s' }
+      { text: 'Barbell back squat 3×12 (moderate weight, build form)', time: '8 min', bw: 'Goblet squat 3×15' },
+      { text: 'Dumbbell bench press 3×12', time: '6 min', bw: 'Push-ups 3×15' },
+      { text: 'Romanian deadlift 3×12 (barbell or DB)', time: '6 min', bw: 'Good mornings 3×15' },
+      { text: 'Dumbbell shoulder press 3×12', time: '5 min', bw: 'Pike push-ups 3×12' },
+      { text: 'Cable or band pull-aparts 3×15', time: '4 min', bw: 'Band pull-aparts 3×15' },
+      { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
     ] },
   { date: '2026-06-03', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'KEEP IT UP!', moto: 'Midweek miles — 2.5 easy. Stay conversational.',
@@ -1671,11 +1688,12 @@ var planDays = [
     pow: 'GRIND!', moto: 'Strength B — work that posterior chain! 💥',
     distance: '', duration: '30–40 min', intervals: 'CIRCUIT', xp: 35,
     steps: [
-      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×12' },
-      { text: 'Dumbbell rows 3×12', time: '5 min', bw: 'Resistance band rows 3×12' },
-      { text: 'Side lunges 3×10 each', time: '5 min', bw: 'Side step squats 3×10' },
-      { text: 'Dead bug 3×8 each', time: '4 min', bw: 'Dead bug 3×8 each' },
-      { text: 'Superman 3×12', time: '3 min', bw: 'Superman 3×12' }
+      { text: 'Conventional deadlift 3×5 (focus on form, moderate weight)', time: '10 min', bw: 'Romanian deadlift 3×12' },
+      { text: 'Pull-ups or lat pulldown 3×10', time: '7 min', bw: 'Ring rows or towel rows 3×12' },
+      { text: 'Barbell or DB bent-over row 3×12', time: '6 min', bw: 'DB row 3×12 each' },
+      { text: 'Barbell hip thrust 3×15', time: '6 min', bw: 'Glute bridge 3×20' },
+      { text: 'Reverse lunges with DB 3×10 each', time: '5 min', bw: 'Reverse lunges 3×12 each' },
+      { text: 'Dead bug 3×10 each side', time: '4 min', bw: 'Dead bug 3×10 each side' }
     ] },
   { date: '2026-06-05', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FRIDAY!', moto: 'Friday 3 miles — you\'re getting stronger every week! 🔥',
@@ -1702,10 +1720,11 @@ var planDays = [
     pow: 'POWER!', moto: 'Strength A — try adding a little weight if you can! 💪',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 35,
     steps: [
-      { text: 'Goblet squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×20' },
-      { text: 'Push-ups 3×12', time: '5 min', bw: 'Push-ups 3×12' },
-      { text: 'Walking lunges 3×12 each', time: '5 min', bw: 'Walking lunges 3×12 each' },
-      { text: 'Single-leg glute bridges 3×10 each', time: '5 min', bw: 'Glute bridges 3×20' },
+      { text: 'Barbell back squat 3×12 (moderate weight, build form)', time: '8 min', bw: 'Goblet squat 3×15' },
+      { text: 'Dumbbell bench press 3×12', time: '6 min', bw: 'Push-ups 3×15' },
+      { text: 'Romanian deadlift 3×12 (barbell or DB)', time: '6 min', bw: 'Good mornings 3×15' },
+      { text: 'Dumbbell shoulder press 3×12', time: '5 min', bw: 'Pike push-ups 3×12' },
+      { text: 'Cable or band pull-aparts 3×15', time: '4 min', bw: 'Band pull-aparts 3×15' },
       { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
     ] },
   { date: '2026-06-10', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
@@ -1718,11 +1737,12 @@ var planDays = [
     pow: 'BUILD!', moto: 'Strength B — strong back, strong run! 🦾',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 35,
     steps: [
-      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×15' },
-      { text: 'Bent-over rows 3×12', time: '5 min', bw: 'Band rows 3×15' },
-      { text: 'Curtsy lunges 3×10 each', time: '5 min', bw: 'Curtsy lunges 3×10 each' },
-      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
-      { text: 'Bird-dog 3×10 each', time: '3 min', bw: 'Bird-dog 3×10 each' }
+      { text: 'Conventional deadlift 3×5 (focus on form, moderate weight)', time: '10 min', bw: 'Romanian deadlift 3×12' },
+      { text: 'Pull-ups or lat pulldown 3×10', time: '7 min', bw: 'Ring rows or towel rows 3×12' },
+      { text: 'Barbell or DB bent-over row 3×12', time: '6 min', bw: 'DB row 3×12 each' },
+      { text: 'Barbell hip thrust 3×15', time: '6 min', bw: 'Glute bridge 3×20' },
+      { text: 'Reverse lunges with DB 3×10 each', time: '5 min', bw: 'Reverse lunges 3×12 each' },
+      { text: 'Dead bug 3×10 each side', time: '4 min', bw: 'Dead bug 3×10 each side' }
     ] },
   { date: '2026-06-12', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FRIDAY!', moto: '3.5 miles — push into the weekend feeling accomplished! 🔥',
@@ -1749,11 +1769,12 @@ var planDays = [
     pow: 'BUILD PHASE!', moto: 'Strength A — build phase edition. Add weight, slow down reps. 🔥',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Goblet squats 4×12', time: '6 min', bw: 'Bodyweight squats 4×20' },
-      { text: 'Push-ups 3×15', time: '5 min', bw: 'Push-ups 3×15' },
-      { text: 'Reverse lunges 4×10 each', time: '6 min', bw: 'Reverse lunges 4×10 each' },
-      { text: 'Single-leg glute bridge 3×12 each', time: '5 min', bw: 'Single-leg glute bridge 3×12 each' },
-      { text: 'Plank 3×45s', time: '3 min', bw: 'Plank 3×45s' }
+      { text: 'Barbell back squat 4×8 (add weight from last week)', time: '10 min', bw: 'Goblet squat 4×12' },
+      { text: 'Barbell bench press 4×8', time: '8 min', bw: 'Push-ups 4×15' },
+      { text: 'Romanian deadlift 4×10 (heavier)', time: '8 min', bw: 'Single-leg RDL 3×12 each' },
+      { text: 'Arnold press 3×12', time: '5 min', bw: 'Pike push-ups 3×15' },
+      { text: 'Cable lateral raises 3×15', time: '4 min', bw: 'DB lateral raises 3×15' },
+      { text: 'Ab wheel rollout 3×10 (or cable crunch 3×15)', time: '4 min', bw: 'Plank 3×50s' }
     ] },
   { date: '2026-06-17', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'MIDWEEK!', moto: '3.5 miles — build is real, enjoy it!',
@@ -1765,11 +1786,12 @@ var planDays = [
     pow: 'GRIND!', moto: 'Strength B — build phase. You\'re getting seriously strong! 💥',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Romanian deadlift 4×10', time: '6 min', bw: 'Good mornings 4×15' },
-      { text: 'Bent-over rows 4×10', time: '6 min', bw: 'Band rows 4×15' },
-      { text: 'Side lunges 3×12 each', time: '5 min', bw: 'Side squats 3×12 each' },
-      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
-      { text: 'Hollow body hold 3×20s', time: '3 min', bw: 'Hollow body hold 3×20s' }
+      { text: 'Conventional deadlift 4×5 (add weight — this is your main lift)', time: '12 min', bw: 'Romanian deadlift 4×10' },
+      { text: 'Pull-ups 4×8 (weighted if possible, or band-assisted)', time: '8 min', bw: 'Lat pulldown or ring rows 4×10' },
+      { text: 'Barbell bent-over row 4×10', time: '8 min', bw: 'DB row 4×12 each' },
+      { text: 'Barbell hip thrust 4×12 (heavy)', time: '7 min', bw: 'Single-leg glute bridge 3×15 each' },
+      { text: 'Bulgarian split squat 3×10 each (DB)', time: '6 min', bw: 'Rear-foot elevated lunge 3×12 each' },
+      { text: 'Bird-dog 3×10 each + cable wood chop 3×12 each', time: '5 min', bw: 'Bird-dog 3×12 each' }
     ] },
   { date: '2026-06-19', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FRIDAY FIRE!', moto: '4 miles — first Friday at this distance! 🔥',
@@ -1796,11 +1818,12 @@ var planDays = [
     pow: 'POWER!', moto: 'Strength A — week 5. Feel the difference? 🔥',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Goblet squats 4×12', time: '6 min', bw: 'Bodyweight squats 4×20' },
-      { text: 'Push-ups 4×12', time: '6 min', bw: 'Push-ups 4×12' },
-      { text: 'Step-ups 3×12 each', time: '5 min', bw: 'Step-ups on chair 3×12 each' },
-      { text: 'Glute bridge march 3×10 each', time: '5 min', bw: 'Glute bridge march 3×10 each' },
-      { text: 'Side plank 3×25s each', time: '4 min', bw: 'Side plank on knees 3×25s each' }
+      { text: 'Barbell back squat 4×8 (add weight from last week)', time: '10 min', bw: 'Goblet squat 4×12' },
+      { text: 'Barbell bench press 4×8', time: '8 min', bw: 'Push-ups 4×15' },
+      { text: 'Romanian deadlift 4×10 (heavier)', time: '8 min', bw: 'Single-leg RDL 3×12 each' },
+      { text: 'Arnold press 3×12', time: '5 min', bw: 'Pike push-ups 3×15' },
+      { text: 'Cable lateral raises 3×15', time: '4 min', bw: 'DB lateral raises 3×15' },
+      { text: 'Ab wheel rollout 3×10 (or cable crunch 3×15)', time: '4 min', bw: 'Plank 3×50s' }
     ] },
   { date: '2026-06-24', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'BUILDING!', moto: '4 miles mid-week — this is race pace training country! 🏃‍♀️',
@@ -1812,11 +1835,12 @@ var planDays = [
     pow: 'IRON LEGS!', moto: 'Strength B — strong glutes = fast running! 💥',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Romanian deadlift 4×10', time: '6 min', bw: 'Good mornings 4×15' },
-      { text: 'Single-arm rows 3×12 each', time: '5 min', bw: 'Towel rows 3×12 each' },
-      { text: 'Lateral band walks 3×15 each', time: '5 min', bw: 'Lateral shuffles 3×15 each' },
-      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
-      { text: 'Reverse hypers 3×12', time: '3 min', bw: 'Superman 3×15' }
+      { text: 'Conventional deadlift 4×5 (add weight — this is your main lift)', time: '12 min', bw: 'Romanian deadlift 4×10' },
+      { text: 'Pull-ups 4×8 (weighted if possible, or band-assisted)', time: '8 min', bw: 'Lat pulldown or ring rows 4×10' },
+      { text: 'Barbell bent-over row 4×10', time: '8 min', bw: 'DB row 4×12 each' },
+      { text: 'Barbell hip thrust 4×12 (heavy)', time: '7 min', bw: 'Single-leg glute bridge 3×15 each' },
+      { text: 'Bulgarian split squat 3×10 each (DB)', time: '6 min', bw: 'Rear-foot elevated lunge 3×12 each' },
+      { text: 'Bird-dog 3×10 each + cable wood chop 3×12 each', time: '5 min', bw: 'Bird-dog 3×12 each' }
     ] },
   { date: '2026-06-26', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FRIDAY!', moto: '4 miles to close out the week! Solid effort. 🔥',
@@ -1843,11 +1867,12 @@ var planDays = [
     pow: 'PEAK STRENGTH!', moto: 'Strength A — peak phase. Work hard, you\'re almost there! 🔥',
     distance: '', duration: '40 min', intervals: 'CIRCUIT', xp: 45,
     steps: [
-      { text: 'Goblet squats 4×15', time: '6 min', bw: 'Bodyweight squats 4×25' },
-      { text: 'Push-ups 4×15', time: '6 min', bw: 'Push-ups 4×15' },
-      { text: 'Step-up with knee drive 3×12 each', time: '6 min', bw: 'Step-up with knee drive 3×12 each' },
-      { text: 'Hip thrust 3×15', time: '5 min', bw: 'Glute bridge 3×20' },
-      { text: 'Plank 3×50s', time: '4 min', bw: 'Plank 3×50s' }
+      { text: 'Barbell back squat 4×8 (add weight from last week)', time: '10 min', bw: 'Goblet squat 4×12' },
+      { text: 'Barbell bench press 4×8', time: '8 min', bw: 'Push-ups 4×15' },
+      { text: 'Romanian deadlift 4×10 (heavier)', time: '8 min', bw: 'Single-leg RDL 3×12 each' },
+      { text: 'Arnold press 3×12', time: '5 min', bw: 'Pike push-ups 3×15' },
+      { text: 'Cable lateral raises 3×15', time: '4 min', bw: 'DB lateral raises 3×15' },
+      { text: 'Ab wheel rollout 3×10 (or cable crunch 3×15)', time: '4 min', bw: 'Plank 3×50s' }
     ] },
   { date: '2026-07-01', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'JULY!', moto: 'Welcome to July! 4 miles — the race is getting close! 🏃‍♀️',
@@ -1859,11 +1884,12 @@ var planDays = [
     pow: 'STRONG!', moto: 'Strength B — peak edition. You\'re race-ready strong! 💥',
     distance: '', duration: '40 min', intervals: 'CIRCUIT', xp: 45,
     steps: [
-      { text: 'Romanian deadlift 4×12', time: '6 min', bw: 'Good mornings 4×15' },
-      { text: 'Bent-over rows 4×12', time: '6 min', bw: 'Band rows 4×15' },
-      { text: 'Cossack squats 3×8 each', time: '5 min', bw: 'Deep side lunges 3×8 each' },
-      { text: 'Pallof press 3×10 each', time: '4 min', bw: 'Band rotation 3×10 each' },
-      { text: 'Superman 3×15', time: '3 min', bw: 'Superman 3×15' }
+      { text: 'Conventional deadlift 4×5 (add weight — this is your main lift)', time: '12 min', bw: 'Romanian deadlift 4×10' },
+      { text: 'Pull-ups 4×8 (weighted if possible, or band-assisted)', time: '8 min', bw: 'Lat pulldown or ring rows 4×10' },
+      { text: 'Barbell bent-over row 4×10', time: '8 min', bw: 'DB row 4×12 each' },
+      { text: 'Barbell hip thrust 4×12 (heavy)', time: '7 min', bw: 'Single-leg glute bridge 3×15 each' },
+      { text: 'Bulgarian split squat 3×10 each (DB)', time: '6 min', bw: 'Rear-foot elevated lunge 3×12 each' },
+      { text: 'Bird-dog 3×10 each + cable wood chop 3×12 each', time: '5 min', bw: 'Bird-dog 3×12 each' }
     ] },
   { date: '2026-07-03', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FIRE!', moto: '4.5 miles — long weekend energy! 🔥',
@@ -1890,11 +1916,12 @@ var planDays = [
     pow: 'POWER!', moto: 'Strength A — keeping the engine running! 🔥',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Goblet squats 3×15', time: '5 min', bw: 'Bodyweight squats 3×20' },
-      { text: 'Push-ups 3×15', time: '5 min', bw: 'Push-ups 3×15' },
-      { text: 'Reverse lunges 3×12 each', time: '5 min', bw: 'Reverse lunges 3×12 each' },
-      { text: 'Hip thrust 3×15', time: '5 min', bw: 'Glute bridge 3×20' },
-      { text: 'Plank 3×45s', time: '3 min', bw: 'Plank 3×45s' }
+      { text: 'Barbell back squat 4×6 (heavy — challenging weight)', time: '10 min', bw: 'Goblet squat 4×15' },
+      { text: 'Barbell bench press 4×6', time: '8 min', bw: 'Push-ups 4×20' },
+      { text: 'Romanian deadlift 4×8 (heavy)', time: '8 min', bw: 'Single-leg RDL 4×10 each' },
+      { text: 'DB shoulder press 3×10 (heavy)', time: '5 min', bw: 'Pike push-ups 3×15' },
+      { text: 'Cable face pulls 3×15', time: '4 min', bw: 'Band pull-aparts 3×20' },
+      { text: 'Cable crunch or hanging knee raises 3×15', time: '4 min', bw: 'Hollow body hold 3×30s' }
     ] },
   { date: '2026-07-08', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'KEEP GOING!', moto: '4.5 miles — so close to peak week! 🏃‍♀️',
@@ -1906,11 +1933,12 @@ var planDays = [
     pow: 'GRIND!', moto: 'Strength B — last heavy strength before peak! 💥',
     distance: '', duration: '35–40 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Romanian deadlift 3×12', time: '5 min', bw: 'Good mornings 3×15' },
-      { text: 'Rows 3×12', time: '5 min', bw: 'Band rows 3×15' },
-      { text: 'Side lunges 3×10 each', time: '5 min', bw: 'Side squats 3×10 each' },
-      { text: 'Dead bug 3×10 each', time: '4 min', bw: 'Dead bug 3×10 each' },
-      { text: 'Bird-dog 3×10 each', time: '3 min', bw: 'Bird-dog 3×10 each' }
+      { text: 'Conventional deadlift 4×5 (heavy — RPE 8/10)', time: '12 min', bw: 'Romanian deadlift 4×10' },
+      { text: 'Pull-ups 4×8 (weighted if possible)', time: '8 min', bw: 'Lat pulldown 4×10' },
+      { text: 'Barbell bent-over row 4×10 (heavy)', time: '8 min', bw: 'DB row 4×12 each' },
+      { text: 'Barbell hip thrust 4×12 (heaviest of the plan)', time: '8 min', bw: 'Single-leg glute bridge 4×12 each' },
+      { text: 'Bulgarian split squat 3×10 each', time: '6 min', bw: 'Rear-foot elevated lunge 3×12 each' },
+      { text: 'Pallof press 3×12 each side', time: '4 min', bw: 'Dead bug 3×10 each' }
     ] },
   { date: '2026-07-10', type: 'run', title: 'FRIDAY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FRIDAY FIRE!', moto: '5 miles Friday — peak week preview! 🔥',
@@ -1937,11 +1965,12 @@ var planDays = [
     pow: 'PEAK POWER!', moto: 'Strength A — peak week. Moderate effort, save energy for the long run! 🔥',
     distance: '', duration: '30–35 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Goblet squats 3×12', time: '5 min', bw: 'Bodyweight squats 3×15' },
-      { text: 'Push-ups 3×12', time: '5 min', bw: 'Push-ups 3×12' },
-      { text: 'Reverse lunges 3×10 each', time: '5 min', bw: 'Reverse lunges 3×10 each' },
-      { text: 'Glute bridge 3×15', time: '4 min', bw: 'Glute bridge 3×15' },
-      { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
+      { text: 'Barbell back squat 4×6 (heavy — challenging weight)', time: '10 min', bw: 'Goblet squat 4×15' },
+      { text: 'Barbell bench press 4×6', time: '8 min', bw: 'Push-ups 4×20' },
+      { text: 'Romanian deadlift 4×8 (heavy)', time: '8 min', bw: 'Single-leg RDL 4×10 each' },
+      { text: 'DB shoulder press 3×10 (heavy)', time: '5 min', bw: 'Pike push-ups 3×15' },
+      { text: 'Cable face pulls 3×15', time: '4 min', bw: 'Band pull-aparts 3×20' },
+      { text: 'Cable crunch or hanging knee raises 3×15', time: '4 min', bw: 'Hollow body hold 3×30s' }
     ] },
   { date: '2026-07-15', type: 'run', title: 'MIDWEEK RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'PEAK!', moto: '5 miles midweek during peak week — THAT is elite. 🏃‍♀️',
@@ -1953,11 +1982,12 @@ var planDays = [
     pow: 'STRONG!', moto: 'Strength B — last hard session before the big 12! Keep it moderate. 💥',
     distance: '', duration: '30–35 min', intervals: 'CIRCUIT', xp: 40,
     steps: [
-      { text: 'Romanian deadlift 3×10', time: '5 min', bw: 'Good mornings 3×12' },
-      { text: 'Rows 3×10', time: '4 min', bw: 'Band rows 3×12' },
-      { text: 'Side lunges 3×10 each', time: '4 min', bw: 'Side squats 3×10 each' },
-      { text: 'Dead bug 3×8 each', time: '3 min', bw: 'Dead bug 3×8 each' },
-      { text: 'Superman 3×12', time: '3 min', bw: 'Superman 3×12' }
+      { text: 'Conventional deadlift 4×5 (heavy — RPE 8/10)', time: '12 min', bw: 'Romanian deadlift 4×10' },
+      { text: 'Pull-ups 4×8 (weighted if possible)', time: '8 min', bw: 'Lat pulldown 4×10' },
+      { text: 'Barbell bent-over row 4×10 (heavy)', time: '8 min', bw: 'DB row 4×12 each' },
+      { text: 'Barbell hip thrust 4×12 (heaviest of the plan)', time: '8 min', bw: 'Single-leg glute bridge 4×12 each' },
+      { text: 'Bulgarian split squat 3×10 each', time: '6 min', bw: 'Rear-foot elevated lunge 3×12 each' },
+      { text: 'Pallof press 3×12 each side', time: '4 min', bw: 'Dead bug 3×10 each' }
     ] },
   { date: '2026-07-17', type: 'run', title: 'EASY FRIDAY', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'EASY!', moto: 'Easy 3 miles Friday — saving legs for peak long run tomorrow! 🔥',
@@ -1984,11 +2014,11 @@ var planDays = [
     pow: 'LIGHT!', moto: 'Light strength — maintain, don\'t train. Keep the body primed! 🔥',
     distance: '', duration: '25–30 min', intervals: 'LIGHT CIRCUIT', xp: 30,
     steps: [
-      { text: 'Bodyweight squats 2×15', time: '4 min', bw: 'Bodyweight squats 2×15' },
-      { text: 'Push-ups 2×10', time: '3 min', bw: 'Push-ups 2×10' },
-      { text: 'Reverse lunges 2×10 each', time: '4 min', bw: 'Reverse lunges 2×10 each' },
-      { text: 'Glute bridge 2×15', time: '3 min', bw: 'Glute bridge 2×15' },
-      { text: 'Plank 2×30s', time: '2 min', bw: 'Plank 2×30s' }
+      { text: 'Barbell back squat 3×10 (moderate — not to failure)', time: '7 min', bw: 'Goblet squat 3×12' },
+      { text: 'Dumbbell bench press 3×10', time: '5 min', bw: 'Push-ups 3×12' },
+      { text: 'Romanian deadlift 3×10', time: '5 min', bw: 'Good mornings 3×12' },
+      { text: 'Shoulder press 3×10', time: '4 min', bw: 'Pike push-ups 3×10' },
+      { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
     ] },
   { date: '2026-07-22', type: 'run', title: 'TAPER RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'FRESH LEGS!', moto: '4 miles — notice how light your legs feel! Taper magic! 🏃‍♀️',
@@ -2000,11 +2030,11 @@ var planDays = [
     pow: 'MAINTAIN!', moto: 'Light Strength B — activate the muscles, then rest. 💥',
     distance: '', duration: '25–30 min', intervals: 'LIGHT CIRCUIT', xp: 30,
     steps: [
-      { text: 'Good mornings 2×12', time: '4 min', bw: 'Good mornings 2×12' },
-      { text: 'Band rows 2×12', time: '3 min', bw: 'Band rows 2×12' },
-      { text: 'Side lunges 2×8 each', time: '3 min', bw: 'Side lunges 2×8 each' },
-      { text: 'Dead bug 2×8 each', time: '3 min', bw: 'Dead bug 2×8 each' },
-      { text: 'Bird-dog 2×8 each', time: '3 min', bw: 'Bird-dog 2×8 each' }
+      { text: 'Conventional deadlift 3×5 (moderate — not to failure)', time: '8 min', bw: 'Romanian deadlift 3×10' },
+      { text: 'Pull-ups or lat pulldown 3×8', time: '5 min', bw: 'Ring rows 3×10' },
+      { text: 'DB row 3×10 each', time: '4 min', bw: 'DB row 3×10 each' },
+      { text: 'Barbell hip thrust 3×12', time: '5 min', bw: 'Glute bridge 3×15' },
+      { text: 'Dead bug 2×10 each', time: '3 min', bw: 'Dead bug 2×10 each' }
     ] },
   { date: '2026-07-24', type: 'run', title: 'TAPER RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'TAPER!', moto: '3.5 miles easy — run relaxed, feel powerful! 🔥',
@@ -2031,11 +2061,11 @@ var planDays = [
     pow: 'LIGHT!', moto: 'Final strength A — activate and go. Nothing heavy! 🔥',
     distance: '', duration: '20–25 min', intervals: 'LIGHT CIRCUIT', xp: 25,
     steps: [
-      { text: 'Bodyweight squats 2×12', time: '3 min', bw: 'Bodyweight squats 2×12' },
-      { text: 'Push-ups 2×8', time: '3 min', bw: 'Push-ups 2×8' },
-      { text: 'Reverse lunges 2×8 each', time: '3 min', bw: 'Reverse lunges 2×8 each' },
-      { text: 'Glute bridge 2×12', time: '3 min', bw: 'Glute bridge 2×12' },
-      { text: 'Plank 2×25s', time: '2 min', bw: 'Plank 2×25s' }
+      { text: 'Barbell back squat 3×10 (moderate — not to failure)', time: '7 min', bw: 'Goblet squat 3×12' },
+      { text: 'Dumbbell bench press 3×10', time: '5 min', bw: 'Push-ups 3×12' },
+      { text: 'Romanian deadlift 3×10', time: '5 min', bw: 'Good mornings 3×12' },
+      { text: 'Shoulder press 3×10', time: '4 min', bw: 'Pike push-ups 3×10' },
+      { text: 'Plank 3×40s', time: '3 min', bw: 'Plank 3×40s' }
     ] },
   { date: '2026-07-29', type: 'run', title: 'EASY RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'WEEK 10!', moto: '3 miles easy — just keep the legs moving! 🏃‍♀️',
@@ -2047,11 +2077,11 @@ var planDays = [
     pow: 'LIGHT!', moto: 'Final Strength B — gentle activation only! 💥',
     distance: '', duration: '20–25 min', intervals: 'LIGHT CIRCUIT', xp: 25,
     steps: [
-      { text: 'Good mornings 2×10', time: '3 min', bw: 'Good mornings 2×10' },
-      { text: 'Band rows 2×10', time: '3 min', bw: 'Band rows 2×10' },
-      { text: 'Side lunges 2×8 each', time: '3 min', bw: 'Side lunges 2×8 each' },
-      { text: 'Dead bug 2×6 each', time: '3 min', bw: 'Dead bug 2×6 each' },
-      { text: 'Bird-dog 2×6 each', time: '2 min', bw: 'Bird-dog 2×6 each' }
+      { text: 'Conventional deadlift 3×5 (moderate — not to failure)', time: '8 min', bw: 'Romanian deadlift 3×10' },
+      { text: 'Pull-ups or lat pulldown 3×8', time: '5 min', bw: 'Ring rows 3×10' },
+      { text: 'DB row 3×10 each', time: '4 min', bw: 'DB row 3×10 each' },
+      { text: 'Barbell hip thrust 3×12', time: '5 min', bw: 'Glute bridge 3×15' },
+      { text: 'Dead bug 2×10 each', time: '3 min', bw: 'Dead bug 2×10 each' }
     ] },
   { date: '2026-07-31', type: 'run', title: 'SHAKEOUT RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'SHAKEOUT!', moto: '3 miles — last real run before race week! Keep it FUN! 🔥',
@@ -2078,11 +2108,11 @@ var planDays = [
     pow: 'ACTIVATE!', moto: 'Light activation only — wake the muscles up. Nothing hard! 🔥',
     distance: '', duration: '15–20 min', intervals: 'ACTIVATION', xp: 15,
     steps: [
-      { text: 'Glute bridges 2×10', time: '2 min', bw: 'Glute bridges 2×10' },
-      { text: 'Clamshells 2×10 each', time: '2 min', bw: 'Clamshells 2×10 each' },
-      { text: 'Reverse lunges 2×6 each', time: '2 min', bw: 'Reverse lunges 2×6 each' },
-      { text: 'Dead bug 2×5 each', time: '2 min', bw: 'Dead bug 2×5 each' },
-      { text: 'Cat-cow stretch 2×10', time: '2 min', bw: 'Cat-cow stretch 2×10' }
+      { text: 'Glute bridge 2×10 — wake those glutes up!', time: '2 min', bw: 'Glute bridge 2×10' },
+      { text: 'Clamshells 2×10 each side', time: '2 min', bw: 'Clamshells 2×10 each' },
+      { text: 'Hip circle + leg swings 2×10 each', time: '2 min', bw: 'Hip circles 2×10 each' },
+      { text: 'Bodyweight squat 2×10 (slow, full range)', time: '2 min', bw: 'Bodyweight squat 2×10' },
+      { text: 'Dead bug 2×6 each side', time: '2 min', bw: 'Dead bug 2×6 each' }
     ] },
   { date: '2026-08-05', type: 'run', title: 'SHAKEOUT RUN', icon: '🏃‍♀️', headerClass: 'run-header', btnClass: 'run-btn',
     pow: 'SHAKEOUT!', moto: '2 easy miles — stay loose and confident. You\'ve done the work! 🏃‍♀️',
@@ -2133,6 +2163,7 @@ function saveState(s) {
 
 var state = loadState();
 var activeDate = planDays[0].date;
+var venueMode = (state && state._venue) || 'outdoor';
 
 var today = new Date().toISOString().split('T')[0];
 var todayPlan = planDays.find(function(d){ return d.date === today; });
@@ -2422,6 +2453,29 @@ function renderTabs() {
 }
 
 // RENDER WORKOUT
+// Generate treadmill steps dynamically from day data
+function generateTreadmillSteps(day, mode) {
+  var dist = day.distance || day.duration;
+  var interval = day.intervals || '60s RUN / 30s WALK';
+  if (mode === 'galloway') {
+    return [
+      { text: 'Set treadmill incline to 1% — simulates outdoor resistance 🏃‍♀️', time: '1 min' },
+      { text: 'Warmup: walk 5 min at 3.0–3.5 mph', time: '5 min' },
+      { text: 'Galloway intervals (' + interval + '): run at 5.5–6.5 mph, walk at 3.5 mph. Repeat for ' + dist, time: day.duration },
+      { text: 'Cooldown: 5 min walk, drop incline to 0%', time: '5 min' },
+      { text: 'Stretch calves, quads & hip flexors 🦵', time: '3 min' }
+    ];
+  } else {
+    return [
+      { text: 'Set treadmill incline to 1% — simulates outdoor resistance 🏃‍♀️', time: '1 min' },
+      { text: 'Warmup: walk 5 min at 3.0–3.5 mph', time: '5 min' },
+      { text: 'Steady run at easy conversational pace (5.0–6.0 mph) for ' + dist, time: day.duration },
+      { text: 'Cooldown: 5 min walk, drop incline to 0%', time: '5 min' },
+      { text: 'Stretch calves, quads & hip flexors 🦵', time: '3 min' }
+    ];
+  }
+}
+
 function renderWorkout() {
   var day = getDayForDate(activeDate);
   var content = document.getElementById('workoutContent');
@@ -2433,8 +2487,9 @@ function renderWorkout() {
   var checkedSteps = (state[activeDate] && state[activeDate].steps) || {};
   var hasRunMode = day.steadySteps && day.steadySteps.length > 0;
   var currentMode = (state[activeDate] && state[activeDate].mode) || 'galloway';
+  var isRunDay = (day.type === 'run' || day.type === 'longrun');
 
-  // MODE TOGGLE (for run/longrun days with both modes)
+  // RUN STYLE TOGGLE (galloway / steady)
   var toggleHTML = '';
   if (hasRunMode) {
     toggleHTML = '<div class="mode-toggle-wrap">' +
@@ -2443,7 +2498,7 @@ function renderWorkout() {
         '<button class="mode-btn ' + (currentMode === 'galloway' ? 'mode-active galloway-active' : '') + '" data-mode="galloway">' +
           '<span class="mode-emoji">\u23F1\uFE0F</span>' +
           '<span class="mode-text">GALLOWAY</span>' +
-          '<span class="mode-sub">60s Run / 30s Walk</span>' +
+          '<span class="mode-sub">Run / Walk Intervals</span>' +
         '</button>' +
         '<button class="mode-btn ' + (currentMode === 'steady' ? 'mode-active steady-active' : '') + '" data-mode="steady">' +
           '<span class="mode-emoji">\uD83C\uDFC3\u200D\u2640\uFE0F</span>' +
@@ -2454,15 +2509,35 @@ function renderWorkout() {
     '</div>';
   }
 
+  // VENUE TOGGLE (outdoor / treadmill) — shown on all run days
+  var venueHTML = '';
+  if (isRunDay) {
+    venueHTML = '<div class="venue-toggle-wrap">' +
+      '<div class="mode-toggle-label">\uD83D\uDCCD WHERE ARE YOU RUNNING?</div>' +
+      '<div class="mode-toggle-btns">' +
+        '<button class="mode-btn ' + (venueMode === 'outdoor' ? 'mode-active outdoor-active' : '') + '" data-venue="outdoor">' +
+          '<span class="mode-emoji">\uD83C\uDF32</span>' +
+          '<span class="mode-text">OUTSIDE</span>' +
+          '<span class="mode-sub">Roads &amp; Trails</span>' +
+        '</button>' +
+        '<button class="mode-btn ' + (venueMode === 'treadmill' ? 'mode-active treadmill-active' : '') + '" data-venue="treadmill">' +
+          '<span class="mode-emoji">\uD83C\uDFCB\uFE0F\u200D\u2640\uFE0F</span>' +
+          '<span class="mode-text">TREADMILL</span>' +
+          '<span class="mode-sub">Garage Gym</span>' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+  }
+
   // INTERVAL VISUAL
   var intervalHTML = '';
-  if ((day.type === 'run' || day.type === 'longrun') && currentMode === 'galloway') {
+  if (isRunDay && currentMode === 'galloway') {
     var reps = day.type === 'longrun' ? 8 : 5;
     var blocks = '';
     for (var r = 0; r < reps; r++) { blocks += '<div class="iblock run"></div><div class="iblock walk"></div>'; }
     blocks += '<span style="font-family:Bangers,cursive;font-size:18px;color:var(--ink);align-self:center;margin-left:4px">\u00B7\u00B7\u00B7</span>';
-    intervalHTML = '<div class="interval-visual"><div class="interval-label">\u26A1 INTERVAL PATTERN:</div><div class="interval-blocks">' + blocks + '</div><div class="interval-legend"><span><span class="ileg-dot" style="background:var(--red)"></span>60s RUN</span><span><span class="ileg-dot" style="background:var(--blue);opacity:0.7"></span>30s WALK</span></div></div>';
-  } else if ((day.type === 'run' || day.type === 'longrun') && currentMode === 'steady') {
+    intervalHTML = '<div class="interval-visual"><div class="interval-label">\u26A1 INTERVAL PATTERN:</div><div class="interval-blocks">' + blocks + '</div><div class="interval-legend"><span><span class="ileg-dot" style="background:var(--red)"></span>RUN</span><span><span class="ileg-dot" style="background:var(--blue);opacity:0.7"></span>WALK</span></div></div>';
+  } else if (isRunDay && currentMode === 'steady') {
     intervalHTML = '<div class="interval-visual"><div class="interval-label">\uD83C\uDFC3\u200D\u2640\uFE0F STEADY STATE:</div><div class="interval-blocks"><div class="iblock steady"></div></div><div class="interval-legend"><span><span class="ileg-dot" style="background:var(--green)"></span>ONE COMFORTABLE PACE</span></div></div>';
   }
 
@@ -2472,9 +2547,16 @@ function renderWorkout() {
     distBadgeHTML = '<div style="text-align:center;padding:6px 14px 2px;"><span style="display:inline-block;background:var(--ink);color:var(--yellow);font-family:Bangers,cursive;font-size:14px;letter-spacing:2px;padding:4px 14px 3px;border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);">\uD83D\uDCCF ' + day.distance.toUpperCase() + '</span></div>';
   }
 
-  // SELECT STEPS based on mode
-  var activeSteps = (currentMode === 'steady' && day.steadySteps) ? day.steadySteps : day.steps;
-  var subtitleText = day.duration + (day.distance ? ' \u00B7 ' + day.distance : '') + (hasRunMode ? ' \u00B7 ' + (currentMode === 'steady' ? 'STEADY STATE' : 'GALLOWAY') : '');
+  // SELECT STEPS based on mode + venue
+  var activeSteps;
+  if (isRunDay && venueMode === 'treadmill') {
+    activeSteps = generateTreadmillSteps(day, currentMode);
+  } else {
+    activeSteps = (currentMode === 'steady' && day.steadySteps) ? day.steadySteps : day.steps;
+  }
+
+  var venueLabel = isRunDay ? (' \u00B7 ' + (venueMode === 'treadmill' ? '\uD83C\uDFCB\uFE0F TREADMILL' : '\uD83C\uDF32 OUTSIDE')) : '';
+  var subtitleText = day.duration + (day.distance ? ' \u00B7 ' + day.distance : '') + (hasRunMode ? ' \u00B7 ' + (currentMode === 'steady' ? 'STEADY STATE' : 'GALLOWAY') : '') + venueLabel;
 
   var stepsHTML = activeSteps.map(function(step, i) {
     var isChecked = checkedSteps[i];
@@ -2507,10 +2589,20 @@ function renderWorkout() {
     swapHTML = '<div class="swap-wrap"><div class="swap-label">\uD83D\uDCC5 BUSY DAY?</div><button class="swap-btn" id="swapDayBtn"><span class="swap-icon">\uD83D\uDD00</span> SWAP DAY</button></div>';
   }
 
-  content.innerHTML = '<div class="workout-panel"><div class="panel-header ' + day.headerClass + '"><div class="pow-badge">' + day.pow + '</div><div class="header-top-row"><div class="panel-icon">' + day.icon + '</div><div class="panel-titles"><div class="panel-title">' + day.title + '</div><div class="panel-subtitle">' + subtitleText + '</div></div></div></div>' + swapHTML + toggleHTML + intervalHTML + distBadgeHTML + '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MISSION BRIEFING</div>' + stepsHTML + '</div>' + xpBadge + btnHTML + '</div>';
+  content.innerHTML = '<div class="workout-panel"><div class="panel-header ' + day.headerClass + '"><div class="pow-badge">' + day.pow + '</div><div class="header-top-row"><div class="panel-icon">' + day.icon + '</div><div class="panel-titles"><div class="panel-title">' + day.title + '</div><div class="panel-subtitle">' + subtitleText + '</div></div></div></div>' + swapHTML + venueHTML + toggleHTML + intervalHTML + distBadgeHTML + '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MISSION BRIEFING</div>' + stepsHTML + '</div>' + xpBadge + btnHTML + '</div>';
+
+  // VENUE TOGGLE LISTENERS
+  content.querySelectorAll('[data-venue]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      venueMode = btn.dataset.venue;
+      state._venue = venueMode;
+      saveState(state);
+      renderWorkout();
+    });
+  });
 
   // MODE TOGGLE LISTENERS
-  content.querySelectorAll('.mode-btn').forEach(function(btn) {
+  content.querySelectorAll('.mode-btn[data-mode]').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var newMode = btn.dataset.mode;
       if (!state[activeDate]) state[activeDate] = {};
