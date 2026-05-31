@@ -628,6 +628,79 @@ body::after {
   line-height: 1.4;
 }
 
+/* ── IRON LIZZIE SAYS QUOTE BOX ── */
+.ilq-wrap {
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  margin-bottom: var(--gutter);
+  overflow: hidden;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.22);
+  animation: panelSlam 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.ilq-wrap.ilq-new .ilq-quote {
+  animation: ilqFadeSlide 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes ilqFadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ilq-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px 6px;
+  background: var(--red);
+  border-bottom: 2px solid var(--ink);
+}
+.ilq-icon { font-size: 18px; }
+.ilq-title {
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+  flex: 1;
+}
+.ilq-refresh-btn {
+  background: none;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s, background 0.15s;
+  flex-shrink: 0;
+}
+.ilq-refresh-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: rotate(180deg);
+}
+.ilq-quote {
+  font-family: 'Comic Neue', cursive;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--yellow);
+  line-height: 1.55;
+  margin: 0;
+  padding: 12px 14px 6px;
+  quotes: none;
+}
+.ilq-who {
+  font-family: 'Comic Neue', cursive;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 1px;
+  padding: 0 14px 10px;
+  text-transform: uppercase;
+}
+
 /* FLOATING SFX */
 .floating-sfx {
   position: fixed;
@@ -2904,6 +2977,9 @@ body::after {
       <div class="bubble-text" id="motoText">Loading mission briefing...</div>
     </div>
 
+    <!-- IRON LIZZIE SAYS QUOTE BOX -->
+    <div id="quoteBox"></div>
+
     <!-- MISSION RANDOMIZER — renders into this div -->
     <div id="missionReveal"></div>
 
@@ -2984,6 +3060,48 @@ var GALLOWAY_INTERVALS = [
     desc: 'More run than walk — 3:1 ratio. You\'re feeling strong, your base is solid, and you want to push. Save this for weeks 8+ or when you\'re chasing a fast long-run finish.',
     color: '#9C27B0'
   },
+];
+
+// ── IRON LIZZIE SAYS — motivational quote bank ────────────────
+var IRON_LIZZIE_QUOTES = [
+  // Running truths
+  { q: "The first mile is a lie. The second mile is a negotiation. The third mile is where you actually start running.", who: "Iron Lizzie, probably" },
+  { q: "You don't have to want to run. You just have to go anyway. Motivation is a scam. Shoes are the plan.", who: "Iron Lizzie" },
+  { q: "Bad run? Good. You now have proof that you ran even when it was bad. That's the whole thing.", who: "Iron Lizzie" },
+  { q: "Running is just controlled falling forward with increasingly dramatic breathing.", who: "Iron Lizzie, biomechanics expert" },
+  { q: "Every runner looks unhinged to someone sitting on a couch. Own it.", who: "Iron Lizzie" },
+  { q: "The Galloway method is just interval napping between sprints. You're basically a pro.", who: "Iron Lizzie" },
+  { q: "You are not slow. You are giving the scenery more time to appreciate you.", who: "Iron Lizzie" },
+  { q: "If you're asking 'am I a real runner yet?' — you became one the first time you laced up your shoes and went outside. That's it. That's the whole bar.", who: "Iron Lizzie" },
+  // ADHD-specific
+  { q: "Did you hyperfocus on a YouTube rabbit hole instead of going to bed early? Bold pre-race strategy. Let's go anyway.", who: "Iron Lizzie, no judgement" },
+  { q: "Your brain said 'we should run' at 9pm on a Wednesday and you WENT. That is unhinged and heroic in equal measure.", who: "Iron Lizzie" },
+  { q: "The plan says rest day. Your legs say maybe just a little jog. Your brain says seventeen different things at once. Listen to your legs.", who: "Iron Lizzie" },
+  { q: "Forgot to track it? Still counts. The miles don't disappear because Strava didn't see them.", who: "Iron Lizzie" },
+  { q: "You did the thing even though your brain was doing seventeen other things simultaneously. That's not a small thing.", who: "Iron Lizzie" },
+  { q: "Hyperfocus activated: running playlist curated, route analyzed, weather checked three times, shoes still on the wrong feet. We love this journey.", who: "Iron Lizzie" },
+  // Weezer / dog adjacent
+  { q: "Weezer does not care about your pace. Weezer cares about the smell of that one particular lamppost. You're already winning.", who: "Iron Lizzie & Weezer" },
+  { q: "The Blue Album goes from track 1 to track 10 in exactly one solid easy run. This is not a coincidence. Rivers Cuomo is a running coach.", who: "Iron Lizzie" },
+  { q: "Weezer (the dog) has completed more miles than she knows. She thinks she's just investigating smells. That's also valid training.", who: "Iron Lizzie" },
+  // Half marathon countdown
+  { q: "August 9th is not a deadline. It's the day the story ends. And you are writing it right now, one run at a time.", who: "Iron Lizzie" },
+  { q: "A half marathon is 13.1 miles. You've already run more than that in training. The race is just doing it in one go with snacks.", who: "Iron Lizzie" },
+  { q: "The half marathon will feel hard. That's not a sign you're failing. That's just what hard things feel like. You've felt hard things before.", who: "Iron Lizzie" },
+  { q: "Mile 10 will feel like the end of the world. Miles 11–13 will feel like you invented running. Trust the process.", who: "Iron Lizzie, race day dispatch" },
+  // Low-key chaos energy
+  { q: "Running gives you somewhere to put the unhinged energy. Cheaper than therapy. Only slightly less sweaty.", who: "Iron Lizzie" },
+  { q: "Some runs feel like flying. Some runs feel like moving through wet cement in a bad dream. Both are training.", who: "Iron Lizzie" },
+  { q: "The only run you regret is the one you talked yourself out of while still in bed.", who: "Iron Lizzie, 6am edition" },
+  { q: "You're not 'behind.' There's no behind. There's just today, and whether you went.", who: "Iron Lizzie" },
+  { q: "You don't need a perfect week. You need enough weeks. You're building enough weeks.", who: "Iron Lizzie" },
+  { q: "Progress is not a straight line. It's a chaotic scribble that, if you squint at it from far enough away, is definitely going upward.", who: "Iron Lizzie" },
+  // Short punchy ones
+  { q: "GO.", who: "Iron Lizzie, minimalist era" },
+  { q: "The run won't do itself. Unfortunately.", who: "Iron Lizzie" },
+  { q: "Rest days are training days. You are currently training to not explode.", who: "Iron Lizzie" },
+  { q: "You showed up. That's the hardest part. The rest is just left foot, right foot.", who: "Iron Lizzie" },
+  { q: "Strong legs. Chaotic brain. Good playlist. That's the whole formula.", who: "Iron Lizzie" },
 ];
 
 var RANKS = [
@@ -4287,6 +4405,7 @@ function renderWorkout() {
         var isLR = day && (day.type === 'longrun');
         playSfxComplete(isLR);
         fireActionWord(); fireConfetti(); shakeScreen(); checkAchievements(); checkMilestones();
+        renderQuoteBox(true);
         setTimeout(function(){ showDebriefModal(activeDate); }, 900);
       }
       renderAll();
@@ -5368,6 +5487,38 @@ function renderAll() {
   renderTrainingLog();
   renderBoredBox();
   renderWeezerSideQuest();
+  renderQuoteBox(false);
+}
+
+// ── IRON LIZZIE SAYS — QUOTE BOX ─────────────────────────────
+function renderQuoteBox(forceNew) {
+  var el = document.getElementById('quoteBox');
+  if (!el) return;
+
+  if (forceNew || !window._ilQuote) {
+    var prev = window._ilQuote;
+    var pool = prev
+      ? IRON_LIZZIE_QUOTES.filter(function(q) { return q.q !== prev.q; })
+      : IRON_LIZZIE_QUOTES;
+    window._ilQuote = pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  var q = window._ilQuote;
+
+  el.innerHTML =
+    '<div class="ilq-wrap' + (forceNew ? ' ilq-new' : '') + '">' +
+      '<div class="ilq-header">' +
+        '<span class="ilq-icon">\uD83E\uDDB8\u200D\u2640\uFE0F</span>' +
+        '<span class="ilq-title">IRON LIZZIE SAYS:</span>' +
+        '<button class="ilq-refresh-btn" id="ilqRefreshBtn" title="New quote">\uD83D\uDD04</button>' +
+      '</div>' +
+      '<blockquote class="ilq-quote" id="ilqText">\u201C' + q.q + '\u201D</blockquote>' +
+      '<div class="ilq-who">\u2014 ' + q.who + '</div>' +
+    '</div>';
+
+  document.getElementById('ilqRefreshBtn').addEventListener('click', function() {
+    renderQuoteBox(true);
+  });
 }
 
 // EFFECTS
