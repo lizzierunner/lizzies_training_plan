@@ -1701,6 +1701,241 @@ body::after {
   padding: 0;
   line-height: 1;
 }
+
+/* ===== MILESTONE UNLOCK PANEL ===== */
+.milestone-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.82);
+  cursor: pointer;
+}
+.milestone-panel {
+  background: var(--yellow);
+  border: 5px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
+  width: min(360px, 88vw);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: milestoneSlam 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes milestoneSlam {
+  from { transform: scale(0.2) rotate(-8deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+.milestone-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--ink) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.07;
+  pointer-events: none;
+}
+.milestone-banner {
+  background: var(--red);
+  color: #fff;
+  font-family: Bangers, cursive;
+  font-size: 13px;
+  letter-spacing: 4px;
+  padding: 8px 16px;
+  border-bottom: 3px solid var(--ink);
+  position: relative;
+}
+.milestone-emoji {
+  font-size: 72px;
+  padding: 24px 0 8px;
+  line-height: 1;
+  display: block;
+  position: relative;
+}
+.milestone-title {
+  font-family: Bangers, cursive;
+  font-size: 36px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  line-height: 1.1;
+  padding: 0 16px 10px;
+  text-shadow: 3px 3px 0 rgba(232,20,42,0.25);
+  position: relative;
+}
+.milestone-sub {
+  font-family: 'Comic Neue', cursive;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 22px 18px;
+  line-height: 1.5;
+  position: relative;
+}
+.milestone-footer {
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: Bangers, cursive;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 10px;
+  border-top: 3px solid var(--ink);
+  position: relative;
+}
+
+/* ===== WEEKLY STATS SUMMARY ===== */
+.week-stats {
+  margin: 0 0 var(--gutter);
+  background: var(--panel-bg);
+  border: var(--outline);
+  box-shadow: 3px 3px 0 var(--ink);
+  overflow: hidden;
+}
+.week-stats-header {
+  background: var(--blue);
+  color: #fff;
+  font-family: Bangers, cursive;
+  font-size: 15px;
+  letter-spacing: 3px;
+  padding: 8px 12px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--ink);
+}
+.week-stats-body {
+  padding: 10px 12px 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.stat-card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 7px 10px 5px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.stat-card-label {
+  font-family: 'Comic Neue', cursive;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+.stat-card-value {
+  font-family: Bangers, cursive;
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  line-height: 1;
+}
+.stat-card-sub {
+  font-family: 'Comic Neue', cursive;
+  font-size: 10px;
+  color: rgba(0,0,0,0.4);
+  margin-top: 2px;
+  font-weight: 700;
+}
+.stat-progress-wrap { grid-column: 1 / -1; }
+.stat-progress-label {
+  font-family: 'Comic Neue', cursive;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.stat-progress-track {
+  height: 12px;
+  background: #e0ddd0;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  overflow: hidden;
+}
+.stat-progress-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.5s ease;
+}
+.stat-progress-fill.over { background: var(--red); }
+.week-stats-flavor {
+  padding: 7px 12px 10px;
+  font-family: 'Comic Neue', cursive;
+  font-size: 12px;
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(0,0,0,0.5);
+  border-top: 2px dashed rgba(0,0,0,0.13);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ===== TREADMILL PACE TABLE ===== */
+.pace-table-wrap {
+  margin: 6px 14px 2px;
+  border: 2.5px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  overflow: hidden;
+}
+.pace-table-toggle {
+  background: var(--blue);
+  color: #fff;
+  font-family: Bangers, cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 8px 12px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  width: 100%;
+}
+.pace-table-toggle .pace-arrow { font-size: 11px; transition: transform 0.2s; display: inline-block; }
+.pace-table-toggle.open .pace-arrow { transform: rotate(180deg); }
+.pace-table-body { display: none; background: #fff; }
+.pace-table-body.open { display: block; }
+.pace-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Comic Neue', cursive;
+  font-size: 12px;
+}
+.pace-table th {
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: Bangers, cursive;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 5px 8px 4px;
+  text-align: center;
+}
+.pace-table td {
+  padding: 5px 8px;
+  text-align: center;
+  border-bottom: 1px solid #e8e5d8;
+  font-weight: 700;
+}
+.pace-table tr.pace-zone-easy td  { background: #e8f5e9; }
+.pace-table tr.pace-zone-mod td   { background: #fff8e1; }
+.pace-table tr.pace-zone-tempo td { background: #fce4ec; }
+.pace-table .zone-tag { font-size: 9px; font-weight: 700; color: rgba(0,0,0,0.42); text-transform: uppercase; display: block; letter-spacing: 0.5px; }
+.pace-legend {
+  padding: 5px 10px 7px;
+  display: flex;
+  gap: 12px;
+  font-family: 'Comic Neue', cursive;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.5);
+  border-top: 1px solid #e8e5d8;
+}
+.pace-legend span { display: flex; align-items: center; gap: 4px; }
+.pace-leg-dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; border: 1px solid rgba(0,0,0,0.15); }
 </style>
 </head>
 <body>
@@ -1781,6 +2016,9 @@ body::after {
     <!-- WEEK GRID -->
     <div class="section-label">&#x1F4C5; THIS WEEK'S MISSIONS</div>
     <div class="week-grid" id="weekGrid"></div>
+
+    <!-- WEEKLY STATS -->
+    <div id="weekStats"></div>
 
     <!-- SPEECH BUBBLE -->
     <div class="speech-bubble">
@@ -2797,6 +3035,9 @@ function renderWorkout() {
   var venueLabel = isRunDay ? (' \u00B7 ' + (venueMode === 'treadmill' ? '\uD83C\uDFCB\uFE0F TREADMILL' : '\uD83C\uDF32 OUTSIDE')) : '';
   var subtitleText = day.duration + (day.distance ? ' \u00B7 ' + day.distance : '') + (hasRunMode ? ' \u00B7 ' + (currentMode === 'steady' ? 'STEADY STATE' : 'GALLOWAY') : '') + venueLabel;
 
+  // Treadmill pace table (run days only, treadmill venue, must have a distance)
+  var paceTableHTML = (isRunDay && venueMode === 'treadmill' && day.distance) ? generatePaceTableHTML(day) : '';
+
   var stepsHTML = activeSteps.map(function(step, i) {
     var isChecked = checkedSteps[i];
     var bwHTML = step.bw ? '<div class="bw-alt">' + step.bw + '</div>' : '';
@@ -2830,7 +3071,7 @@ function renderWorkout() {
     swapHTML = '<div class="swap-wrap"><div class="swap-label">\uD83D\uDCC5 BUSY DAY?</div><button class="swap-btn" id="swapDayBtn"><span class="swap-icon">\uD83D\uDD00</span> SWAP DAY</button></div>';
   }
 
-  content.innerHTML = '<div class="workout-panel"><div class="panel-header ' + day.headerClass + '"><div class="pow-badge">' + day.pow + '</div><div class="header-top-row"><div class="panel-icon">' + day.icon + '</div><div class="panel-titles"><div class="panel-title">' + day.title + '</div><div class="panel-subtitle">' + subtitleText + '</div></div></div></div>' + swapHTML + venueHTML + toggleHTML + intervalHTML + distBadgeHTML + '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MISSION BRIEFING</div>' + stepsHTML + '</div>' + xpBadge + journalHTML + btnHTML + '</div>';
+  content.innerHTML = '<div class="workout-panel"><div class="panel-header ' + day.headerClass + '"><div class="pow-badge">' + day.pow + '</div><div class="header-top-row"><div class="panel-icon">' + day.icon + '</div><div class="panel-titles"><div class="panel-title">' + day.title + '</div><div class="panel-subtitle">' + subtitleText + '</div></div></div></div>' + swapHTML + venueHTML + paceTableHTML + toggleHTML + intervalHTML + distBadgeHTML + '<div class="steps-section"><div class="steps-title">\uD83D\uDCCB MISSION BRIEFING</div>' + stepsHTML + '</div>' + xpBadge + journalHTML + btnHTML + '</div>';
 
   // VENUE TOGGLE LISTENERS
   content.querySelectorAll('[data-venue]').forEach(function(btn) {
@@ -2838,9 +3079,21 @@ function renderWorkout() {
       venueMode = btn.dataset.venue;
       state._venue = venueMode;
       saveState(state);
+      paceTableOpen = false;
       renderWorkout();
     });
   });
+
+  // PACE TABLE TOGGLE LISTENER
+  var paceBtn = document.getElementById('paceTableBtn');
+  if (paceBtn) {
+    paceBtn.addEventListener('click', function() {
+      paceTableOpen = !paceTableOpen;
+      paceBtn.classList.toggle('open', paceTableOpen);
+      var body = document.getElementById('paceTableBody');
+      if (body) body.classList.toggle('open', paceTableOpen);
+    });
+  }
 
   // MODE TOGGLE LISTENERS
   content.querySelectorAll('.mode-btn[data-mode]').forEach(function(btn) {
@@ -2887,7 +3140,7 @@ function renderWorkout() {
       if (state[activeDate].done && wasNotDone) {
         var isLR = day && (day.type === 'longrun');
         playSfxComplete(isLR);
-        fireActionWord(); fireConfetti(); shakeScreen(); checkAchievements();
+        fireActionWord(); fireConfetti(); shakeScreen(); checkAchievements(); checkMilestones();
         setTimeout(function(){ showDebriefModal(activeDate); }, 900);
       }
       renderAll();
@@ -2973,11 +3226,188 @@ function renderStoryRecap() {
   document.getElementById('recapNext').textContent = beat.next;
 }
 
+// ===== MILESTONE UNLOCK PANELS =====
+var MILESTONES = [
+  { id: 'first_run',    emoji: '\u26A1', title: 'YOUR ORIGIN\nSTORY BEGINS!',   sub: 'Iron Lizzie has left the building. First mission crushed. The half marathon won\'t know what hit it.', banner: '\uD83C\uDFC6 MILESTONE UNLOCKED',  check: function(s){ return s.completedCount >= 1; } },
+  { id: 'first_longrun',emoji: '\uD83C\uDF04', title: 'LONG RUN\nUNLOCKED!',   sub: 'You ran farther than most people drive to work. Long runs are your superpower now.',                   banner: '\uD83C\uDFC6 MILESTONE UNLOCKED',  check: function(s){ return s.longRunsDone >= 1; } },
+  { id: 'run_8mi',      emoji: '\uD83D\uDCA5', title: 'SINGLE DIGITS\nCONQUERED!', sub: '8 miles! The half marathon villain is starting to sweat. You are officially scary.',              banner: '\uD83D\uDD25 LEGENDARY MILESTONE', check: function(s){ return s.maxLongRun >= 8; } },
+  { id: 'run_10mi',     emoji: '\uD83D\uDD1F', title: 'DOUBLE DIGITS!\nLET\'S GO!!', sub: 'TEN miles. If that isn\'t superhero energy, nothing is. 13.1 is RIGHT THERE. You\'ve got this.', banner: '\uD83D\uDD25 LEGENDARY MILESTONE', check: function(s){ return s.maxLongRun >= 10; } },
+  { id: 'halfway',      emoji: '\u2B50',        title: 'HALFWAY\nHERO!',           sub: 'Over the mountain. You\'ve already proven you can do this. The second half is all downhill... kind of.', banner: '\u2B50 50% COMPLETE',             check: function(s){ return s.completedCount >= Math.floor(s.totalDays / 2); } },
+  { id: 'peak_week',    emoji: '\uD83C\uDFD4\uFE0F', title: 'PEAK WEEK!\nFINAL BOSS\nUNLOCKED',     sub: 'This is the highest you\'ll climb. 11 miles on Saturday. After this — taper, then race day.',           banner: '\uD83C\uDFD4\uFE0F PEAK WEEK BEGINS',   check: function(s){ return s.inPeakWeek; } },
+  { id: 'race_week',    emoji: '\uD83C\uDFC1',  title: 'RACE WEEK!\nFINAL BOSS\nMODE ACTIVATED', sub: 'YOU TRAINED FOR THIS. 10 weeks. Hundreds of miles. Aug 9 is YOUR day. Go get that medal.', banner: '\uD83C\uDFC1 RACE WEEK \u2014 LET\'S GO!', check: function(s){ return s.inRaceWeek; } },
+];
+
+function getMilestoneStats() {
+  var completedCount = getCompletedCount();
+  var longRunsDone = planDays.filter(function(d){ var sd = getDayForDate(d.date); return sd && sd.type === 'longrun' && state[d.date] && state[d.date].done; }).length;
+  var maxLongRun = 0;
+  planDays.forEach(function(d) {
+    var sd = getDayForDate(d.date);
+    if (sd && state[d.date] && state[d.date].done) {
+      var dist = parseFloat((sd.distance || '').replace(/[^0-9.]/g,'')) || 0;
+      if (dist > maxLongRun) maxLongRun = dist;
+    }
+  });
+  return {
+    completedCount: completedCount, longRunsDone: longRunsDone, maxLongRun: maxLongRun,
+    totalDays: planDays.length,
+    inPeakWeek: today >= '2026-07-20' && today <= '2026-07-26',
+    inRaceWeek: today >= '2026-08-03' && today <= '2026-08-09',
+  };
+}
+
+function checkMilestones() {
+  if (!state._milestones) state._milestones = {};
+  var stats = getMilestoneStats();
+  for (var i = 0; i < MILESTONES.length; i++) {
+    var ms = MILESTONES[i];
+    if (!state._milestones[ms.id] && ms.check(stats)) {
+      state._milestones[ms.id] = true;
+      saveState(state);
+      setTimeout(function(msRef){ return function(){ showMilestonePanel(msRef); }; }(ms), 1800);
+      return;
+    }
+  }
+}
+
+function showMilestonePanel(ms) {
+  var existing = document.querySelector('.milestone-overlay');
+  if (existing) existing.remove();
+  var overlay = document.createElement('div');
+  overlay.className = 'milestone-overlay';
+  overlay.innerHTML =
+    '<div class="milestone-panel">' +
+      '<div class="milestone-dots"></div>' +
+      '<div class="milestone-banner">' + ms.banner + '</div>' +
+      '<span class="milestone-emoji">' + ms.emoji + '</span>' +
+      '<div class="milestone-title">' + ms.title.replace(/\n/g,'<br>') + '</div>' +
+      '<div class="milestone-sub">' + ms.sub + '</div>' +
+      '<div class="milestone-footer">\u26A1 TAP ANYWHERE TO CONTINUE \u26A1</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', function(){ overlay.remove(); });
+  setTimeout(function(){ if (overlay.parentNode) overlay.remove(); }, 7000);
+}
+
+// ===== WEEKLY STATS SUMMARY =====
+function parseMiles(distStr) {
+  if (!distStr) return 0;
+  var m = (distStr + '').match(/[\d.]+/);
+  return m ? parseFloat(m[0]) : 0;
+}
+
+function getWeekStatsData() {
+  var active = new Date(activeDate + 'T12:00:00');
+  var weekStart = new Date(active);
+  weekStart.setDate(active.getDate() - active.getDay());
+  var weekDates = [];
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(weekStart); d.setDate(weekStart.getDate() + i);
+    weekDates.push(d.toISOString().split('T')[0]);
+  }
+  var plannedMiles = 0, actualMiles = 0, doneCount = 0, totalCount = 0, xpEarned = 0;
+  weekDates.forEach(function(ds) {
+    var day = getDayForDate(ds);
+    if (!day || day.type === 'rest') return;
+    totalCount++;
+    var pm = parseMiles(day.distance);
+    plannedMiles += pm;
+    if (state[ds] && state[ds].done) {
+      doneCount++;
+      xpEarned += day.xp || 30;
+      var journalDist = state.journal && state.journal[ds] && state.journal[ds].actualDist;
+      actualMiles += journalDist ? parseMiles(journalDist) : pm;
+    }
+  });
+  return { plannedMiles: plannedMiles, actualMiles: Math.round(actualMiles * 10) / 10, doneCount: doneCount, totalCount: totalCount, xpEarned: xpEarned, weekDates: weekDates };
+}
+
+function getWeekStatsFlavor(data) {
+  if (data.doneCount === 0) return '"Every legend starts somewhere. This week\'s chapter hasn\'t been written yet..." \uD83D\uDCD6';
+  var pct = data.totalCount > 0 ? data.doneCount / data.totalCount : 0;
+  if (pct >= 1)    return '"PERFECT WEEK! Iron Lizzie is UNSTOPPABLE. The half marathon villain trembles." \uD83D\uDD25';
+  if (pct >= 0.75) return '"Almost flawless. A true hero\'s week. Keep this momentum going!" \u26A1';
+  if (pct >= 0.5)  return '"Solid halfway effort. Champions show up even when it\'s hard." \uD83D\uDCAA';
+  return '"Still fighting. Still training. Still a hero \u2014 even on the hard weeks." \uD83E\uDDB8\u200D\u2640\uFE0F';
+}
+
+function renderWeekStats() {
+  var el = document.getElementById('weekStats');
+  if (!el) return;
+  var data = getWeekStatsData();
+  var planStart = new Date(planDays[0].date + 'T12:00:00');
+  var wStart = new Date(data.weekDates[0] + 'T12:00:00');
+  var weekNum = Math.max(1, Math.round((wStart - planStart) / (7 * 24 * 60 * 60 * 1000)) + 1);
+  var workoutPct = data.totalCount > 0 ? Math.round((data.doneCount / data.totalCount) * 100) : 0;
+  var milesOver = data.plannedMiles > 0 && data.actualMiles > data.plannedMiles;
+  var flavor = getWeekStatsFlavor(data);
+  el.innerHTML =
+    '<div class="week-stats">' +
+      '<div class="week-stats-header"><span>\uD83D\uDCCA WEEK ' + weekNum + ' STATS</span>' +
+        '<span style="font-family:\'Comic Neue\',cursive;font-size:11px;font-weight:700;opacity:0.8;">' + data.doneCount + '/' + data.totalCount + ' DONE</span></div>' +
+      '<div class="week-stats-body">' +
+        '<div class="stat-card"><div class="stat-card-label">Miles Run</div>' +
+          '<div class="stat-card-value">' + data.actualMiles + '</div>' +
+          '<div class="stat-card-sub">of ' + data.plannedMiles + ' planned</div></div>' +
+        '<div class="stat-card"><div class="stat-card-label">XP Earned</div>' +
+          '<div class="stat-card-value" style="color:var(--red);">+' + data.xpEarned + '</div>' +
+          '<div class="stat-card-sub">this week</div></div>' +
+        '<div class="stat-progress-wrap">' +
+          '<div class="stat-progress-label"><span>WEEK COMPLETION</span><span>' + workoutPct + '%</span></div>' +
+          '<div class="stat-progress-track"><div class="stat-progress-fill' + (milesOver ? ' over' : '') + '" style="width:' + workoutPct + '%"></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="week-stats-flavor">' + flavor + '</div>' +
+    '</div>';
+}
+
+// ===== TREADMILL PACE TABLE =====
+var paceTableOpen = false;
+
+function generatePaceTableHTML(day) {
+  var dist = parseMiles(day.distance);
+  if (!dist) return '';
+  var speeds = [4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5];
+  var rows = speeds.map(function(mph) {
+    var totalMin = (dist / mph) * 60;
+    var h = Math.floor(totalMin / 60);
+    var m = Math.floor(totalMin % 60);
+    var s = Math.round((totalMin - Math.floor(totalMin)) * 60);
+    if (s === 60) { s = 0; m++; }
+    var timeStr = h > 0 ? (h + ':' + (m<10?'0':'')+m+':' + (s<10?'0':'')+s) : (m + ':' + (s<10?'0':'')+s);
+    var paceMin = 60 / mph;
+    var pM = Math.floor(paceMin);
+    var pS = Math.round((paceMin - pM) * 60);
+    if (pS === 60) { pS = 0; pM++; }
+    var paceStr = pM + ':' + (pS<10?'0':'') + pS + '/mi';
+    var zone = mph <= 5.0 ? 'pace-zone-easy' : (mph <= 6.5 ? 'pace-zone-mod' : 'pace-zone-tempo');
+    var zoneLabel = mph <= 5.0 ? 'easy' : (mph <= 6.5 ? 'moderate' : 'tempo');
+    return '<tr class="' + zone + '"><td><strong>' + mph.toFixed(1) + '</strong><span class="zone-tag">' + zoneLabel + '</span></td>' +
+      '<td>' + paceStr + '</td><td><strong>' + timeStr + '</strong></td></tr>';
+  }).join('');
+  return '<div class="pace-table-wrap">' +
+    '<button class="pace-table-toggle' + (paceTableOpen ? ' open' : '') + '" id="paceTableBtn">' +
+      '<span>\uD83C\uDFC3\u200D\u2640\uFE0F TREADMILL PACE GUIDE \u2014 ' + dist + ' MI</span>' +
+      '<span class="pace-arrow">\u25BC</span>' +
+    '</button>' +
+    '<div class="pace-table-body' + (paceTableOpen ? ' open' : '') + '" id="paceTableBody">' +
+      '<table class="pace-table"><thead><tr><th>MPH</th><th>PACE</th><th>FINISH TIME</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody></table>' +
+      '<div class="pace-legend">' +
+        '<span><span class="pace-leg-dot" style="background:#e8f5e9;"></span>EASY</span>' +
+        '<span><span class="pace-leg-dot" style="background:#fff8e1;"></span>MODERATE</span>' +
+        '<span><span class="pace-leg-dot" style="background:#fce4ec;"></span>TEMPO</span>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
 // RENDER ALL
 function renderAll() {
   renderProgress();
   renderHeroStrip();
   renderWeekGrid();
+  renderWeekStats();
   renderMoto();
   renderTabs();
   renderWorkout();
