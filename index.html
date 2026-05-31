@@ -1044,6 +1044,337 @@ body::after {
   padding: 6px 16px 5px;
   color: var(--ink);
 }
+.locked-panel-hint {
+  display: inline-block;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 6px 16px 5px;
+  color: var(--ink);
+}
+
+/* ===== MISSION RANDOMIZER ===== */
+.mission-reveal-wrap {
+  margin: 0 0 var(--gutter);
+  position: relative;
+}
+
+/* The sealed-envelope "mystery" button shown before reveal */
+.mission-reveal-trigger {
+  width: 100%;
+  background: var(--ink);
+  color: var(--yellow);
+  border: var(--outline-thick) solid var(--ink);
+  font-family: 'Bangers', cursive;
+  font-size: 22px;
+  letter-spacing: 3px;
+  padding: 18px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 4px 4px 0 var(--red);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.15s, box-shadow 0.1s;
+  animation: panelSlam 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.mission-reveal-trigger:hover { background: #111; box-shadow: 6px 6px 0 var(--red); }
+.mission-reveal-trigger:active { transform: translate(4px,4px); box-shadow: 0 0 0 var(--red); }
+/* Halftone overlay on the trigger button */
+.mission-reveal-trigger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
+}
+.mission-reveal-trigger-icon {
+  font-size: 28px;
+  animation: wobble 1.8s ease-in-out infinite;
+}
+@keyframes wobble {
+  0%,100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+
+/* The revealed mission card */
+.mission-card {
+  border: var(--outline-thick) solid var(--ink);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  overflow: hidden;
+  animation: panelSlam 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.mission-card-header {
+  background: var(--red);
+  padding: 10px 14px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--ink);
+}
+.mission-card-title {
+  font-family: 'Bangers', cursive;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: white;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  flex: 1;
+}
+.mission-reroll-btn {
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: 'Bangers', cursive;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 4px 10px 3px;
+  cursor: pointer;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: background 0.1s, box-shadow 0.1s;
+}
+.mission-reroll-btn:hover { background: #ffe000; }
+.mission-reroll-btn:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+.mission-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.mission-stat {
+  padding: 14px 14px 12px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.mission-stat:nth-child(even) { border-right: none; }
+.mission-stat:nth-child(3),
+.mission-stat:nth-child(4) { border-bottom: none; }
+.mission-stat-label {
+  font-family: 'Comic Neue', cursive;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.4);
+  margin-bottom: 4px;
+}
+.mission-stat-value {
+  font-family: 'Bangers', cursive;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  line-height: 1;
+  min-height: 24px;
+  display: block;
+}
+/* Slot-spin: value cycles rapidly before locking */
+.mission-stat-value.spinning {
+  color: var(--red);
+  animation: slotFlicker 0.1s linear infinite;
+}
+@keyframes slotFlicker {
+  0%,49% { opacity: 1; transform: translateY(0); }
+  50%,99% { opacity: 0.4; transform: translateY(-3px); }
+}
+/* Lock-in pop when a value lands */
+.mission-stat-value.locked {
+  color: var(--ink);
+  animation: statPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes statPop {
+  0% { transform: scale(0.6); opacity: 0.2; }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* Accent colour per stat */
+.mission-stat.stat-distance .mission-stat-value.locked { color: var(--blue); }
+.mission-stat.stat-location .mission-stat-value.locked { color: var(--green); }
+.mission-stat.stat-interval .mission-stat-value.locked { color: var(--purple); }
+.mission-stat.stat-title    .mission-stat-value.locked { color: var(--red); }
+
+.mission-card-footer {
+  background: var(--yellow);
+  border-top: 2px solid var(--ink);
+  padding: 7px 14px 6px;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mission-dismiss-btn {
+  background: none;
+  border: none;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(0,0,0,0.45);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+.mission-dismiss-btn:hover { color: var(--ink); }
+
+/* ===== I'M BORED BUTTON & CARD ===== */
+.bored-wrap {
+  margin: 0 0 var(--gutter);
+}
+
+/* The chaotic trigger button — orange energy, bouncy */
+.bored-trigger {
+  width: 100%;
+  background: var(--orange);
+  color: white;
+  border: var(--outline-thick) solid var(--ink);
+  font-family: 'Bangers', cursive;
+  font-size: 22px;
+  letter-spacing: 3px;
+  padding: 16px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 4px 4px 0 var(--ink);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.15s, box-shadow 0.1s;
+  animation: panelSlam 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.bored-trigger:hover { background: #d4660a; box-shadow: 6px 6px 0 var(--ink); }
+.bored-trigger:active { transform: translate(4px,4px); box-shadow: 0 0 0 var(--ink); }
+.bored-trigger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
+}
+/* Each emoji bounces independently via nth-child on its span */
+.bored-trigger-emoji {
+  font-size: 26px;
+  display: inline-block;
+  animation: boredBounce 0.7s ease-in-out infinite alternate;
+}
+.bored-trigger-emoji:last-child {
+  animation-delay: 0.35s;
+}
+@keyframes boredBounce {
+  0%   { transform: translateY(0) rotate(-5deg); }
+  100% { transform: translateY(-6px) rotate(5deg); }
+}
+
+/* The suggestion card — orange header, single full-width layout */
+.bored-card {
+  border: var(--outline-thick) solid var(--ink);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  overflow: hidden;
+  animation: panelSlam 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.bored-card-header {
+  background: var(--orange);
+  padding: 10px 14px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--ink);
+}
+.bored-card-title {
+  font-family: 'Bangers', cursive;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: white;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+  flex: 1;
+}
+/* Reuse .mission-reroll-btn for the re-roll button — same look */
+
+/* Hero suggestion row — full width, big and centred */
+.bored-suggestion-hero {
+  padding: 18px 16px 14px;
+  text-align: center;
+  border-bottom: 2px solid var(--ink);
+}
+.bored-suggestion-emoji {
+  font-size: 44px;
+  display: block;
+  margin-bottom: 6px;
+  animation: statPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.bored-suggestion-name {
+  font-family: 'Bangers', cursive;
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+  animation: statPop 0.4s 0.08s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.bored-suggestion-desc {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 13px;
+  color: rgba(0,0,0,0.6);
+  line-height: 1.5;
+  max-width: 340px;
+  margin: 0 auto 6px;
+  animation: statPop 0.4s 0.16s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* Two-column details row below the hero */
+.bored-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.bored-detail {
+  padding: 12px 14px 10px;
+  border-right: 2px solid var(--ink);
+}
+.bored-detail:last-child { border-right: none; }
+.bored-detail-label {
+  font-family: 'Comic Neue', cursive;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.38);
+  margin-bottom: 4px;
+}
+.bored-detail-value {
+  font-family: 'Bangers', cursive;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.bored-detail-value.vibe-val { color: var(--purple); }
+.bored-detail-value.tag-val  { color: var(--blue); }
+
+/* Spinning placeholder state for the hero name (slot machine) */
+.bored-suggestion-name.spinning {
+  color: var(--orange);
+  animation: slotFlicker 0.1s linear infinite;
+}
+.bored-suggestion-name.locked {
+  animation: statPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
 .caption-box {
   background: var(--yellow);
   border: 2px solid var(--ink);
@@ -2245,6 +2576,9 @@ body::after {
       <div class="bubble-text" id="motoText">Loading mission briefing...</div>
     </div>
 
+    <!-- MISSION RANDOMIZER — renders into this div -->
+    <div id="missionReveal"></div>
+
     <!-- DAY TABS -->
     <div class="section-label red">&#x26A1; SELECT YOUR MISSION</div>
     <div class="day-tabs" id="dayTabs"></div>
@@ -2266,6 +2600,9 @@ body::after {
   <div class="history-log-wrap">
     <div id="trainingLog"></div>
   </div>
+
+  <!-- I'M BORED BUTTON — fun workout suggestion generator -->
+  <div id="boredBox"></div>
 
   <div class="page-number">-- PAGE 1 OF THE IRON LIZZIE HALF MARATHON SAGA --</div>
 </div>
@@ -3730,6 +4067,394 @@ function generatePaceTableHTML(day) {
   '</div>';
 }
 
+// ─────────────────────────────────────────────────────────────────
+// MISSION RANDOMIZER
+// Pools of safe options the user specified:
+//   distances  : 2 – 7 miles in 0.5-mile steps
+//   locations  : outside or treadmill
+//   intervals  : 30/30, 60/60, 60/30, 90/30 (Galloway-safe combos)
+//   titles     : flavourful mission codenames
+//
+// State key: state._missionReveal = { title, distance, location, interval }
+//            state._missionRevealed = true/false  (whether card is showing)
+//
+// The slot-machine animation cycles each field quickly then locks them in
+// one at a time with a 350 ms stagger, using setInterval + setTimeout.
+// ─────────────────────────────────────────────────────────────────
+var REVEAL_DISTANCES  = ['2 miles','2.5 miles','3 miles','3.5 miles','4 miles','4.5 miles','5 miles','5.5 miles','6 miles','6.5 miles','7 miles'];
+var REVEAL_LOCATIONS  = ['\uD83C\uDF32 OUTSIDE', '\uD83C\uDFCB\uFE0F TREADMILL'];
+var REVEAL_INTERVALS  = ['30s RUN / 30s WALK', '60s RUN / 60s WALK', '60s RUN / 30s WALK', '90s RUN / 30s WALK'];
+var REVEAL_TITLES     = [
+  'OPERATION: EARLY BIRD', 'MISSION: IRON LEGS', 'CODENAME: PAVEMENT QUEEN',
+  'PROJECT: SUNRISE HUSTLE', 'OPERATION: SWEAT & GLORY', 'MISSION: DEADLINE CRUSHER',
+  'CODENAME: MILE MUNCHER', 'OPERATION: HERO PROTOCOL', 'MISSION: ROAD WARRIOR',
+  'CODENAME: UNSTOPPABLE', 'OPERATION: LIZZIE UNLEASHED', 'MISSION: FAST & FEARLESS',
+  'CODENAME: GRIT MACHINE', 'OPERATION: HALFWAY THERE', 'MISSION: HYDRATE & CONQUER',
+  'CODENAME: KICK & RUN', 'OPERATION: THUNDERSTRIDE', 'MISSION: FULL SEND'
+];
+
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+// Render the full mission reveal widget into #missionReveal
+function renderMissionReveal() {
+  var el = document.getElementById('missionReveal');
+  if (!el) return;
+
+  // If user has dismissed the widget, render nothing
+  if (state._missionDismissed) { el.innerHTML = ''; return; }
+
+  if (!state._missionRevealed) {
+    // ── PRE-REVEAL: show the sealed envelope trigger button ──
+    el.innerHTML =
+      '<div class="mission-reveal-wrap">' +
+        '<button class="mission-reveal-trigger" id="missionRevealBtn">' +
+          '<span class="mission-reveal-trigger-icon">\uD83D\uDCE8</span>' +
+          '&#x2753; REVEAL TODAY\'S MISSION' +
+          '<span class="mission-reveal-trigger-icon">\uD83D\uDCE8</span>' +
+        '</button>' +
+      '</div>';
+
+    document.getElementById('missionRevealBtn').addEventListener('click', function() {
+      // Roll new random values and save to state
+      state._missionReveal = {
+        title:    pickRandom(REVEAL_TITLES),
+        distance: pickRandom(REVEAL_DISTANCES),
+        location: pickRandom(REVEAL_LOCATIONS),
+        interval: pickRandom(REVEAL_INTERVALS)
+      };
+      state._missionRevealed = true;
+      saveState(state);
+      // Show the card with slot animation (no full re-render — smoother UX)
+      showMissionCard(true);
+    });
+
+  } else {
+    // ── POST-REVEAL: show the card (no animation on re-renders) ──
+    showMissionCard(false);
+  }
+}
+
+// Build and animate (or instantly show) the revealed mission card
+function showMissionCard(animate) {
+  var el = document.getElementById('missionReveal');
+  if (!el) return;
+  var m = state._missionReveal || {};
+
+  // Build the card HTML — values start as ??? when animating, filled instantly otherwise
+  var placeholder = animate ? '???' : null;
+
+  el.innerHTML =
+    '<div class="mission-reveal-wrap">' +
+      '<div class="mission-card">' +
+        '<div class="mission-card-header">' +
+          '<div class="mission-card-title">\uD83D\uDCCB TODAY\'S MISSION</div>' +
+          '<button class="mission-reroll-btn" id="missionRerollBtn">\uD83C\uDFB2 RE-ROLL</button>' +
+        '</div>' +
+        '<div class="mission-card-body">' +
+          '<div class="mission-stat stat-title">' +
+            '<div class="mission-stat-label">CODENAME</div>' +
+            '<span class="mission-stat-value' + (animate ? ' spinning' : ' locked') + '" id="revealTitle">' + (placeholder || m.title) + '</span>' +
+          '</div>' +
+          '<div class="mission-stat stat-distance">' +
+            '<div class="mission-stat-label">DISTANCE</div>' +
+            '<span class="mission-stat-value' + (animate ? ' spinning' : ' locked') + '" id="revealDist">' + (placeholder || m.distance) + '</span>' +
+          '</div>' +
+          '<div class="mission-stat stat-location">' +
+            '<div class="mission-stat-label">LOCATION</div>' +
+            '<span class="mission-stat-value' + (animate ? ' spinning' : ' locked') + '" id="revealLoc">' + (placeholder || m.location) + '</span>' +
+          '</div>' +
+          '<div class="mission-stat stat-interval">' +
+            '<div class="mission-stat-label">GALLOWAY INTERVAL</div>' +
+            '<span class="mission-stat-value' + (animate ? ' spinning' : ' locked') + '" id="revealInterval">' + (placeholder || m.interval) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="mission-card-footer">' +
+          '<span>&#x26A1; YOUR RANDOMIZED RUN AWAITS, HERO</span>' +
+          '<button class="mission-dismiss-btn" id="missionDismissBtn">dismiss</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  // Wire re-roll button
+  document.getElementById('missionRerollBtn').addEventListener('click', function() {
+    state._missionReveal = {
+      title:    pickRandom(REVEAL_TITLES),
+      distance: pickRandom(REVEAL_DISTANCES),
+      location: pickRandom(REVEAL_LOCATIONS),
+      interval: pickRandom(REVEAL_INTERVALS)
+    };
+    saveState(state);
+    showMissionCard(true); // re-animate with new values
+  });
+
+  // Wire dismiss button — hides widget until next day
+  document.getElementById('missionDismissBtn').addEventListener('click', function() {
+    state._missionDismissed = true;
+    saveState(state);
+    document.getElementById('missionReveal').innerHTML = '';
+  });
+
+  if (!animate) return; // instant show — no slot machine needed
+
+  // ── SLOT MACHINE ANIMATION ────────────────────────────────────
+  // Each field spins (shows random values rapidly) then locks in
+  // with a staggered delay: title → distance → location → interval
+  var fields = [
+    { id: 'revealTitle',    pool: REVEAL_TITLES,    final: m.title,    delay: 400 },
+    { id: 'revealDist',     pool: REVEAL_DISTANCES, final: m.distance, delay: 750 },
+    { id: 'revealLoc',      pool: REVEAL_LOCATIONS, final: m.location, delay: 1100 },
+    { id: 'revealInterval', pool: REVEAL_INTERVALS, final: m.interval, delay: 1450 }
+  ];
+
+  // Spin all fields simultaneously (rapid random cycling)
+  var spinInterval = setInterval(function() {
+    fields.forEach(function(f) {
+      var el2 = document.getElementById(f.id);
+      if (el2 && el2.classList.contains('spinning')) {
+        el2.textContent = pickRandom(f.pool);
+      }
+    });
+  }, 90); // swap value every 90ms
+
+  // Lock each field one by one after its delay
+  fields.forEach(function(f) {
+    setTimeout(function() {
+      var el2 = document.getElementById(f.id);
+      if (!el2) return;
+      el2.classList.remove('spinning');
+      el2.textContent = f.final; // land on the real chosen value
+      el2.classList.add('locked');
+    }, f.delay);
+  });
+
+  // Stop the spin interval after all fields have locked
+  setTimeout(function() {
+    clearInterval(spinInterval);
+  }, fields[fields.length - 1].delay + 100);
+}
+
+// Reset the mission reveal state each new day so users get a fresh reveal prompt
+// Called at init — clears stale data if the saved reveal is from a previous date
+(function resetMissionRevealIfNewDay() {
+  var savedDay = state._missionRevealDate;
+  if (savedDay !== today) {
+    // New day — clear previous reveal so the button shows again
+    state._missionReveal = null;
+    state._missionRevealed = false;
+    state._missionDismissed = false;
+    state._missionRevealDate = today;
+    saveState(state);
+  }
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// I'M BORED — RANDOM WORKOUT SUGGESTION GENERATOR
+//
+// Each option is a rich object:
+//   name  : short punchy title (shown big in the hero slot)
+//   emoji : represents the vibe at a glance
+//   desc  : 1–2 sentence flavour description
+//   vibe  : energy level label (e.g. CHILL, CHAOTIC, EPIC...)
+//   tag   : category tag (e.g. APP-ASSISTED, SOCIAL, ADVENTURE...)
+//
+// No state is saved — every button press gives a fresh random pick.
+// The card uses a quick slot-machine spin on the name before locking in.
+// ─────────────────────────────────────────────────────────────────
+var BORED_OPTIONS = [
+  {
+    name: 'ZOMBIES, RUN!',
+    emoji: '\uD83E\uDDDF',
+    desc: 'Strap in for a mission. The dead are chasing you and supply crates don\'t pick themselves up. Every step is story.',
+    vibe: '\uD83D\uDD34 SURVIVAL MODE',
+    tag: '\uD83D\uDCF1 APP-ASSISTED'
+  },
+  {
+    name: 'TREADMILL MOVIE MILES',
+    emoji: '\uD83C\uDFAC',
+    desc: 'Queue up a movie you\'ve been putting off. Don\'t stop running until the credits roll. Cinema AND cardio.',
+    vibe: '\uD83D\uDFE1 CHILL GRIND',
+    tag: '\uD83C\uDFCB\uFE0F TREADMILL'
+  },
+  {
+    name: 'WEEZER WALK',
+    emoji: '\uD83C\uDFB8',
+    desc: 'Blue Album start to finish, one loop per album, don\'t stop until you run out of Weezer. Undisclosed Desires is your cooldown.',
+    vibe: '\uD83D\uDFE3 NOSTALGIA CORE',
+    tag: '\uD83C\uDFB5 MUSIC-FUELLED'
+  },
+  {
+    name: 'NEW ROUTE ROULETTE',
+    emoji: '\uD83E\uDDED',
+    desc: 'Pick a direction you never run. Just go. No plan, no route saved. Turn back when it feels right. Discover something.',
+    vibe: '\uD83D\uDFE0 ADVENTURE',
+    tag: '\uD83C\uDF32 OUTSIDE'
+  },
+  {
+    name: 'COFFEE RUN',
+    emoji: '\u2615',
+    desc: 'Run to the nearest coffee shop. Enjoy your drink. Run back. That\'s it. That\'s the whole mission. Reward unlocked.',
+    vibe: '\uD83D\uDFE1 CHILL GRIND',
+    tag: '\uD83C\uDF1F TREAT YOURSELF'
+  },
+  {
+    name: 'EASY RECOVERY WALK',
+    emoji: '\uD83D\uDEB6\u200D\u2640\uFE0F',
+    desc: 'Legs are cooked, brain needs air. No pace target, no distance goal. Just move, breathe, exist. You\'re still a hero.',
+    vibe: '\uD83D\uDFE2 RECOVERY MODE',
+    tag: '\uD83C\uDFF3\uFE0F LOW EFFORT'
+  },
+  {
+    name: 'LONG ADVENTURE RUN',
+    emoji: '\uD83C\uDFD4\uFE0F',
+    desc: 'No watch, no pace, no plan. Pack a snack and go long. Find a trail, a park, a neighbourhood you\'ve never seen. Run until you\'re surprised.',
+    vibe: '\uD83D\uDD34 EPIC QUEST',
+    tag: '\uD83C\uDF32 OUTSIDE'
+  },
+  {
+    name: 'PODCAST POWER WALK',
+    emoji: '\uD83C\uDFA7',
+    desc: 'Pick the episode you\'ve had queued for weeks. Walk briskly the entire runtime. Learning IS training. Big brain, strong legs.',
+    vibe: '\uD83D\uDFE1 CHILL GRIND',
+    tag: '\uD83C\uDFA7 AUDIO MISSION'
+  },
+  {
+    name: 'FARTLEK FREE-FOR-ALL',
+    emoji: '\u26A1',
+    desc: 'No intervals, no timer. Just run fast when you feel like it, slow when you don\'t. Chaos is the plan. Speed when you see a mailbox.',
+    vibe: '\uD83D\uDD34 CHAOTIC ENERGY',
+    tag: '\uD83C\uDFC3 UNSTRUCTURED'
+  },
+  {
+    name: 'MIDNIGHT ENERGY SPRINT',
+    emoji: '\uD83C\uDF19',
+    desc: 'It is not actually midnight. But you ARE going to blast one hype playlist and run the whole thing at aggressive-positive energy. No excuses.',
+    vibe: '\uD83D\uDD34 UNHINGED (GOOD)',
+    tag: '\uD83C\uDFB5 MUSIC-FUELLED'
+  },
+  {
+    name: 'HAUNTED ROUTE',
+    emoji: '\uD83D\uDC7B',
+    desc: 'Find the spookiest-looking street in your neighbourhood. Run past it repeatedly until it stops feeling creepy. You are the monster now.',
+    vibe: '\uD83D\uDFE0 ADVENTURE',
+    tag: '\uD83C\uDF32 OUTSIDE'
+  },
+  {
+    name: 'HILL REPEATS OF DOOM',
+    emoji: '\u26F0\uFE0F',
+    desc: 'Find the worst hill nearby. Run up it. Walk down. Repeat until your legs send a strongly-worded letter. Hills build heroes.',
+    vibe: '\uD83D\uDD34 SUFFER MODE',
+    tag: '\uD83D\uDCAA STRENGTH BUILDER'
+  }
+];
+
+// Render the I\'m Bored widget into #boredBox
+// Unlike the Mission Reveal, this is stateless — no persistence, re-rolls freely.
+function renderBoredBox() {
+  var el = document.getElementById('boredBox');
+  if (!el) return;
+
+  // Always show the trigger button (plus the card if one has been picked this session)
+  if (!window._boredPick) {
+    // No pick yet — just show the button
+    el.innerHTML =
+      '<div class="bored-wrap">' +
+        '<button class="bored-trigger" id="boredBtn">' +
+          '<span class="bored-trigger-emoji">\uD83E\uDD71</span>' +
+          'I\'M BORED — SUGGEST SOMETHING' +
+          '<span class="bored-trigger-emoji">\uD83E\uDD71</span>' +
+        '</button>' +
+      '</div>';
+    document.getElementById('boredBtn').addEventListener('click', function() {
+      window._boredPick = BORED_OPTIONS[Math.floor(Math.random() * BORED_OPTIONS.length)];
+      showBoredCard(true);
+    });
+  } else {
+    // Card already showing — re-render without animation (preserves card on renderAll)
+    showBoredCard(false);
+  }
+}
+
+// Build and (optionally) animate the bored suggestion card
+function showBoredCard(animate) {
+  var el = document.getElementById('boredBox');
+  if (!el) return;
+  var p = window._boredPick;
+
+  el.innerHTML =
+    '<div class="bored-wrap">' +
+      '<div class="bored-card">' +
+
+        // Header row: title + re-roll button (reuses .mission-reroll-btn style)
+        '<div class="bored-card-header">' +
+          '<div class="bored-card-title">\uD83E\uDD71 BOREDOM DEFEATED</div>' +
+          '<button class="mission-reroll-btn" id="boredRerollBtn">\uD83C\uDFB2 NEW IDEA</button>' +
+        '</div>' +
+
+        // Hero suggestion block: big emoji + name + description
+        '<div class="bored-suggestion-hero">' +
+          '<span class="bored-suggestion-emoji">' + p.emoji + '</span>' +
+          '<div class="bored-suggestion-name' + (animate ? ' spinning' : ' locked') + '" id="boredName">' +
+            (animate ? '???' : p.name) +
+          '</div>' +
+          '<div class="bored-suggestion-desc">' + p.desc + '</div>' +
+        '</div>' +
+
+        // Two-column details: vibe + tag
+        '<div class="bored-details">' +
+          '<div class="bored-detail">' +
+            '<div class="bored-detail-label">VIBE CHECK</div>' +
+            '<div class="bored-detail-value vibe-val">' + p.vibe + '</div>' +
+          '</div>' +
+          '<div class="bored-detail">' +
+            '<div class="bored-detail-label">CATEGORY</div>' +
+            '<div class="bored-detail-value tag-val">' + p.tag + '</div>' +
+          '</div>' +
+        '</div>' +
+
+        // Footer
+        '<div class="mission-card-footer">' +
+          '<span>&#x26A1; BOREDOM IS THE VILLAIN. YOU ARE THE HERO.</span>' +
+          '<button class="mission-dismiss-btn" id="boredDismissBtn">dismiss</button>' +
+        '</div>' +
+
+      '</div>' +
+    '</div>';
+
+  // Re-roll: pick a new random (never the same one twice in a row)
+  document.getElementById('boredRerollBtn').addEventListener('click', function() {
+    var prev = window._boredPick;
+    var opts = BORED_OPTIONS.filter(function(o) { return o.name !== prev.name; });
+    window._boredPick = opts[Math.floor(Math.random() * opts.length)];
+    showBoredCard(true);
+  });
+
+  // Dismiss: clear session pick and go back to the button
+  document.getElementById('boredDismissBtn').addEventListener('click', function() {
+    window._boredPick = null;
+    renderBoredBox();
+  });
+
+  if (!animate) return; // instant render — skip slot machine
+
+  // ── SLOT MACHINE: spin the name quickly then lock it in ──────
+  var nameEl = document.getElementById('boredName');
+  var names = BORED_OPTIONS.map(function(o) { return o.name; });
+  var spinInterval = setInterval(function() {
+    if (nameEl && nameEl.classList.contains('spinning')) {
+      nameEl.textContent = names[Math.floor(Math.random() * names.length)];
+    }
+  }, 80);
+  // Lock the real value in after 600ms
+  setTimeout(function() {
+    clearInterval(spinInterval);
+    if (!nameEl) return;
+    nameEl.classList.remove('spinning');
+    nameEl.textContent = p.name;
+    nameEl.classList.add('locked');
+  }, 600);
+}
+
+
 // PRINT PLAN
 function printPlan() {
   var weeks = [];
@@ -3913,10 +4638,12 @@ function renderAll() {
   renderWeekGrid();
   renderWeekStats();
   renderMoto();
+  renderMissionReveal();
   renderTabs();
   renderWorkout();
   renderStoryRecap();
   renderTrainingLog();
+  renderBoredBox();
 }
 
 // EFFECTS
