@@ -1227,6 +1227,20 @@ body::after {
   text-decoration: underline;
 }
 .mission-dismiss-btn:hover { color: var(--ink); }
+.bored-claim-btn {
+  background: var(--accent, #1a6bff);
+  color: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: transform .1s;
+}
+.bored-claim-btn:hover:not(:disabled) { transform: scale(1.07); }
+.bored-claim-btn:disabled { opacity: 0.6; cursor: default; }
 
 /* ===== I'M BORED BUTTON & CARD ===== */
 .bored-wrap {
@@ -2627,15 +2641,61 @@ var RANKS = [
 ];
 
 var ACHIEVEMENTS = [
-  { id: 'first_mission', check: function(s){ return s.completedCount >= 1; }, text: '\uD83C\uDFC5 FIRST MISSION COMPLETE!' },
-  { id: 'three_streak',  check: function(s){ return s.streak >= 3; }, text: '\uD83D\uDD25 3-DAY STREAK! ON FIRE!' },
-  { id: 'five_streak',   check: function(s){ return s.streak >= 5; }, text: '\uD83D\uDD25\uD83D\uDD25 5-DAY STREAK! UNSTOPPABLE!' },
-  { id: 'half_way',      check: function(s){ return s.completedCount >= Math.floor(s.totalDays / 2); }, text: '\u2B50 HALFWAY HERO! 50% DONE!' },
-  { id: 'ten_done',      check: function(s){ return s.completedCount >= 10; }, text: '\uD83D\uDCAA 10 MISSIONS CRUSHED!' },
-  { id: 'twenty_done',   check: function(s){ return s.completedCount >= 20; }, text: '\uD83D\uDE80 20 MISSIONS DOWN! UNSTOPPABLE!' },
-  { id: 'thirty_done',   check: function(s){ return s.completedCount >= 30; }, text: '\uD83D\uDD25 30 MISSIONS! YOU\'RE A MACHINE!' },
-  { id: 'long_run',      check: function(s){ return s.longRunsDone >= 1; }, text: '\uD83C\uDF05 FIRST LONG RUN CONQUERED!' },
-  { id: 'long_run_5',    check: function(s){ return s.longRunsDone >= 5; }, text: '\uD83C\uDFC6 5 LONG RUNS IN! HALF MARATHON READY!' },
+  // ── ORIGINAL BADGES ──────────────────────────────────────────
+  { id: 'first_mission', check: function(s){ return s.completedCount >= 1; },                                  text: '\uD83C\uDFC5 FIRST MISSION COMPLETE!' },
+  { id: 'three_streak',  check: function(s){ return s.streak >= 3; },                                          text: '\uD83D\uDD25 3-DAY STREAK! ON FIRE!' },
+  { id: 'five_streak',   check: function(s){ return s.streak >= 5; },                                          text: '\uD83D\uDD25\uD83D\uDD25 5-DAY STREAK! UNSTOPPABLE!' },
+  { id: 'half_way',      check: function(s){ return s.completedCount >= Math.floor(s.totalDays / 2); },        text: '\u2B50 HALFWAY HERO! 50% DONE!' },
+  { id: 'ten_done',      check: function(s){ return s.completedCount >= 10; },                                 text: '\uD83D\uDCAA 10 MISSIONS CRUSHED!' },
+  { id: 'twenty_done',   check: function(s){ return s.completedCount >= 20; },                                 text: '\uD83D\uDE80 20 MISSIONS DOWN! UNSTOPPABLE!' },
+  { id: 'thirty_done',   check: function(s){ return s.completedCount >= 30; },                                 text: '\uD83D\uDD25 30 MISSIONS! YOU\'RE A MACHINE!' },
+  { id: 'long_run',      check: function(s){ return s.longRunsDone >= 1; },                                    text: '\uD83C\uDF05 FIRST LONG RUN CONQUERED!' },
+  { id: 'long_run_5',    check: function(s){ return s.longRunsDone >= 5; },                                    text: '\uD83C\uDFC6 5 LONG RUNS IN! HALF MARATHON READY!' },
+
+  // ── NEW BADGES ───────────────────────────────────────────────
+  // First 5K: cumulative completed run miles ≥ 3.1
+  {
+    id: 'first_5k',
+    check: function(s){ return s.totalMilesDone >= 3.1; },
+    text: '\uD83C\uDFC3\u200D\u2640\uFE0F FIRST 5K! 3.1 MILES IN THE BOOKS!'
+  },
+  // First 10K: cumulative completed run miles ≥ 6.2
+  {
+    id: 'first_10k',
+    check: function(s){ return s.totalMilesDone >= 6.2; },
+    text: '\uD83C\uDF1F FIRST 10K! 6.2 MILES CONQUERED!'
+  },
+  // Accidental Long Run: completed a run (not longrun type) where journal actual distance
+  // is at least 1 mile more than the planned distance — you went rogue!
+  {
+    id: 'accidental_longrun',
+    check: function(s){ return s.accidentalLongRun; },
+    text: '\uD83E\uDD2F ACCIDENTAL LONG RUN! YOU JUST KEPT GOING!'
+  },
+  // Spider-Noir Miles: completed at least 3 treadmill runs — gritty, dark, indoor
+  {
+    id: 'spider_noir',
+    check: function(s){ return s.treadmillRunsDone >= 3; },
+    text: '\uD83D\uDD77\uFE0F SPIDER-NOIR MILES! 3 TREADMILL RUNS DONE!'
+  },
+  // Runner Five: 5 total run/longrun completions — named after the Zombies Run hero
+  {
+    id: 'runner_five',
+    check: function(s){ return s.runsDone + s.longRunsDone >= 5; },
+    text: '\uD83E\uDDDF RUNNER FIVE ACTIVATED! 5 RUNS COMPLETE!'
+  },
+  // Heat Survivor: complete any run during June, July, or August (summer grind)
+  {
+    id: 'heat_survivor',
+    check: function(s){ return s.summerRunsDone >= 1; },
+    text: '\u2600\uFE0F HEAT SURVIVOR! RUNNING IN SUMMER? HEROIC.'
+  },
+  // Weezer Walk: claimed the Weezer Walk bored-box bonus at least once
+  {
+    id: 'weezer_walk',
+    check: function(s){ return s.weezerWalks >= 1; },
+    text: '\uD83C\uDFB8 WEEZER WALK COMPLETE! \u2665 THE BLUE ALBUM \u2665'
+  },
 ];
 
 var STORY_BEATS = [
@@ -3363,9 +3423,29 @@ function getTotalXP() {
   planDays.forEach(function(d) {
     if (state[d.date] && state[d.date].done) {
       var swappedDay = getDayForDate(d.date);
-      xp += (swappedDay ? swappedDay.xp : d.xp) || 30;
+      var day = swappedDay || d;
+      // Base XP from the workout definition
+      xp += day.xp || 30;
+
+      // ── BONUS XP (on top of base) ─────────────────────────────
+      // Runs: +10 for running outside, +10 for treadmill
+      //   Both outdoor and treadmill get the same +10 — it rewards
+      //   the effort of completing a run, wherever you do it.
+      if (day.type === 'run' || day.type === 'longrun') {
+        var venue = state[d.date].venue || 'outdoor'; // default outdoor for old saves
+        if (venue === 'outdoor')   xp += 10; // +10 OUTSIDE RUN BONUS
+        if (venue === 'treadmill') xp += 10; // +10 TREADMILL RUN BONUS
+      }
+      // Long runs: extra +25 — they're the hardest session of the week
+      if (day.type === 'longrun') xp += 25;
+      // Strength workouts: +5 — consistency with lifting = hero legs
+      if (day.type === 'strength') xp += 5;
     }
   });
+
+  // Weezer Walk bonus: +20 XP each time the bored-box Weezer Walk is claimed
+  xp += (state._weezerWalks || 0) * 20;
+
   return xp;
 }
 
@@ -3787,6 +3867,11 @@ function renderWorkout() {
       if (!state[activeDate]) state[activeDate] = {};
       var wasNotDone = !state[activeDate].done;
       state[activeDate].done = !state[activeDate].done;
+      // Save the venue at time of completion so XP bonuses and badge checks
+      // can later distinguish outside vs. treadmill runs accurately.
+      if (state[activeDate].done && isRunDay) {
+        state[activeDate].venue = venueMode;
+      }
       saveState(state);
       if (state[activeDate].done && wasNotDone) {
         var isLR = day && (day.type === 'longrun');
@@ -4414,6 +4499,9 @@ function showBoredCard(animate) {
         // Footer
         '<div class="mission-card-footer">' +
           '<span>&#x26A1; BOREDOM IS THE VILLAIN. YOU ARE THE HERO.</span>' +
+          (p.name === 'WEEZER WALK'
+            ? '<button class="bored-claim-btn" id="boredClaimBtn">\uD83C\uDFB8 CLAIM +20 XP</button>'
+            : '') +
           '<button class="mission-dismiss-btn" id="boredDismissBtn">dismiss</button>' +
         '</div>' +
 
@@ -4433,6 +4521,19 @@ function showBoredCard(animate) {
     window._boredPick = null;
     renderBoredBox();
   });
+
+  // Weezer Walk: claim +20 XP once per press
+  var claimBtn = document.getElementById('boredClaimBtn');
+  if (claimBtn) {
+    claimBtn.addEventListener('click', function() {
+      state._weezerWalks = (state._weezerWalks || 0) + 1;
+      saveState(state);
+      claimBtn.textContent = '\u2713 XP CLAIMED! +' + (state._weezerWalks * 20) + ' TOTAL';
+      claimBtn.disabled = true;
+      checkAchievements();
+      renderAll();
+    });
+  }
 
   if (!animate) return; // instant render — skip slot machine
 
@@ -4713,11 +4814,61 @@ function spawnAmbientSfx() {
 
 // ACHIEVEMENTS
 function checkAchievements() {
+  // ── Build rich stats object for all badge checks ──────────────
+  var totalMilesDone       = 0;
+  var runsDone             = 0;
+  var longRunsDone         = 0;
+  var outsideRunsDone      = 0;
+  var treadmillRunsDone    = 0;
+  var summerRunsDone       = 0;
+  var accidentalLongRun    = false;
+
+  planDays.forEach(function(pd) {
+    var ds  = pd.date;
+    var day = getDayForDate(ds) || pd;
+    var st  = state[ds];
+    if (!st || !st.done) return;
+
+    var isRun = (day.type === 'run' || day.type === 'longrun');
+
+    if (day.type === 'longrun') longRunsDone++;
+    if (day.type === 'run')     runsDone++;
+
+    if (isRun) {
+      // miles: use journal actual if entered, otherwise planned
+      var journal     = state.journal && state.journal[ds];
+      var plannedMi   = parseMiles(day.distance || '0');
+      var actualMi    = (journal && journal.actualDist) ? parseMiles(journal.actualDist) : plannedMi;
+      totalMilesDone += actualMi;
+
+      // venue-based counts
+      var venue = st.venue || 'outdoor';
+      if (venue === 'outdoor')   outsideRunsDone++;
+      if (venue === 'treadmill') treadmillRunsDone++;
+
+      // accidental long run: actual ≥ planned + 1 mile on a non-longrun day
+      if (day.type === 'run' && journal && journal.actualDist) {
+        if (actualMi >= plannedMi + 1) accidentalLongRun = true;
+      }
+
+      // summer run: June, July, or August
+      var month = parseInt((ds || '').split('-')[1], 10);
+      if (month >= 6 && month <= 8) summerRunsDone++;
+    }
+  });
+
   var stats = {
-    completedCount: getCompletedCount(),
-    streak: getStreak(),
-    totalDays: planDays.length,
-    longRunsDone: planDays.filter(function(d){ var sd = getDayForDate(d.date); return sd && sd.type === 'longrun' && state[d.date] && state[d.date].done; }).length,
+    completedCount:   getCompletedCount(),
+    streak:           getStreak(),
+    totalDays:        planDays.length,
+    longRunsDone:     longRunsDone,
+    runsDone:         runsDone,
+    totalMilesDone:   totalMilesDone,
+    outsideRunsDone:  outsideRunsDone,
+    treadmillRunsDone: treadmillRunsDone,
+    summerRunsDone:   summerRunsDone,
+    accidentalLongRun: accidentalLongRun,
+    weezerWalks:      state._weezerWalks || 0,
   };
   if (!state._achievements) state._achievements = {};
   for (var i = 0; i < ACHIEVEMENTS.length; i++) {
