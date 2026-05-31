@@ -417,6 +417,20 @@ body::after {
   z-index: 1;
   margin-top: 2px;
 }
+.villain-clock {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 19px;
+  color: #fff;
+  letter-spacing: 3px;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  margin-top: -2px;
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.92;
+}
 
 /* POWER METER */
 .power-panel {
@@ -1991,7 +2005,8 @@ body::after {
       </div>
       <div class="villain-panel">
           <div class="villain-label">&#x1F3C1; HALF MARATHON IN</div>
-          <div class="villain-value" id="villainCountdown">76</div>
+          <div class="villain-value" id="villainCountdown">--d</div>
+          <div class="villain-clock" id="villainClock">--:--:--</div>
           <div class="villain-name" id="villainName">AUG 9 — THE DEADLINE APPROACHES</div>
       </div>
     </div>
@@ -2830,7 +2845,7 @@ function renderHeroStrip() {
     streakEl.innerHTML = '<span style="font-family:Comic Neue;font-weight:700;font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1px;">START YOUR STREAK!</span>';
   }
 
-  document.getElementById('villainCountdown').textContent = daysLeft + ' DAYS';
+  // villainCountdown & villainClock are driven by startLiveCountdown() — don't overwrite here
   if (daysLeft <= 7) {
     document.getElementById('villainName').textContent = '\u26A0\uFE0F THE FINAL BATTLE IS NEAR';
   } else if (daysLeft <= 21) {
@@ -2838,7 +2853,6 @@ function renderHeroStrip() {
   } else {
     document.getElementById('villainName').textContent = '\uD83D\uDC80 THE DEADLINE APPROACHES';
   }
-
   document.getElementById('issueNum').textContent = getWeekNumber();
   var d = new Date(activeDate + 'T12:00:00');
   document.getElementById('dateDisplay').textContent = MONTHS[d.getMonth()] + ' ' + d.getFullYear();
@@ -3707,6 +3721,32 @@ if (sfxBtn) {
   if (!sfxEnabled) { sfxBtn.textContent = '\uD83D\uDD07'; sfxBtn.classList.add('sfx-off'); }
   sfxBtn.addEventListener('click', toggleSfx);
 }
+
+// Live countdown clock — ticks every second
+function startLiveCountdown() {
+  function tick() {
+    var diff = RACE_DATE - new Date();
+    var el = document.getElementById('villainCountdown');
+    var clk = document.getElementById('villainClock');
+    if (!el || !clk) return;
+    if (diff <= 0) {
+      el.textContent = 'TODAY!';
+      clk.textContent = '\uD83C\uDFC6 GO TIME!';
+      return;
+    }
+    var days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    var secs  = Math.floor((diff % (1000 * 60)) / 1000);
+    el.textContent  = days + 'd';
+    clk.textContent = (hours < 10 ? '0' : '') + hours + ':' +
+                      (mins  < 10 ? '0' : '') + mins  + ':' +
+                      (secs  < 10 ? '0' : '') + secs;
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+startLiveCountdown();
 
 // Service Worker registration
 if ('serviceWorker' in navigator) {
