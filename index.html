@@ -990,7 +990,60 @@ body::after {
   filter: grayscale(0.3);
 }
 
-/* CAPTION BOX */
+/* LOCKED MISSION CELL — future days not yet unlocked */
+.week-cell.cell-locked {
+  background: #d0ccc4;
+  cursor: default;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.week-cell.cell-locked .cell-emoji { filter: grayscale(1); }
+
+/* LOCKED TAB — future day tab not yet unlocked */
+.day-tab.locked-tab {
+  background: #ccc !important;
+  color: rgba(0,0,0,0.35) !important;
+  cursor: default !important;
+  pointer-events: none;
+  border-color: #aaa !important;
+}
+
+/* LOCKED WORKOUT PANEL — shown when you navigate to a locked day */
+.locked-panel {
+  background: var(--paper);
+  border: var(--outline-thick) solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 32px 20px 28px;
+  text-align: center;
+  animation: panelSlam 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.locked-panel-icon { font-size: 52px; margin-bottom: 10px; }
+.locked-panel-title {
+  font-family: 'Bangers', cursive;
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.locked-panel-sub {
+  font-family: 'Comic Neue', cursive;
+  font-weight: 700;
+  font-size: 13px;
+  color: rgba(0,0,0,0.5);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.locked-panel-hint {
+  display: inline-block;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 6px 16px 5px;
+  color: var(--ink);
+}
 .caption-box {
   background: var(--yellow);
   border: 2px solid var(--ink);
@@ -2821,6 +2874,21 @@ else {
   if (upcoming) activeDate = upcoming.date;
 }
 
+// MISSION UNLOCK: if activeDate resolved to a locked future day (edge case),
+// walk it back to the latest unlocked day so the app never opens on a locked screen.
+// isMissionUnlocked is defined after planDays, so safe to call here.
+(function() {
+  if (!isMissionUnlocked(activeDate)) {
+    // Find the last unlocked plan day and use that instead
+    for (var i = planDays.length - 1; i >= 0; i--) {
+      if (isMissionUnlocked(planDays[i].date)) {
+        activeDate = planDays[i].date;
+        break;
+      }
+    }
+  }
+})();
+
 // SPLASH
 function dismissSplash() {
   var splash = document.getElementById('splashScreen');
@@ -2925,6 +2993,30 @@ function showSwapModal(fromDate) {
 }
 
 // CALCULATIONS
+// ─────────────────────────────────────────────────────────────────
+// MISSION UNLOCK SYSTEM
+// A mission is unlocked when ANY of these are true:
+//   1. Its date is today or in the past (you can always revisit old days)
+//   2. It is the very first day in the plan (always available)
+//   3. The immediately preceding planDay was completed OR skipped
+//      (skipping counts as "handled" — you acknowledged the mission)
+// This creates a sequential unlock chain: finish today → tomorrow opens.
+// ─────────────────────────────────────────────────────────────────
+function isMissionUnlocked(dateStr) {
+  // Past & today are always accessible — no gatekeeping for history
+  if (dateStr <= today) return true;
+
+  // Find this day's index in planDays
+  var idx = planDays.findIndex(function(d) { return d.date === dateStr; });
+  if (idx <= 0) return true; // first day is always unlocked
+
+  // Walk backwards to find the nearest preceding planDay
+  var prevDay = planDays[idx - 1];
+
+  // Unlocked if the previous mission was completed or skipped
+  return !!(state[prevDay.date] && (state[prevDay.date].done || state[prevDay.date].skipped));
+}
+
 function getCompletedCount() {
   return planDays.filter(function(d){ return state[d.date] && state[d.date].done; }).length;
 }
@@ -3034,6 +3126,8 @@ function renderWeekGrid() {
     var isToday = ds === today;
     var isActive = ds === activeDate;
     var isSwapped = isDateSwapped(ds);
+    // Determine lock status — locked cells can't be clicked or viewed
+    var isLocked = !isMissionUnlocked(ds);
 
     var cell = document.createElement('div');
     cell.className = 'week-cell' +
@@ -3041,10 +3135,14 @@ function renderWeekGrid() {
       (isSkipped ? ' cell-skipped' : '') +
       (isToday ? ' cell-today' : '') +
       (isActive ? ' cell-active' : '') +
-      (!hasOriginalPlan ? ' cell-rest' : '');
+      (!hasOriginalPlan ? ' cell-rest' : '') +
+      (isLocked ? ' cell-locked' : ''); // add locked class for locked future days
 
     var emoji = '\u2014';
-    if (day) {
+    if (isLocked) {
+      // Locked future day — show padlock instead of workout emoji
+      emoji = '\uD83D\uDD12';
+    } else if (day) {
       if (isDone) emoji = '\u2705';
       else if (isSkipped) emoji = '\u23ED\uFE0F';
       else if (day.type === 'run') emoji = '\uD83C\uDFC3\u200D\u2640\uFE0F';
@@ -3055,7 +3153,8 @@ function renderWeekGrid() {
 
     var swapMarker = isSwapped ? '<span style="position:absolute;top:1px;right:2px;font-size:8px;">\uD83D\uDD00</span>' : '';
     cell.innerHTML = swapMarker + '<span class="cell-emoji">' + emoji + '</span><span class="cell-day">' + WEEK_DAYS[d.getDay()] + '</span>';
-    if (hasOriginalPlan) {
+    // Only attach click listener if day has a plan AND is not locked
+    if (hasOriginalPlan && !isLocked) {
       (function(dateStr){ cell.addEventListener('click', function(){ activeDate = dateStr; renderAll(); }); })(ds);
     }
     grid.appendChild(cell);
@@ -3080,17 +3179,34 @@ function renderTabs() {
     var isSkipped = state[day.date] && state[day.date].skipped;
     var isActive = day.date === activeDate;
     var swapped = isDateSwapped(day.date);
+    // Check if this future mission is still locked
+    var isLocked = !isMissionUnlocked(day.date);
+
     var tab = document.createElement('button');
-    tab.className = 'day-tab' + (isActive ? ' active' : '') + (isDone && !isActive ? ' done-tab' : '') + (isSkipped && !isActive ? ' done-tab' : '');
+    tab.className = 'day-tab' +
+      (isActive ? ' active' : '') +
+      (isDone && !isActive ? ' done-tab' : '') +
+      (isSkipped && !isActive ? ' done-tab' : '') +
+      (isLocked ? ' locked-tab' : ''); // locked-tab blocks pointer-events via CSS
+
     if (isSkipped && !isActive) tab.style.background = 'var(--orange)';
     var d = new Date(day.date + 'T12:00:00');
     var label = WEEK_DAYS[d.getDay()].slice(0,3) + ' ' + d.getDate();
-    tab.textContent = (isDone ? '\u2713 ' : '') + (isSkipped ? '\u23ED ' : '') + (swapped ? '\uD83D\uDD00 ' : '') + label;
-    tab.addEventListener('click', function() {
-      activeDate = day.date;
-      renderAll();
-      setTimeout(function(){ tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 50);
-    });
+
+    if (isLocked) {
+      // Locked future tab — show padlock, no status prefix
+      tab.textContent = '\uD83D\uDD12 ' + label;
+      tab.title = 'Complete the previous mission to unlock this day';
+    } else {
+      tab.textContent = (isDone ? '\u2713 ' : '') + (isSkipped ? '\u23ED ' : '') + (swapped ? '\uD83D\uDD00 ' : '') + label;
+      // Only unlocked tabs get a click listener
+      tab.addEventListener('click', function() {
+        activeDate = day.date;
+        renderAll();
+        setTimeout(function(){ tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 50);
+      });
+    }
+
     tabs.appendChild(tab);
   });
   setTimeout(function() {
@@ -3128,6 +3244,34 @@ function renderWorkout() {
   var content = document.getElementById('workoutContent');
   content.innerHTML = '';
   if (!day) return;
+
+  // ── MISSION UNLOCK GATE ──────────────────────────────────────────
+  // If this day is a locked future mission, show the locked panel
+  // instead of the full workout. This prevents peeking ahead.
+  if (!isMissionUnlocked(activeDate)) {
+    // Find the previous planDay to tell the user what to complete first
+    var idx = planDays.findIndex(function(d) { return d.date === activeDate; });
+    var prevDay = idx > 0 ? planDays[idx - 1] : null;
+    var prevLabel = prevDay
+      ? prevDay.icon + ' ' + prevDay.title + ' (' + (function(){
+          var pd = new Date(prevDay.date + 'T12:00:00');
+          return MONTHS[pd.getMonth()] + ' ' + pd.getDate();
+        })() + ')'
+      : 'the previous mission';
+
+    content.innerHTML =
+      '<div class="locked-panel">' +
+        '<div class="locked-panel-icon">\uD83D\uDD12</div>' +
+        '<div class="locked-panel-title">MISSION LOCKED</div>' +
+        '<div class="locked-panel-sub">' +
+          'This mission isn\'t available yet.<br>' +
+          'Complete <strong>' + prevLabel + '</strong> to unlock it.' +
+        '</div>' +
+        '<div class="locked-panel-hint">&#x26A1; FINISH TODAY\'S MISSION FIRST</div>' +
+      '</div>';
+    return; // stop here — don't render the rest of the workout
+  }
+  // ────────────────────────────────────────────────────────────────
 
   var isDone = state[activeDate] && state[activeDate].done;
   var isSkipped = state[activeDate] && state[activeDate].skipped;
